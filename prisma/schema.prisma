@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  username   String   @unique
+  email      String   @unique
+  password   String
+  date_birth String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  avatar     String   @default("https://source.unsplash.com/random")
+  Wallet     Wallet[]
+
+  @@unique([id, username])
+}
+
+model Wallet {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  title           String    @unique
+  initial_balance Int?
+  balance         Int?
+  income          Int?
+  expense         Int?
+  img             String    @default("https://png.pngtree.com/png-clipart/20190904/original/pngtree-orange-wallet-icon-png-image_4462385.jpg")
+  owner           User      @relation(fields: [owner_id], references: [id])
+  owner_name      String
+  owner_id        String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  Income          Income[]
+  Outcome         Outcome[]
+}
+
+model Income {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  amount         String
+  note           String?
+  exclude_report Boolean  @default(false)
+  location       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  Wallet         Wallet?  @relation(fields: [walletId], references: [id])
+  walletId       String?  @db.ObjectId
+  category       Category @relation(fields: [categoryId], references: [id])
+  categoryId     String   @db.ObjectId
+}
+
+model Outcome {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  amount         String
+  note           String?
+  exclude_report Boolean  @default(false)
+  location       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  Wallet         Wallet?  @relation(fields: [walletId], references: [id])
+  walletId       String?  @db.ObjectId
+  category       Category @relation(fields: [categoryId], references: [id])
+  categoryId     String   @db.ObjectId
+}
+
+model Category {
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  description      String?
+  transaction_type String //expense or income
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  Income           Income[]
+  Outcome          Outcome[]
+}

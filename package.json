@@ -1,20 +1,51 @@
 {
   "name": "budget_v2",
-  "version": "0.1.0",
+  "version": "2.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint-fix": "next lint --fix"
   },
   "dependencies": {
-    "next": "12.3.1",
+    "@emotion/cache": "11.10.3",
+    "@emotion/react": "11.10.4",
+    "@emotion/server": "11.10.0",
+    "@emotion/styled": "11.10.4",
+    "@mui/icons-material": "5.10.3",
+    "@mui/lab": "5.0.0-alpha.99",
+    "@mui/material": "5.10.5",
+    "@mui/system": "5.10.5",
+    "@mui/x-date-pickers": "5.0.1",
+    "chart.js": "3.9.1",
+    "date-fns": "2.29.3",
+    "formik": "2.2.9",
+    "next": "12.3.0",
+    "nprogress": "0.2.0",
+    "@prisma/client": "^4.2.1",
+    "@reduxjs/toolkit": "^1.8.5",
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "bson": "^4.7.0",
+    "dayjs": "^1.11.5",
+    "express-jwt": "^7.7.5",
+    "moment": "^2.29.4",
+    "prop-types": "15.8.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-chartjs-2": "4.3.1",
+    "react-dom": "18.2.0",
+    "react-perfect-scrollbar": "1.5.8",
+    "react-redux": "^8.0.2",
+    "react-toastify": "^9.0.8",
+    "uuid": "9.0.0",
+    "yup": "0.32.11"
   },
   "devDependencies": {
-    "eslint": "8.24.0",
-    "eslint-config-next": "12.3.1"
+    "@redux-devtools/core": "^3.13.1",
+    "eslint": "8.23.1",
+    "eslint-config-next": "12.3.1",
+    "prisma": "^4.2.1"
   }
 }
