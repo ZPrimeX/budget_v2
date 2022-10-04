@@ -1,11 +1,11 @@
-import { login } from "../../../server/controllers/userController";
-import { apiHandler } from "../../../server/helpers/api-handler";
+import { login } from "../../../../server/controllers/userController";
+import { apiHandler } from "../../../../server/helpers/api-handler";
 import {
   allowedMethod,
   NoData,
   NoEmail,
   NoPassword,
-} from "../../../server/helpers/requestValidators";
+} from "../../../../server/helpers/requestValidators";
 
 export default apiHandler(handler);
 

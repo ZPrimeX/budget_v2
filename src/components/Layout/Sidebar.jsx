@@ -1,102 +1,151 @@
 import React from "react";
-import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import { Link } from "@mui/material";
 import NextLink from "next/link";
-import AssessmentIcon from "@mui/icons-material/Assessment";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import PersonIcon from "@mui/icons-material/Person";
-import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
-import LayersIcon from "@mui/icons-material/Layers";
+import PropTypes from "prop-types";
+import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
+import { ChartBar as ChartBarIcon } from "../../icons/chart-bar";
+import { Cog as CogIcon } from "../../icons/cog";
+import { Lock as LockIcon } from "../../icons/lock";
+import { ShoppingBag as ShoppingBagIcon } from "../../icons/shopping-bag";
+import { User as UserIcon } from "../../icons/user";
+import { UserAdd as UserAddIcon } from "../../icons/user-add";
+import { Users as UsersIcon } from "../../icons/users";
+import { XCircle as XCircleIcon } from "../../icons/x-circle";
+import { NavItem } from "./nav-item";
 
-const drawerWidth = 200;
+const items = [
+  {
+    href: "/",
+    icon: <ChartBarIcon fontSize="small" />,
+    title: "Dashboard",
+  },
+  {
+    href: "/customers",
+    icon: <UsersIcon fontSize="small" />,
+    title: "Customers",
+  },
+  {
+    href: "/products",
+    icon: <ShoppingBagIcon fontSize="small" />,
+    title: "Products",
+  },
+  {
+    href: "/account",
+    icon: <UserIcon fontSize="small" />,
+    title: "Account",
+  },
+  {
+    href: "/settings",
+    icon: <CogIcon fontSize="small" />,
+    title: "Settings",
+  },
+  {
+    href: "/login",
+    icon: <LockIcon fontSize="small" />,
+    title: "Login",
+  },
+  {
+    href: "/register",
+    icon: <UserAddIcon fontSize="small" />,
+    title: "Register",
+  },
+  {
+    href: "/404",
+    icon: <XCircleIcon fontSize="small" />,
+    title: "Error",
+  },
+];
 
 const Sidebar = () => {
-  return (
+  const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
+    defaultMatches: true,
+    noSsr: false,
+  });
+  const content = (
     <>
-      <CssBaseline />
-      <Drawer
+      <Box
         sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+        }}
+      >
+        <div>
+          <Box sx={{ p: 3 }}>
+            <NextLink href="/" passHref>
+              <a>
+                {/* <Logo
+                  sx={{
+                    height: 42,
+                    width: 42,
+                  }}
+                /> */}
+              </a>
+            </NextLink>
+          </Box>
+        </div>
+        <Divider
+          sx={{
+            borderColor: "#2D3748",
+            my: 3,
+          }}
+        />
+        <Box sx={{ flexGrow: 1 }}>
+          {items.map((item) => (
+            <NavItem
+              key={item.title}
+              icon={item.icon}
+              href={item.href}
+              title={item.title}
+            />
+          ))}
+        </Box>
+        <Divider sx={{ borderColor: "#2D3748" }} />
+      </Box>
+    </>
+  );
+
+  if (lgUp) {
+    return (
+      <Drawer
+        anchor="left"
+        open
+        PaperProps={{
+          sx: {
+            backgroundColor: "neutral.900",
+            color: "#FFFFFF",
+            width: 280,
           },
         }}
         variant="permanent"
-        anchor="left"
       >
-        <List>
-          <Link component={NextLink} href="/account" underline="none">
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <PersonIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Account"} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-          <Link component={NextLink} href="/wallets" underline="none">
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <CreditCardIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Wallets"} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-          <Link component={NextLink} href="/categories" underline="none">
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <LayersIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Categories"} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-          <Link component={NextLink} href="/" underline="none">
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <CurrencyExchangeIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Transactions"} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-          <Link component={NextLink} href="/report" underline="none">
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <AssessmentIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Report"} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-          {/* <Link component={NextLink} href="/" underline="none">
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <AccountBalanceIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Budget"} />
-              </ListItemButton>
-            </ListItem>
-          </Link> */}
-        </List>
+        {content}
       </Drawer>
-    </>
+    );
+  }
+
+  return (
+    <Drawer
+      anchor="left"
+      onClose={onClose}
+      open={open}
+      PaperProps={{
+        sx: {
+          backgroundColor: "neutral.900",
+          color: "#FFFFFF",
+          width: 280,
+        },
+      }}
+      sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
+      variant="temporary"
+    >
+      {content}
+    </Drawer>
   );
+};
+
+Sidebar.propTypes = {
+  onClose: PropTypes.func,
+  open: PropTypes.bool,
 };
 
 export default Sidebar;

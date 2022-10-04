@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData, selectUser } from "../../core/redux/features/authSlice";
+import { fetchUserData, selectUser } from "../../redux/features/authSlice";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -20,6 +20,7 @@ const Layout = ({ children }) => {
     if (!token) {
       router.push("/login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

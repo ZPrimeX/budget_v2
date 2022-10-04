@@ -1,10 +1,10 @@
-import { apiHandler } from "../../../server/helpers/api-handler";
-import { getUser } from "../../../server/helpers/get-user";
+import { apiHandler } from "../../../../server/helpers/api-handler";
+import { getUser } from "../../../../server/helpers/get-user";
 import {
   allowedMethod,
   Success,
-} from "../../../server/helpers/requestValidators";
-import prisma from "../../../server/lib/prisma";
+} from "../../../../server/helpers/requestValidators";
+import prisma from "../../../../server/lib/prisma";
 
 export default apiHandler(handler);
 
