@@ -6,6 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData, selectUser } from "../../redux/features/authSlice";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { styled } from "@mui/material/styles";
+
+const DashboardLayoutRoot = styled("div")(({ theme }) => ({
+  display: "flex",
+  flex: "1 1 auto",
+  maxWidth: "100%",
+  paddingTop: 64,
+  [theme.breakpoints.up("lg")]: {
+    paddingLeft: 280,
+  },
+}));
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -27,20 +38,22 @@ const Layout = ({ children }) => {
       {user.status !== "fulfilled" ? (
         <Box width={"100%"} height="100vh"></Box>
       ) : (
-        <Box sx={{ display: "flex" }}>
+        <>
+          <DashboardLayoutRoot>
+            <Box
+              sx={{
+                display: "flex",
+                flex: "1 1 auto",
+                flexDirection: "column",
+                width: "100%",
+              }}
+            >
+              {children}
+            </Box>
+          </DashboardLayoutRoot>
           <Sidebar />
-          <Box
-            component="main"
-            sx={{
-              flexGrow: 1,
-              height: "100vh",
-              background: "#101010",
-            }}
-          >
-            <Navbar />
-            {children}
-          </Box>
-        </Box>
+          <Navbar />
+        </>
       )}
     </>
   );

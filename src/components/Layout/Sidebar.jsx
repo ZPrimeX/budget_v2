@@ -126,8 +126,6 @@ const Sidebar = () => {
   return (
     <Drawer
       anchor="left"
-      onClose={onClose}
-      open={open}
       PaperProps={{
         sx: {
           backgroundColor: "neutral.900",

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Box, MenuItem, MenuList, Popover, Typography } from "@mui/material";
 
 export const AccountPopover = (props) => {
-  const { anchorEl, onClose, open, ...other } = props;
+  const { username, anchorEl, onClose, open, ...other } = props;
 
   return (
     <Popover
@@ -26,7 +26,7 @@ export const AccountPopover = (props) => {
       >
         <Typography variant="overline">Account</Typography>
         <Typography color="text.secondary" variant="body2">
-          Username
+          {username}
         </Typography>
       </Box>
       <MenuList

@@ -16,8 +16,8 @@ import { Bell as BellIcon } from "../../icons/bell";
 import { UserCircle as UserCircleIcon } from "../../icons/user-circle";
 import { Users as UsersIcon } from "../../icons/users";
 import { AccountPopover } from "./account-popover";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData, selectUser } from "../../redux/features/authSlice";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/features/authSlice";
 
 const NavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -25,12 +25,7 @@ const NavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser());
-  useEffect(() => {
-    dispatch(fetchUserData());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const user = useSelector(selectUser);
 
   const settingsRef = useRef(null);
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
@@ -46,7 +41,6 @@ const Navbar = () => {
             lg: "calc(100% - 280px)",
           },
         }}
-        {...other}
       >
         <Toolbar
           disableGutters
@@ -57,7 +51,6 @@ const Navbar = () => {
           }}
         >
           <IconButton
-            onClick={onSidebarOpen}
             sx={{
               display: {
                 xs: "inline-flex",
@@ -101,6 +94,7 @@ const Navbar = () => {
         </Toolbar>
       </NavbarRoot>
       <AccountPopover
+        username={user.username}
         anchorEl={settingsRef.current}
         open={openAccountPopover}
         onClose={() => setOpenAccountPopover(false)}
