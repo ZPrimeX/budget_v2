@@ -1,6 +1,6 @@
-import { validateSignUp } from "../../../server/controllers/userController";
-import { apiHandler } from "../../../server/helpers/api-handler";
-import { allowedMethod } from "../../../server/helpers/requestValidators";
+import { validateSignUp } from "../../../../server/controllers/userController";
+import { apiHandler } from "../../../../server/helpers/api-handler";
+import { allowedMethod } from "../../../../server/helpers/requestValidators";
 
 export default apiHandler(handler);
 

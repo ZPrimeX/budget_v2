@@ -8,7 +8,7 @@ import Graph from "../components/Cards/Graph";
 import CircularProgress from "../components/Cards/CircularProgress";
 import RecentTransactions from "../components/Cards/RecentTransactions";
 import { Progress } from "../components/Cards/Progress";
-import { RecentProducts } from "../components/Cards/RecentProducts";
+import RecentProducts from "../components/Cards/RecentProducts";
 
 export default function Dashboard() {
   return (

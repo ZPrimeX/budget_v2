@@ -130,9 +130,9 @@ const Login = () => {
             </Box>
             <Typography color="textSecondary" variant="body2">
               Don&apos;t have an account?{" "}
-              <NextLink href="/register">
+              <NextLink href="/signup">
                 <Link
-                  to="/register"
+                  to="/signup"
                   variant="subtitle2"
                   underline="hover"
                   sx={{

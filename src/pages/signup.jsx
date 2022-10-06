@@ -138,7 +138,13 @@ const Signup = () => {
             <Typography color="textSecondary" variant="body2">
               Have an account?{" "}
               <NextLink href="/login">
-                <Link variant="subtitle2" underline="hover">
+                <Link
+                  variant="subtitle2"
+                  underline="hover"
+                  sx={{
+                    cursor: "pointer",
+                  }}
+                >
                   Login
                 </Link>
               </NextLink>

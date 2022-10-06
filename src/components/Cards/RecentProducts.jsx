@@ -43,7 +43,7 @@ const products = [
   },
 ];
 
-export const RecentProducts = (props) => (
+const RecentProducts = (props) => (
   <Card {...props}>
     <CardHeader
       subtitle={`${products.length} in total`}
@@ -82,3 +82,5 @@ export const RecentProducts = (props) => (
     </Box>
   </Card>
 );
+
+export default RecentProducts;
