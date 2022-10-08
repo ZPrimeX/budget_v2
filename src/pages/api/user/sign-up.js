@@ -1,3 +1,7 @@
+import {
+  NoFirstName,
+  NoLastName,
+} from "../../../../server/helpers/requestValidators";
 import { signUp } from "../../../server/controllers/userController";
 import { apiHandler } from "../../../server/helpers/api-handler";
 import {
@@ -5,7 +9,6 @@ import {
   NoData,
   NoEmail,
   NoPassword,
-  NoUsername,
   PasswordLength,
 } from "../../../server/helpers/requestValidators";
 
@@ -16,7 +19,9 @@ async function handler(req, res) {
 
   NoData(req, res);
 
-  NoUsername(req, res);
+  NoFirstName(req, res);
+
+  NoLastName(req, res);
 
   NoEmail(req, res);
 

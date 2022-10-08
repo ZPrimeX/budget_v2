@@ -12,16 +12,16 @@ datasource db {
 
 model User {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  username   String   @unique
+  first_name String
+  last_name  String
   email      String   @unique
   password   String
   date_birth String?
+  country    String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   avatar     String   @default("https://source.unsplash.com/random")
   Wallet     Wallet[]
-
-  @@unique([id, username])
 }
 
 model Wallet {

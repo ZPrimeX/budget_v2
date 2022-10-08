@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Button,
@@ -9,38 +9,11 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-
-const states = [
-  {
-    value: "alabama",
-    label: "Alabama",
-  },
-  {
-    value: "new-york",
-    label: "New York",
-  },
-  {
-    value: "san-francisco",
-    label: "San Francisco",
-  },
-];
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/features/authSlice";
 
 const AccountDetails = () => {
-  const [values, setValues] = useState({
-    firstName: "Katarina",
-    lastName: "Smith",
-    email: "demo@devias.io",
-    phone: "",
-    state: "Alabama",
-    country: "USA",
-  });
-
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
-  };
+  const user = useSelector(selectUser);
   return (
     <>
       <form autoComplete="off" noValidate>
@@ -57,9 +30,8 @@ const AccountDetails = () => {
                   fullWidth
                   label="First name"
                   name="firstName"
-                  onChange={handleChange}
                   required
-                  value={values.firstName}
+                  value={user.firstName}
                   variant="outlined"
                 />
               </Grid>
@@ -68,9 +40,8 @@ const AccountDetails = () => {
                   fullWidth
                   label="Last name"
                   name="lastName"
-                  onChange={handleChange}
                   required
-                  value={values.lastName}
+                  value={user.lastName}
                   variant="outlined"
                 />
               </Grid>
@@ -79,9 +50,8 @@ const AccountDetails = () => {
                   fullWidth
                   label="Email Address"
                   name="email"
-                  onChange={handleChange}
                   required
-                  value={values.email}
+                  value={user.email}
                   variant="outlined"
                 />
               </Grid>
@@ -90,30 +60,10 @@ const AccountDetails = () => {
                   fullWidth
                   label="Country"
                   name="country"
-                  onChange={handleChange}
                   required
-                  value={values.country}
+                  value={user.country}
                   variant="outlined"
                 />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <TextField
-                  fullWidth
-                  label="Select State"
-                  name="state"
-                  onChange={handleChange}
-                  required
-                  select
-                  SelectProps={{ native: true }}
-                  value={values.state}
-                  variant="outlined"
-                >
-                  {states.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </TextField>
               </Grid>
             </Grid>
           </CardContent>

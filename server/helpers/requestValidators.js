@@ -36,9 +36,15 @@ export const NoData = (req, res) => {
   }
 };
 
-export const NoUsername = (req, res) => {
-  if (!req.body.username) {
-    res.status(400).json({ message: "no username" });
+export const NoFirstName = (req, res) => {
+  if (!req.body.firstName) {
+    res.status(400).json({ message: "no first name" });
+  }
+};
+
+export const NoLastName = (req, res) => {
+  if (!req.body.lastName) {
+    res.status(400).json({ message: "no last name" });
   }
 };
 

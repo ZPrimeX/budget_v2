@@ -9,17 +9,11 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-
-const user = {
-  avatar: "/static/images/avatars/avatar_6.png",
-  city: "Los Angeles",
-  country: "USA",
-  jobTitle: "Senior Developer",
-  name: "Katarina Smith",
-  timezone: "GTM-7",
-};
+import { selectUser } from "../../redux/features/authSlice";
+import { useSelector } from "react-redux";
 
 const AccountProfile = (props) => {
+  const user = useSelector(selectUser);
   return (
     <>
       <Card {...props}>
@@ -40,13 +34,16 @@ const AccountProfile = (props) => {
               }}
             />
             <Typography color="textPrimary" gutterBottom variant="h5">
-              {user.name}
+              {user.firstName}
+            </Typography>
+            <Typography color="textPrimary" gutterBottom variant="h5">
+              {user.lastName}
             </Typography>
             <Typography color="textSecondary" variant="body2">
-              {`${user.city} ${user.country}`}
+              {`${user.country}`}
             </Typography>
             <Typography color="textSecondary" variant="body2">
-              {user.timezone}
+              {user.createdAt}
             </Typography>
           </Box>
         </CardContent>
