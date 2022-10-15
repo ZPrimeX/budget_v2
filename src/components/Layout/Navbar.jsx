@@ -1,15 +1,7 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import {
-  AppBar,
-  Avatar,
-  Badge,
-  Box,
-  IconButton,
-  Toolbar,
-  Tooltip,
-} from "@mui/material";
+import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { Bell as BellIcon } from "../../icons/bell";
@@ -94,7 +86,7 @@ const Navbar = () => {
         </Toolbar>
       </NavbarRoot>
       <AccountPopover
-        username={user.username}
+        first_name={user.first_name}
         anchorEl={settingsRef.current}
         open={openAccountPopover}
         onClose={() => setOpenAccountPopover(false)}

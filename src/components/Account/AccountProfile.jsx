@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from "@mui/material";
 import { selectUser } from "../../redux/features/authSlice";
 import { useSelector } from "react-redux";
 
@@ -34,10 +25,8 @@ const AccountProfile = (props) => {
               }}
             />
             <Typography color="textPrimary" gutterBottom variant="h5">
-              {user.firstName}
-            </Typography>
-            <Typography color="textPrimary" gutterBottom variant="h5">
-              {user.lastName}
+              {user.first_name}
+              {user.last_name}
             </Typography>
             <Typography color="textSecondary" variant="body2">
               {`${user.country}`}

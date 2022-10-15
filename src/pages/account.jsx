@@ -5,7 +5,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import AccountProfile from "../components/Account/AccountProfile";
 import AccountDetails from "../components/Account/AccountDetails";
-import Layout from "../components/Layout/Layout";
 
 const Account = () => {
   return (
@@ -22,10 +21,7 @@ const Account = () => {
       >
         <Container maxWidth="lg">
           <NextLink href="/" passHref>
-            <Button
-              component="a"
-              startIcon={<ArrowBackIcon fontSize="small" />}
-            >
+            <Button component="a" startIcon={<ArrowBackIcon fontSize="small" />}>
               Dashboard
             </Button>
           </NextLink>

@@ -1,43 +1,47 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
-import {
-  Box,
-  Button,
-  Container,
-  Link,
-  TextField,
-  CircularProgress,
-  Alert,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Link, TextField, Alert, Typography } from "@mui/material";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { signup } from "../redux/features/authSlice";
+import { useRouter } from "next/router";
 
 const Signup = () => {
-  const [isUsernameTaken, setIsUsernameTaken] = useState(false);
+  const router = useRouter();
+  const [isEmailTaken, setIsEmailTaken] = useState(false);
   const [passwordShort, setPasswordShort] = useState(false);
-
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [status, setStatus] = useState("");
   const [password, setPassword] = useState("");
 
-  const checkUsername = async () => {
-    if (username.length > 0) {
-      const { data } = await axios.post("/api/user/validate", { username });
+  const dispatch = useDispatch();
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    const res = await dispatch(signup({ email, first_name, last_name, password }));
+    if (res.payload?.message === "success") {
+      router.push("/");
+    }
+  };
+
+  const checkEmail = async () => {
+    if (email.length > 0) {
+      const { data } = await axios.post("/api/user/validate", { email });
 
       if (data.message === "error") {
-        setIsUsernameTaken(true);
+        setIsEmailTaken(true);
       } else {
-        setIsUsernameTaken(false);
+        setIsEmailTaken(false);
       }
     }
   };
 
   useEffect(() => {
-    checkUsername();
+    checkEmail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [username]);
+  }, [email]);
 
   useEffect(() => {
     if (password.length > 0 && password.length < 6) {
@@ -51,7 +55,7 @@ const Signup = () => {
   return (
     <>
       <Head>
-        <title>Register | Material Kit</title>
+        <title>Signup</title>
       </Head>
       <Box
         component="main"
@@ -63,7 +67,7 @@ const Signup = () => {
         }}
       >
         <Container maxWidth="sm">
-          <form>
+          <form onSubmit={handleSignup}>
             <Box sx={{ my: 3 }}>
               <Typography color="textPrimary" variant="h4">
                 Create a new account
@@ -75,19 +79,23 @@ const Signup = () => {
             <TextField
               fullWidth
               required
-              label="Username"
+              label="First Name"
               margin="normal"
-              id="username"
-              autoComplete="name"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              name="firstName"
               variant="outlined"
+              value={first_name}
+              onChange={(e) => setFirstName(e.target.value)}
             />
-            {isUsernameTaken ? (
-              <Alert severity="error">This username is already taken</Alert>
-            ) : (
-              ""
-            )}
+            <TextField
+              fullWidth
+              required
+              label="Last Name"
+              margin="normal"
+              name="lastName"
+              variant="outlined"
+              value={last_name}
+              onChange={(e) => setLastName(e.target.value)}
+            />
             <TextField
               fullWidth
               required
@@ -112,27 +120,10 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
               variant="outlined"
             />
-            {passwordShort ? (
-              <Alert severity="error">
-                Password has to be at least 6 characters
-              </Alert>
-            ) : (
-              ""
-            )}
+            {passwordShort ? <Alert severity="error">Password has to be at least 6 characters</Alert> : ""}
             <Box sx={{ py: 2 }}>
-              <Button
-                color="primary"
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-                disabled={isUsernameTaken}
-              >
-                {status === "loading" ? (
-                  <CircularProgress sx={{ color: "white" }} />
-                ) : (
-                  "Sign Up"
-                )}
+              <Button color="primary" fullWidth size="large" type="submit" variant="contained" disabled={isEmailTaken}>
+                Sign Up
               </Button>
             </Box>
             <Typography color="textSecondary" variant="body2">

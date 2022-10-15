@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, Divider, Grid, TextField } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/features/authSlice";
 
@@ -18,10 +9,7 @@ const AccountDetails = () => {
     <>
       <form autoComplete="off" noValidate>
         <Card>
-          <CardHeader
-            subheader="The information can be edited"
-            title="Profile"
-          />
+          <CardHeader subheader="The information can be edited" title="Profile" />
           <Divider />
           <CardContent>
             <Grid container spacing={3}>
@@ -31,7 +19,7 @@ const AccountDetails = () => {
                   label="First name"
                   name="firstName"
                   required
-                  value={user.firstName}
+                  value={user.first_name}
                   variant="outlined"
                 />
               </Grid>
@@ -41,7 +29,7 @@ const AccountDetails = () => {
                   label="Last name"
                   name="lastName"
                   required
-                  value={user.lastName}
+                  value={user.last_name}
                   variant="outlined"
                 />
               </Grid>
@@ -56,14 +44,7 @@ const AccountDetails = () => {
                 />
               </Grid>
               <Grid item md={6} xs={12}>
-                <TextField
-                  fullWidth
-                  label="Country"
-                  name="country"
-                  required
-                  value={user.country}
-                  variant="outlined"
-                />
+                <TextField fullWidth label="Country" name="country" required value={user.country} variant="outlined" />
               </Grid>
             </Grid>
           </CardContent>
