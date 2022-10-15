@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/features/authSlice";
 
 export const AccountPopover = (props) => {
-  const { first_name, anchorEl, onClose, open, ...other } = props;
+  const { first_name, last_name, anchorEl, onClose, open, ...other } = props;
   const dispatch = useDispatch();
 
   return (
@@ -29,9 +29,14 @@ export const AccountPopover = (props) => {
         }}
       >
         <Typography variant="overline">Account</Typography>
-        <Typography color="text.secondary" variant="body2">
-          {first_name}
-        </Typography>
+        <Box display={"flex"} gap={0.2}>
+          <Typography color="text.secondary" variant="body2">
+            {first_name}.
+          </Typography>
+          <Typography color="text.secondary" variant="body2">
+            {last_name}
+          </Typography>
+        </Box>
       </Box>
       <MenuList
         disablePadding

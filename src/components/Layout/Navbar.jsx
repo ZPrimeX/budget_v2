@@ -86,7 +86,8 @@ const Navbar = () => {
         </Toolbar>
       </NavbarRoot>
       <AccountPopover
-        first_name={user.first_name}
+        first_name={user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)}
+        last_name={user.last_name.charAt(0).toUpperCase()}
         anchorEl={settingsRef.current}
         open={openAccountPopover}
         onClose={() => setOpenAccountPopover(false)}

@@ -24,10 +24,14 @@ const AccountProfile = (props) => {
                 width: 64,
               }}
             />
-            <Typography color="textPrimary" gutterBottom variant="h5">
-              {user.first_name}
-              {user.last_name}
-            </Typography>
+            <Box display={"flex"} gap={1}>
+              <Typography color="textPrimary" gutterBottom variant="h5">
+                {user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)}
+              </Typography>
+              <Typography color="textPrimary" gutterBottom variant="h5">
+                {user.last_name.charAt(0).toUpperCase() + user.last_name.slice(1)}
+              </Typography>
+            </Box>
             <Typography color="textSecondary" variant="body2">
               {`${user.country}`}
             </Typography>

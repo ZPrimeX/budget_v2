@@ -8,7 +8,7 @@ const wallets = () => {
   return (
     <>
       <Head>
-        <title>Transactions</title>
+        <title>Wallets</title>
       </Head>
       <Layout>
         <Box

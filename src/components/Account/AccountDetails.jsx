@@ -19,7 +19,7 @@ const AccountDetails = () => {
                   label="First name"
                   name="firstName"
                   required
-                  value={user.first_name}
+                  value={user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)}
                   variant="outlined"
                 />
               </Grid>
@@ -29,7 +29,7 @@ const AccountDetails = () => {
                   label="Last name"
                   name="lastName"
                   required
-                  value={user.last_name}
+                  value={user.last_name.charAt(0).toUpperCase() + user.last_name.slice(1)}
                   variant="outlined"
                 />
               </Grid>
