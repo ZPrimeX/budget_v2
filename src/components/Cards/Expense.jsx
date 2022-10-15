@@ -1,49 +1,50 @@
 import React from "react";
-import { Avatar, Card, CardContent, Grid, Typography, Box } from "@mui/material";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { Avatar, Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
-const TotalProfit = (props) => {
+const Budget = (props) => {
   return (
     <>
-      <Card {...props}>
+      <Card sx={{ height: "100%" }} {...props}>
         <CardContent>
           <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
             <Grid item>
               <Typography color="textSecondary" gutterBottom variant="overline">
-                BALANCE
+                EXPENSE
               </Typography>
               <Typography color="textPrimary" variant="h4">
-                $110k
+                $35k
               </Typography>
             </Grid>
             <Grid item>
               <Avatar
                 sx={{
-                  backgroundColor: "primary.main",
+                  backgroundColor: "error.main",
                   height: 56,
                   width: 56,
                 }}
               >
-                <AttachMoneyIcon />
+                <RemoveCircleOutlineIcon />
               </Avatar>
             </Grid>
           </Grid>
           <Box
             sx={{
-              alignItems: "center",
-              display: "flex",
               pt: 2,
+              display: "flex",
+              alignItems: "center",
             }}
           >
-            <ArrowUpwardIcon color="success" />
+            <ArrowDownwardIcon color="error" />
             <Typography
-              variant="body2"
+              color="error"
               sx={{
                 mr: 1,
               }}
+              variant="body2"
             >
-              24%
+              12%
             </Typography>
             <Typography color="textSecondary" variant="caption">
               Since last month
@@ -55,4 +56,4 @@ const TotalProfit = (props) => {
   );
 };
 
-export default TotalProfit;
+export default Budget;

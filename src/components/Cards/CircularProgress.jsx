@@ -1,17 +1,8 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import LaptopMacIcon from "@mui/icons-material/LaptopMac";
-import PhoneIcon from "@mui/icons-material/Phone";
-import TabletIcon from "@mui/icons-material/Tablet";
+import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from "@mui/material";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const CircularProgress = (props) => {
   const theme = useTheme();
@@ -19,14 +10,14 @@ const CircularProgress = (props) => {
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
+        data: [37, 43, 20],
         backgroundColor: ["#3F51B5", "#e53935", "#FB8C00"],
         borderWidth: 8,
         borderColor: "#FFFFFF",
         hoverBorderColor: "#FFFFFF",
       },
     ],
-    labels: ["Desktop", "Tablet", "Mobile"],
+    labels: ["Gas", "Electricity", "Water"],
   };
 
   const options = {
@@ -53,28 +44,28 @@ const CircularProgress = (props) => {
 
   const devices = [
     {
-      title: "Desktop",
-      value: 63,
-      icon: LaptopMacIcon,
+      title: "Gas",
+      value: 37,
+      icon: AddCircleOutlineIcon,
       color: "#3F51B5",
     },
     {
-      title: "Tablet",
-      value: 15,
-      icon: TabletIcon,
+      title: "Electricity",
+      value: 43,
+      icon: RemoveCircleOutlineIcon,
       color: "#E53935",
     },
     {
-      title: "Mobile",
-      value: 23,
-      icon: PhoneIcon,
+      title: "Water",
+      value: 20,
+      icon: RemoveCircleOutlineIcon,
       color: "#FB8C00",
     },
   ];
   return (
     <>
       <Card {...props}>
-        <CardHeader title="Traffic by Device" />
+        <CardHeader title="Expenses" />
         <Divider />
         <CardContent>
           <Box

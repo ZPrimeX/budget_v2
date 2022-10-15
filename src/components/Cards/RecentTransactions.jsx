@@ -85,14 +85,15 @@ const RecentTransactions = (props) => {
   return (
     <>
       <Card {...props}>
-        <CardHeader title="Latest Orders" />
+        <CardHeader title="Latest Transactions" />
         <PerfectScrollbar>
           <Box sx={{ minWidth: 800 }}>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Order Ref</TableCell>
-                  <TableCell>Customer</TableCell>
+                  <TableCell>Transaction ID</TableCell>
+                  <TableCell>Receiver</TableCell>
+                  <TableCell>Amount</TableCell>
                   <TableCell sortDirection="desc">
                     <Tooltip enterDelay={300} title="Sort">
                       <TableSortLabel active direction="desc">
@@ -108,9 +109,8 @@ const RecentTransactions = (props) => {
                   <TableRow hover key={order.id}>
                     <TableCell>{order.ref}</TableCell>
                     <TableCell>{order.customer.name}</TableCell>
-                    <TableCell>
-                      {format(order.createdAt, "dd/MM/yyyy")}
-                    </TableCell>
+                    <TableCell>${order.amount}</TableCell>
+                    <TableCell>{format(order.createdAt, "dd/MM/yyyy")}</TableCell>
                     <TableCell>
                       <SeverityPill
                         color={
@@ -135,12 +135,7 @@ const RecentTransactions = (props) => {
             p: 2,
           }}
         >
-          <Button
-            color="primary"
-            endIcon={<ArrowRightIcon fontSize="small" />}
-            size="small"
-            variant="text"
-          >
+          <Button color="primary" endIcon={<ArrowRightIcon fontSize="small" />} size="small" variant="text">
             View all
           </Button>
         </Box>
