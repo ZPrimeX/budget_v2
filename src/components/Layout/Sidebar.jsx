@@ -6,6 +6,9 @@ import { ChartBar as ChartBarIcon } from "../../icons/chart-bar";
 import { Cog as CogIcon } from "../../icons/cog";
 import { User as UserIcon } from "../../icons/user";
 import { NavItem } from "./nav-item";
+import CurrencyExchangeOutlinedIcon from "@mui/icons-material/CurrencyExchangeOutlined";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import WalletOutlinedIcon from "@mui/icons-material/WalletOutlined";
 
 const items = [
   {
@@ -20,17 +23,17 @@ const items = [
   },
   {
     href: "/transactions",
-    icon: <UserIcon fontSize="small" />,
+    icon: <CurrencyExchangeOutlinedIcon fontSize="small" />,
     title: "Transactions",
   },
   {
     href: "/categories",
-    icon: <UserIcon fontSize="small" />,
+    icon: <CategoryOutlinedIcon fontSize="small" />,
     title: "Categories",
   },
   {
     href: "/wallets",
-    icon: <UserIcon fontSize="small" />,
+    icon: <WalletOutlinedIcon fontSize="small" />,
     title: "Wallets",
   },
   {
@@ -76,12 +79,7 @@ const Sidebar = () => {
         />
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item) => (
-            <NavItem
-              key={item.title}
-              icon={item.icon}
-              href={item.href}
-              title={item.title}
-            />
+            <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} />
           ))}
         </Box>
         <Divider sx={{ borderColor: "#2D3748" }} />

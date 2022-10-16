@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { SeverityPill } from "../severity-pill";
+import NextLink from "next/link";
 
 const orders = [
   {
@@ -27,7 +28,7 @@ const orders = [
       name: "Ekaterina Tankova",
     },
     createdAt: 1555016400000,
-    status: "pending",
+    status: "Income",
   },
   {
     id: uuid(),
@@ -37,7 +38,7 @@ const orders = [
       name: "Cao Yu",
     },
     createdAt: 1555016400000,
-    status: "delivered",
+    status: "Expense",
   },
   {
     id: uuid(),
@@ -47,7 +48,7 @@ const orders = [
       name: "Alexa Richardson",
     },
     createdAt: 1554930000000,
-    status: "refunded",
+    status: "Income",
   },
   {
     id: uuid(),
@@ -57,7 +58,7 @@ const orders = [
       name: "Anje Keizer",
     },
     createdAt: 1554757200000,
-    status: "pending",
+    status: "Expense",
   },
   {
     id: uuid(),
@@ -67,7 +68,7 @@ const orders = [
       name: "Clarke Gillebert",
     },
     createdAt: 1554670800000,
-    status: "delivered",
+    status: "Expense",
   },
   {
     id: uuid(),
@@ -77,7 +78,7 @@ const orders = [
       name: "Adam Denisov",
     },
     createdAt: 1554670800000,
-    status: "delivered",
+    status: "Income",
   },
 ];
 
@@ -101,7 +102,7 @@ const RecentTransactions = (props) => {
                       </TableSortLabel>
                     </Tooltip>
                   </TableCell>
-                  <TableCell>Status</TableCell>
+                  <TableCell>Type</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -113,11 +114,7 @@ const RecentTransactions = (props) => {
                     <TableCell>{format(order.createdAt, "dd/MM/yyyy")}</TableCell>
                     <TableCell>
                       <SeverityPill
-                        color={
-                          (order.status === "delivered" && "success") ||
-                          (order.status === "refunded" && "error") ||
-                          "warning"
-                        }
+                        color={(order.status === "Income" && "success") || (order.status === "Expense" && "error")}
                       >
                         {order.status}
                       </SeverityPill>
@@ -135,9 +132,11 @@ const RecentTransactions = (props) => {
             p: 2,
           }}
         >
-          <Button color="primary" endIcon={<ArrowRightIcon fontSize="small" />} size="small" variant="text">
-            View all
-          </Button>
+          <NextLink href={"/transactions"}>
+            <Button color="primary" endIcon={<ArrowRightIcon fontSize="small" />} size="small" variant="text">
+              View all
+            </Button>
+          </NextLink>
         </Box>
       </Card>
     </>

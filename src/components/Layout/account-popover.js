@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { Box, MenuItem, MenuList, Popover, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/features/authSlice";
+import NextLink from "next/link";
 
 export const AccountPopover = (props) => {
   const { first_name, last_name, anchorEl, onClose, open, ...other } = props;
@@ -21,23 +22,25 @@ export const AccountPopover = (props) => {
       }}
       {...other}
     >
-      <Box
-        sx={{
-          py: 1.5,
-          px: 2,
-          cursor: "pointer",
-        }}
-      >
-        <Typography variant="overline">Account</Typography>
-        <Box display={"flex"} gap={0.2}>
-          <Typography color="text.secondary" variant="body2">
-            {first_name}.
-          </Typography>
-          <Typography color="text.secondary" variant="body2">
-            {last_name}
-          </Typography>
+      <NextLink href={"/account"}>
+        <Box
+          sx={{
+            py: 1.5,
+            px: 2,
+            cursor: "pointer",
+          }}
+        >
+          <Typography variant="overline">Account</Typography>
+          <Box display={"flex"} gap={0.2}>
+            <Typography color="text.secondary" variant="body2">
+              {first_name}.
+            </Typography>
+            <Typography color="text.secondary" variant="body2">
+              {last_name}
+            </Typography>
+          </Box>
         </Box>
-      </Box>
+      </NextLink>
       <MenuList
         disablePadding
         sx={{
