@@ -27,7 +27,6 @@ export const create = async (data, user) => {
       balance: +data.initial_balance,
       income: 0,
       expense: 0,
-      owner_name: user.first_name,
       owner_id: user.id,
     },
   });

@@ -1,13 +1,7 @@
-import { apiHandler } from "../../../server/helpers/api-handler";
-import { getUser } from "../../../server/helpers/get-user";
-import {
-  allowedMethod,
-  NoData,
-  NoTitle,
-  ServerError,
-  Success,
-} from "../../../server/helpers/requestValidators";
-import { create } from "../../../server/controllers/walletController";
+import { apiHandler } from "../../../../server/helpers/api-handler";
+import { getUser } from "../../../../server/helpers/get-user";
+import { allowedMethod, NoData, NoTitle, ServerError, Success } from "../../../../server/helpers/requestValidators";
+import { create } from "../../../../server/controllers/walletController";
 
 export default apiHandler(handler);
 

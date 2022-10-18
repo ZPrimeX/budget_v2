@@ -27,7 +27,7 @@ model User {
 
 model Wallet {
   id              String        @id @default(auto()) @map("_id") @db.ObjectId
-  title           String        @unique
+  title           String
   initial_balance Int?
   balance         Int?
   income          Int?
