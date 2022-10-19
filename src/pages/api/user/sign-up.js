@@ -29,7 +29,7 @@ async function handler(req, res) {
   const result = await signUp(req.body);
 
   if (result.message === "error") {
-    res.status(401).json({ message: result.data });
+    res.status(401).json({ message: result });
   }
-  res.status(201).json({ message: "success", body: result.data });
+  res.status(201).json({ message: "success", body: result });
 }
