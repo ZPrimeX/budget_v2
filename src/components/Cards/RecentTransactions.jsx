@@ -93,7 +93,7 @@ const RecentTransactions = (props) => {
               <TableHead>
                 <TableRow>
                   <TableCell>Transaction ID</TableCell>
-                  <TableCell>Receiver</TableCell>
+                  <TableCell>Category</TableCell>
                   <TableCell>Amount</TableCell>
                   <TableCell sortDirection="desc">
                     <Tooltip enterDelay={300} title="Sort">
