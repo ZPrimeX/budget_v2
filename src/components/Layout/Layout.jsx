@@ -2,11 +2,10 @@ import React from "react";
 import { Box } from "@mui/material";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData, selectUser } from "../../redux/features/authSlice";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 import { styled } from "@mui/material/styles";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/features/authSlice";
 
 const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
@@ -19,20 +18,7 @@ const DashboardLayoutRoot = styled("div")(({ theme }) => ({
 }));
 
 const Layout = ({ children }) => {
-  const router = useRouter();
-  const dispatch = useDispatch();
   const user = useSelector(selectUser);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token && user.isAuth === false) {
-      dispatch(fetchUserData());
-    }
-    if (!token) {
-      router.push("/login");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <>
       {user.status !== "fulfilled" ? (

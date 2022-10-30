@@ -1,21 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { req } from "../../utils/Axios";
 
-export const createWallet = createAsyncThunk(
-  "wallet/createWallet",
-  async (data) => {
-    const res = await req.post("/wallet/new", data);
-    return res.data;
-  }
-);
+export const createWallet = createAsyncThunk("wallet/createWallet", async (data) => {
+  const res = await req.post("/wallet/new", data);
+  return res.data;
+});
 
-export const fetchWallets = createAsyncThunk(
-  "wallet/fetchWallets",
-  async () => {
-    const res = await req.get("/wallet/all");
-    return res.data;
-  }
-);
+export const fetchWallets = createAsyncThunk("wallet/fetchWallets", async () => {
+  const res = await req.get("/wallet/all");
+  return res.data;
+});
 
 const walletSlice = createSlice({
   name: "wallet",
@@ -55,4 +49,4 @@ const walletSlice = createSlice({
 });
 
 export default walletSlice.reducer;
-export const selectWallet = (state) => state.wallet.wallets;
+export const selectWallet = (state) => state.wallet;

@@ -8,7 +8,7 @@ const Categories = () => {
   return (
     <>
       <Head>
-        <title>Transactions</title>
+        <title>Categories</title>
       </Head>
       <Layout>
         <Box>

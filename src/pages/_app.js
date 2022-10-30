@@ -7,6 +7,9 @@ import { registerChartJs } from "../utils/register-chart-js";
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "../redux/store";
 import { theme } from "../theme";
+import { AuthProvider } from "../../server/providers/AuthProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 registerChartJs();
 const clientSideEmotionCache = createEmotionCache();
@@ -23,7 +26,10 @@ const App = (props) => {
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Component {...pageProps} />
+          <AuthProvider>
+            <Component {...pageProps} />
+            <ToastContainer />
+          </AuthProvider>
         </ThemeProvider>
       </ReduxProvider>
     </CacheProvider>

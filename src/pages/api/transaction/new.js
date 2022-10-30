@@ -1,21 +1,18 @@
-// import { create } from "@mui/material/styles/createTransitions";
-// import { apiHandler } from "../../../../server/helpers/api-handler";
-// import { allowedMethod, NoData, ServerError, Success } from "../../../../server/helpers/requestValidators";
-// import { getUser } from "../../../../server/helpers/get-user";
+import { apiHandler } from "../../../../server/helpers/api-handler";
+import { allowedMethod, NoData, ServerError, Success } from "../../../../server/helpers/requestValidators";
+import { create } from "../../../../server/controllers/transactionController";
 
-// export default apiHandler(handler);
+export default apiHandler(handler);
 
-// async function handler(req, res) {
-//   // const {user} = await getUser(req);
+async function handler(req, res) {
+  allowedMethod(req, res, "POST");
 
-//   allowedMethod(req, res, "POST");
+  NoData(req, res);
 
-//   NoData(req, res);
-
-//   try {
-//     const result = await create(req.body, user);
-//     Success(res, result);
-//   } catch (error) {
-//     return ServerError(res);
-//   }
-// }
+  try {
+    const result = await create(req.body);
+    Success(res, result);
+  } catch (error) {
+    return ServerError(res);
+  }
+}

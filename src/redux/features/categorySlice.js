@@ -6,6 +6,11 @@ export const createCategory = createAsyncThunk("category/createCategory", async 
   return res.data;
 });
 
+export const fetchCategories = createAsyncThunk("category/fetchCategories", async () => {
+  const res = await req.get("category/all");
+  return res.data;
+});
+
 const categorySlice = createSlice({
   name: "category",
   initialState: {
@@ -24,6 +29,19 @@ const categorySlice = createSlice({
         state.categories = [...state.categories, action.payload.body];
       })
       .addCase(createCategory.rejected, (state) => {
+        state.status = "rejected";
+      });
+
+    // --- Fetch Categories
+    builder
+      .addCase(fetchCategories.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.categories = action.payload.body;
+      })
+      .addCase(fetchCategories.rejected, (state) => {
         state.status = "rejected";
       });
   },

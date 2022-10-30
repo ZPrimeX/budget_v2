@@ -40,16 +40,16 @@ model Wallet {
 }
 
 model Transaction {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  amount     Float
-  note       String?
-  date       Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  category   Category @relation(fields: [categoryId], references: [id])
-  wallet     Wallet   @relation(fields: [wallet_id], references: [id])
-  wallet_id  String   @db.ObjectId
-  categoryId String   @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  amount      Float
+  note        String?
+  date        Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  category    Category @relation(fields: [category_id], references: [id])
+  wallet      Wallet   @relation(fields: [wallet_id], references: [id])
+  wallet_id   String   @db.ObjectId
+  category_id String   @db.ObjectId
 }
 
 enum CategoryType {
@@ -61,7 +61,7 @@ model Category {
   id            String        @id @default(auto()) @map("_id") @db.ObjectId
   owner         User          @relation(fields: [owner_id], references: [id])
   title         String
-  description   String?
+  note          String?
   is_built_in   Boolean       @default(false)
   category_type CategoryType
   owner_id      String        @db.ObjectId

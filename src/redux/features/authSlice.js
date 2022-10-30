@@ -17,6 +17,11 @@ export const login = createAsyncThunk("auth/login", async ({ email, password }) 
   return res.data;
 });
 
+export const updateProfile = createAsyncThunk("auth/updateProfile", async (data) => {
+  const res = await req.patch("user/profile", data);
+  return res.data;
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -90,6 +95,24 @@ const authSlice = createSlice({
       .addCase(login.rejected, (state) => {
         state.status = "rejected";
         toast.error("Wrong credentials");
+      });
+
+    // -------------Update---------------
+
+    builder
+      .addCase(updateProfile.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.first_name = action.payload.body.first_name;
+        state.last_name = action.payload.body.last_name;
+        state.email = action.payload.body.email;
+        toast.success("Success!");
+      })
+      .addCase(updateProfile.rejected, (state) => {
+        state.status = "rejected";
+        toast.error("Try again!");
       });
   },
 });
