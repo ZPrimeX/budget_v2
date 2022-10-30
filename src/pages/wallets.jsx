@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Container, Box } from "@mui/material";
 import Head from "next/head";
 import Layout from "../components/Layout/Layout";
-import Balance from "../components/Cards/Dashboard/Balance";
+import Wallet from "../components/Cards/Wallet/Wallet";
 
 const wallets = () => {
   return (
@@ -21,13 +21,13 @@ const wallets = () => {
           <Container maxWidth={false}>
             <Grid container spacing={3}>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <Balance />
+                <Wallet />
               </Grid>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <Balance />
+                <Wallet />
               </Grid>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <Balance />
+                <Wallet />
               </Grid>
             </Grid>
           </Container>

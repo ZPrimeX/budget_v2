@@ -15,14 +15,15 @@ import {
   Tooltip,
 } from "@mui/material";
 import { SeverityPill } from "../../severity-pill";
+import CreateTransaction from "../../Modals/Transaction/CreateTransaction";
 
 const orders = [
   {
     id: uuid(),
     ref: "CDD1049",
-    amount: 30.5,
+    amount: 230.5,
     customer: {
-      name: "Ekaterina Tankova",
+      name: "Salary",
     },
     createdAt: 1555016400000,
     status: "Income",
@@ -32,7 +33,7 @@ const orders = [
     ref: "CDD1048",
     amount: 25.1,
     customer: {
-      name: "Cao Yu",
+      name: "Food",
     },
     createdAt: 1555016400000,
     status: "Expense",
@@ -42,7 +43,7 @@ const orders = [
     ref: "CDD1047",
     amount: 10.99,
     customer: {
-      name: "Alexa Richardson",
+      name: "John",
     },
     createdAt: 1554930000000,
     status: "Income",
@@ -50,9 +51,9 @@ const orders = [
   {
     id: uuid(),
     ref: "CDD1046",
-    amount: 96.43,
+    amount: 35.99,
     customer: {
-      name: "Anje Keizer",
+      name: "Gas",
     },
     createdAt: 1554757200000,
     status: "Expense",
@@ -62,7 +63,7 @@ const orders = [
     ref: "CDD1045",
     amount: 32.54,
     customer: {
-      name: "Clarke Gillebert",
+      name: "Water bills",
     },
     createdAt: 1554670800000,
     status: "Expense",
@@ -72,7 +73,7 @@ const orders = [
     ref: "CDD1044",
     amount: 16.76,
     customer: {
-      name: "Adam Denisov",
+      name: "Adam",
     },
     createdAt: 1554670800000,
     status: "Income",
@@ -83,7 +84,12 @@ const Transaction = (props) => {
   return (
     <>
       <Card {...props}>
-        <CardHeader title="Transactions" />
+        <Box display={"flex"} justifyContent="space-between" width={"95%"} height={"75px"} alignItems={"center"}>
+          <CardHeader title="Transactions" />
+          <Box>
+            <CreateTransaction />
+          </Box>
+        </Box>
         <PerfectScrollbar>
           <Box sx={{ minWidth: 800 }}>
             <Table>
