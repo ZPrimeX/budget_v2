@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Container, Box } from "@mui/material";
 import Head from "next/head";
 import Layout from "../components/Layout/Layout";
-import Balance from "../components/Cards/Balance";
+import Balance from "../components/Cards/Dashboard/Balance";
 
 const wallets = () => {
   return (

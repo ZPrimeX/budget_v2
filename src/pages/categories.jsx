@@ -2,7 +2,7 @@ import React from "react";
 import { Box } from "@mui/material";
 import Head from "next/head";
 import Layout from "../components/Layout/Layout";
-import Category from "../components/Cards/Category";
+import Category from "../components/Cards/Category/Categories";
 
 const Categories = () => {
   return (

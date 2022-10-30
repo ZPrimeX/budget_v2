@@ -1,14 +1,14 @@
 import Head from "next/head";
 import Layout from "../components/Layout/Layout";
 import { Box, Container, Grid } from "@mui/material";
-import Expense from "../components/Cards/Expense";
-import Income from "../components/Cards/Income";
-import Balance from "../components/Cards/Balance";
-import Graph from "../components/Cards/Graph";
-import CircularProgress from "../components/Cards/CircularProgress";
-import RecentTransactions from "../components/Cards/RecentTransactions";
-import { Progress } from "../components/Cards/Progress";
-import Category from "../components/Cards/Category";
+import Expense from "../components/Cards/Dashboard/Expense";
+import Income from "../components/Cards/Dashboard/Income";
+import Balance from "../components/Cards/Dashboard/Balance";
+import Graph from "../components/Cards/Dashboard/Graph";
+import CircularProgress from "../components/Cards/Dashboard/CircularProgress";
+import Transactions from "../components/Cards/Dashboard/dbTransactions";
+import { Progress } from "../components/Cards/Dashboard/Progress";
+import Category from "../components/Cards/Dashboard/dbCategories";
 
 export default function Dashboard() {
   return (
@@ -48,7 +48,7 @@ export default function Dashboard() {
                 <Category sx={{ height: "100%" }} />
               </Grid>
               <Grid item lg={8} md={12} xl={9} xs={12}>
-                <RecentTransactions />
+                <Transactions />
               </Grid>
             </Grid>
           </Container>

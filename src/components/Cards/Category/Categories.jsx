@@ -2,10 +2,10 @@ import React from "react";
 import { Box, Card, CardHeader, Divider, IconButton, List, ListItem, ListItemText } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useSelector } from "react-redux";
-import { selectCategory } from "../../redux/features/categorySlice";
-import CreateCategory from "../Modals/Category/CreateCategory";
+import { selectCategory } from "../../../redux/features/categorySlice";
+import CreateCategory from "../../Modals/Category/CreateCategory";
 
-const Categories = (props) => {
+const Category = (props) => {
   const categories = useSelector(selectCategory);
   return (
     <>
@@ -40,4 +40,4 @@ const Categories = (props) => {
   );
 };
 
-export default Categories;
+export default Category;

@@ -4,7 +4,6 @@ import { v4 as uuid } from "uuid";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
   Box,
-  Button,
   Card,
   CardHeader,
   Table,
@@ -15,9 +14,7 @@ import {
   TableSortLabel,
   Tooltip,
 } from "@mui/material";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import { SeverityPill } from "../severity-pill";
-import NextLink from "next/link";
+import { SeverityPill } from "../../severity-pill";
 
 const orders = [
   {
@@ -82,11 +79,11 @@ const orders = [
   },
 ];
 
-const RecentTransactions = (props) => {
+const Transaction = (props) => {
   return (
     <>
       <Card {...props}>
-        <CardHeader title="Latest Transactions" />
+        <CardHeader title="Transactions" />
         <PerfectScrollbar>
           <Box sx={{ minWidth: 800 }}>
             <Table>
@@ -125,22 +122,9 @@ const RecentTransactions = (props) => {
             </Table>
           </Box>
         </PerfectScrollbar>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            p: 2,
-          }}
-        >
-          <NextLink href={"/transactions"}>
-            <Button color="primary" endIcon={<ArrowRightIcon fontSize="small" />} size="small" variant="text">
-              View all
-            </Button>
-          </NextLink>
-        </Box>
       </Card>
     </>
   );
 };
 
-export default RecentTransactions;
+export default Transaction;

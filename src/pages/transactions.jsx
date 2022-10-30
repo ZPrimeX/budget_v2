@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import Head from "next/head";
 import React from "react";
 import Layout from "../components/Layout/Layout";
-import RecentTransactions from "../components/Cards/RecentTransactions";
+import Transaction from "../components/Cards/Transaction/Transactions";
 
 const Transactions = () => {
   return (
@@ -12,7 +12,7 @@ const Transactions = () => {
       </Head>
       <Layout>
         <Box>
-          <RecentTransactions />
+          <Transaction />
         </Box>
       </Layout>
     </>

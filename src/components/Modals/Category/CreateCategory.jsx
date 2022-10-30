@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   Button,
@@ -14,6 +14,9 @@ import {
   MenuItem,
   InputLabel,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { createCategory } from "../../../redux/features/categorySlice";
+import { toast } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -28,9 +31,22 @@ const style = {
 };
 
 const CategoryModal = () => {
-  const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState("");
+  const [note, setNote] = useState("");
+  const [type, setType] = useState("");
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    const res = await dispatch(createCategory({ title, note, type }));
+    if (res.payload?.message === "success") {
+      toast.success("Success!");
+    }
+  };
+
   return (
     <>
       <Button onClick={handleOpen} color="primary" endIcon={<AddCircleOutlineIcon />} size="small" variant="text">
@@ -42,7 +58,7 @@ const CategoryModal = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} component="form">
+        <Box sx={style} component="form" onSubmit={handleCreate}>
           <Card>
             <CardHeader subheader="Add a new category" title="Category" />
             <Divider />
@@ -55,8 +71,8 @@ const CategoryModal = () => {
                     name="title"
                     required
                     sx={{ textTransform: "capitalize" }}
-                    // value={first_name}
-                    // onChange={handleChangeFirstName}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                     variant="outlined"
                   />
                 </Grid>
@@ -66,8 +82,8 @@ const CategoryModal = () => {
                     label="Note"
                     name="Note"
                     required
-                    // value={last_name}
-                    // onChange={handleChangeLastName}
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
                     variant="outlined"
                   />
                 </Grid>
@@ -77,9 +93,9 @@ const CategoryModal = () => {
                     fullWidth
                     labelId="select"
                     id="categoryType"
-                    // value={type}
+                    value={type}
                     required
-                    // onChange={handleChange}
+                    onChange={(e) => setType(e.target.value)}
                   >
                     <MenuItem value="expense">Expense</MenuItem>
                     <MenuItem value="income">Income</MenuItem>
