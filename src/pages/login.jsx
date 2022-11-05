@@ -2,21 +2,11 @@ import React from "react";
 import Head from "next/head";
 import NextLink from "next/link";
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Link,
-  TextField,
-  CircularProgress,
-  Typography,
-} from "@mui/material";
-import { Facebook as FacebookIcon } from "../icons/facebook";
-import { Google as GoogleIcon } from "../icons/google";
+import { Box, Button, Container, Grid, Link, TextField, CircularProgress, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { login, selectUser } from "../redux/features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import GoogleAuth from "../components/GoogleAuth/GoogleAuth";
 
 const Login = () => {
   const router = useRouter();
@@ -50,43 +40,27 @@ const Login = () => {
       >
         <Container maxWidth="sm">
           <form onSubmit={handleLogin}>
-            <Box sx={{ my: 3 }}>
+            <Box sx={{ my: 3 }} display={"flex"} alignItems="center" justifyContent={"center"}>
               <Typography color="textPrimary" variant="h4">
-                Log in
+                Log in with
               </Typography>
             </Box>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<FacebookIcon />}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Button
-                  color="error"
-                  fullWidth
-                  size="large"
-                  startIcon={<GoogleIcon />}
-                  variant="contained"
-                >
-                  Login with Google
-                </Button>
-              </Grid>
-            </Grid>
+            <Box display={"flex"} alignItems="center" justifyContent={"center"} mt={"20px"}>
+              <GoogleAuth />
+            </Box>
+            <Box display={"flex"} alignItems="center" justifyContent={"center"} mt={"20px"}>
+              <Typography color="textPrimary" variant="h6">
+                or
+              </Typography>
+            </Box>
             <Box
               sx={{
                 pb: 1,
                 pt: 3,
               }}
             >
-              <Typography align="center" color="textSecondary" variant="body1">
-                or login with email address
+              <Typography align="center" color="textPrimary" variant="h6">
+                email address
               </Typography>
             </Box>
             <TextField
@@ -114,26 +88,16 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <Box sx={{ py: 2 }}>
-              <Button
-                color="primary"
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-              >
-                {user.status === "loading" ? (
-                  <CircularProgress sx={{ color: "white" }} />
-                ) : (
-                  "Log In"
-                )}
+              <Button color="primary" fullWidth size="large" type="submit" variant="contained">
+                {user.status === "loading" ? <CircularProgress sx={{ color: "white" }} /> : "Log In"}
               </Button>
             </Box>
-            <Typography color="textSecondary" variant="body2">
+            <Typography color="textSecondary" variant="body1">
               Don&apos;t have an account?{" "}
               <NextLink href="/signup">
                 <Link
                   to="/signup"
-                  variant="subtitle2"
+                  variant="subtitle1"
                   underline="hover"
                   sx={{
                     cursor: "pointer",

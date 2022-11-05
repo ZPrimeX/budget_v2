@@ -32,7 +32,6 @@ async function handler(req, res) {
   const foundUser = await prisma.user.findUnique({
     where: {
       email: payload.email,
-      google_id: user_id,
     },
   });
 
@@ -48,7 +47,7 @@ async function handler(req, res) {
     const user = await prisma.user.create({
       data: {
         first_name: payload.given_name,
-        last_name: payload.family_name,
+        last_name: payload.family_name || "...",
         email: payload.email,
         avatar: payload.picture,
         google_id: user_id,

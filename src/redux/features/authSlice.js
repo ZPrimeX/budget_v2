@@ -12,6 +12,11 @@ export const signup = createAsyncThunk("auth/signup", async ({ email, password, 
   return res.data;
 });
 
+export const googleSignup = createAsyncThunk("auth/googleSignup", async ({ id_token }) => {
+  const res = await req.post("user/google", { id_token });
+  return res.data;
+});
+
 export const login = createAsyncThunk("auth/login", async ({ email, password }) => {
   const res = await req.post("user/login", { email, password });
   return res.data;
@@ -73,6 +78,26 @@ const authSlice = createSlice({
         localStorage.setItem("token", action.payload.body.token);
       })
       .addCase(signup.rejected, (state) => {
+        state.status = "rejected";
+        toast.error("Something went wrong! Try again later.");
+      });
+
+    // -------------GOOGLE SIGNUP---------------
+
+    builder
+      .addCase(googleSignup.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(googleSignup.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.first_name = action.payload.body.first_name;
+        state.last_name = action.payload.body.last_name;
+        state.email = action.payload.body.email;
+        state.avatar = action.payload.body.avatar;
+        state.isAuth = true;
+        localStorage.setItem("token", action.payload.body.token);
+      })
+      .addCase(googleSignup.rejected, (state) => {
         state.status = "rejected";
         toast.error("Something went wrong! Try again later.");
       });

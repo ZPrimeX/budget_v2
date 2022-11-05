@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
-import { Box, Button, Container, Link, TextField, Alert, Typography } from "@mui/material";
+import { Box, Button, Container, Link, TextField, Alert, Typography, Grid } from "@mui/material";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { signup } from "../redux/features/authSlice";
 import { useRouter } from "next/router";
+import GoogleAuth from "../components/GoogleAuth/GoogleAuth";
 
 const Signup = () => {
   const router = useRouter();
@@ -67,13 +68,23 @@ const Signup = () => {
         }}
       >
         <Container maxWidth="sm">
+          <Box display={"flex"} alignItems="center" justifyContent={"center"}>
+            <Typography color="textPrimary" variant="h4">
+              Create a new account with
+            </Typography>
+          </Box>
+          <Box display={"flex"} alignItems="center" justifyContent={"center"} mt={"20px"}>
+            <GoogleAuth />
+          </Box>
+          <Box display={"flex"} alignItems="center" justifyContent={"center"} mt={"20px"}>
+            <Typography color="textPrimary" variant="h6">
+              or
+            </Typography>
+          </Box>
           <form onSubmit={handleSignup}>
-            <Box sx={{ my: 3 }}>
-              <Typography color="textPrimary" variant="h4">
-                Create a new account
-              </Typography>
-              <Typography color="textSecondary" gutterBottom variant="body2">
-                Use your email to create a new account
+            <Box sx={{ my: 3 }} display={"flex"} alignItems="center" justifyContent={"center"}>
+              <Typography color="textPrimary" variant="h6">
+                Fill out the information below
               </Typography>
             </Box>
             <TextField
@@ -126,11 +137,11 @@ const Signup = () => {
                 Sign Up
               </Button>
             </Box>
-            <Typography color="textSecondary" variant="body2">
+            <Typography color="textSecondary" variant="body1">
               Have an account?{" "}
               <NextLink href="/login">
                 <Link
-                  variant="subtitle2"
+                  variant="subtitle1"
                   underline="hover"
                   sx={{
                     cursor: "pointer",
