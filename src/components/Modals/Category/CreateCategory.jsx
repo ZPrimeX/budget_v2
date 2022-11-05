@@ -39,12 +39,20 @@ const CategoryModal = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const clear = () => {
+    handleClose();
+    setTitle("");
+    setType("");
+    setNote("");
+  };
+
   const handleCreate = async (e) => {
     e.preventDefault();
-    const res = await dispatch(createCategory({ title, note, type }));
+    const res = await dispatch(createCategory({ title, note, category_type: type }));
     if (res.payload?.message === "success") {
       toast.success("Success!");
     }
+    clear();
   };
 
   return (
@@ -111,7 +119,7 @@ const CategoryModal = () => {
                 p: 2,
               }}
             >
-              <Button onClick={handleClose} color="error" size="small" variant="text">
+              <Button onClick={clear} color="error" size="small" variant="text">
                 Cancel
               </Button>
               <Button type="submit" color="success" size="small" variant="text">

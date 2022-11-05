@@ -29,6 +29,7 @@
     "dayjs": "^1.11.5",
     "express-jwt": "^7.7.5",
     "formik": "2.2.9",
+    "google-auth-library": "^8.6.0",
     "moment": "^2.29.4",
     "next": "12.3.0",
     "nprogress": "0.2.0",
@@ -44,6 +45,8 @@
   },
   "devDependencies": {
     "@redux-devtools/core": "^3.13.1",
+    "@types/bcrypt": "^5.0.0",
+    "@types/uuid": "^8.3.4",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.1",
     "prisma": "^4.2.1"

@@ -9,7 +9,7 @@ function jwtMiddleware(req, res) {
     secret: serverRuntimeConfig.secret,
     algorithms: ["HS256"],
   }).unless({
-    path: ["/api/user/sign-up", "/api/user/login", "/api/user/validate"],
+    path: ["/api/user/sign-up", "/api/user/login", "/api/user/validate", "/api/user/google"],
   });
   return util.promisify(middleware)(req, res);
 }
