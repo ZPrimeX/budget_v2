@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { req } from "../../utils/Axios";
 
 export const createTransaction = createAsyncThunk("transaction/createTransaction", async (data) => {
@@ -27,9 +28,11 @@ const transactionSlice = createSlice({
       .addCase(createTransaction.fulfilled, (state, action) => {
         state.status = "fulfilled";
         state.transactions = [...state.transactions, action.payload.body];
+        toast.success("Success!");
       })
-      .addCase(createWallet.rejected, (state) => {
+      .addCase(createTransaction.rejected, (state) => {
         state.status = "rejected";
+        toast.error("Error!");
       });
 
     // --- Fetching Transactions ---
@@ -38,7 +41,7 @@ const transactionSlice = createSlice({
       .addCase(fetchTransactions.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(fetchWallets.fulfilled, (state, action) => {
+      .addCase(fetchTransactions.fulfilled, (state, action) => {
         state.status = "fulfilled";
         state.transactions = action.payload.body;
       })

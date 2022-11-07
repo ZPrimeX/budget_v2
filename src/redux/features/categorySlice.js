@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { req } from "../../utils/Axios";
 
 export const createCategory = createAsyncThunk("category/createCategory", async (data) => {
@@ -27,6 +28,7 @@ const categorySlice = createSlice({
       .addCase(createCategory.fulfilled, (state, action) => {
         state.status = "fulfilled";
         state.categories = [...state.categories, action.payload.body];
+        toast.success("Success!");
       })
       .addCase(createCategory.rejected, (state) => {
         state.status = "rejected";

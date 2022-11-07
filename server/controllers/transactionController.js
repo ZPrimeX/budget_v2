@@ -19,10 +19,14 @@ export const findUnique = async (transaction) => {
 };
 
 export const create = async (data) => {
-  const newTransaction = await prisma.transaction.create({
-    data: {
-      ...data,
-    },
-  });
-  return newTransaction;
+  try {
+    const newTransaction = await prisma.transaction.create({
+      data: {
+        ...data,
+      },
+    });
+    return newTransaction;
+  } catch (error) {
+    console.log(error);
+  }
 };

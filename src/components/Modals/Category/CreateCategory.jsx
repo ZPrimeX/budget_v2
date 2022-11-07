@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   Button,
@@ -14,8 +14,8 @@ import {
   MenuItem,
   InputLabel,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { createCategory } from "../../../redux/features/categorySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { createCategory, fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
 import { toast } from "react-toastify";
 
 const style = {
@@ -32,6 +32,7 @@ const style = {
 
 const CategoryModal = () => {
   const dispatch = useDispatch();
+  const categories = useSelector(selectCategory);
   const [title, setTitle] = useState("");
   const [note, setNote] = useState("");
   const [type, setType] = useState("");
@@ -46,14 +47,18 @@ const CategoryModal = () => {
     setNote("");
   };
 
-  const handleCreate = async (e) => {
+  const handleCreate = (e) => {
     e.preventDefault();
-    const res = await dispatch(createCategory({ title, note, category_type: type }));
-    if (res.payload?.message === "success") {
-      toast.success("Success!");
-    }
+    dispatch(createCategory({ title, note, category_type: type }));
     clear();
   };
+
+  useEffect(() => {
+    if (!categories.length) {
+      dispatch(fetchCategories());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -89,7 +94,6 @@ const CategoryModal = () => {
                     fullWidth
                     label="Note"
                     name="Note"
-                    required
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     variant="outlined"

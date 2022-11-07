@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   Button,
@@ -14,12 +14,14 @@ import {
   MenuItem,
   InputLabel,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { createTransaction } from "../../../redux/features/transactionSlice";
+import { fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
 
 const style = {
   position: "absolute",
@@ -34,27 +36,40 @@ const style = {
 };
 
 const CreateTransaction = () => {
-  const [value, setValue] = useState(dayjs("2014-08-18T21:11:54"));
-
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
   const dispatch = useDispatch();
+  const categories = useSelector(selectCategory);
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [note, setNote] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(dayjs(new Date()));
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  // const handleCreate = async (e) => {
-  //   e.preventDefault();
-  //   const res = await dispatch(createCategory({ title, note, type }));
-  //   if (res.payload?.message === "success") {
-  //     toast.success("Success!");
-  //   }
-  // };
+  const clear = () => {
+    handleClose();
+    setAmount("");
+    setCategory("");
+    setNote("");
+    setDate("");
+  };
+
+  const handleChange = (e) => {
+    setDate(e.target.value);
+  };
+
+  const handleCreate = (e) => {
+    e.preventDefault();
+    dispatch(createTransaction({ category, amount, note, date }));
+    clear();
+  };
+
+  useEffect(() => {
+    if (!categories.length) {
+      dispatch(fetchCategories());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -67,7 +82,7 @@ const CreateTransaction = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} component="form">
+        <Box sx={style} component="form" onSubmit={handleCreate}>
           <Card>
             <CardHeader subheader="Add a new transaction" title="Transaction" />
             <Divider />
@@ -83,15 +98,18 @@ const CreateTransaction = () => {
                     required
                     onChange={(e) => setCategory(e.target.value)}
                   >
-                    <MenuItem value="gas">Gas</MenuItem>
-                    <MenuItem value="salary">Salary</MenuItem>
+                    {categories.map((c) => (
+                      <MenuItem value={c.id} key={c.id}>
+                        {c.title}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </Grid>
                 <Grid item md={6} xs={12} marginTop={3}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       label="Date&Time picker"
-                      value={value}
+                      value={date}
                       onChange={handleChange}
                       renderInput={(params) => <TextField {...params} />}
                     />
@@ -100,6 +118,7 @@ const CreateTransaction = () => {
                 <Grid item md={6} xs={12}>
                   <TextField
                     fullWidth
+                    type={"number"}
                     label="amount"
                     name="amount"
                     required
@@ -114,7 +133,6 @@ const CreateTransaction = () => {
                     fullWidth
                     label="Note"
                     name="Note"
-                    required
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     variant="outlined"

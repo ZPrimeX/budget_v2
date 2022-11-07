@@ -44,7 +44,7 @@ model Transaction {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   amount      Float
   note        String?
-  date        Int
+  date        DateTime
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   category    Category @relation(fields: [category_id], references: [id])
