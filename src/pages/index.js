@@ -5,7 +5,7 @@ import Expense from "../components/Cards/Dashboard/Expense";
 import Income from "../components/Cards/Dashboard/Income";
 import Balance from "../components/Cards/Dashboard/Balance";
 import Graph from "../components/Cards/Dashboard/Graph";
-import CircularProgress from "../components/Cards/Dashboard/CircularProgress";
+import Expenses from "../components/Cards/Dashboard/Expenses";
 import Transactions from "../components/Cards/Dashboard/dbTransactions";
 import { Progress } from "../components/Cards/Dashboard/Progress";
 import Category from "../components/Cards/Dashboard/dbCategories";
@@ -42,7 +42,7 @@ export default function Dashboard() {
                 <Graph />
               </Grid>
               <Grid item lg={4} md={6} xl={3} xs={12}>
-                <CircularProgress sx={{ height: "100%" }} />
+                <Expenses sx={{ height: "100%" }} />
               </Grid>
               <Grid item lg={4} md={6} xl={3} xs={12}>
                 <Category sx={{ height: "100%" }} />

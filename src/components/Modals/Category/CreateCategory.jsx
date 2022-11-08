@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { createCategory, fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
+import { Controller, useForm } from "react-hook-form";
 
 const style = {
   position: "absolute",
@@ -59,6 +60,15 @@ const CategoryModal = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // * REACT HOOK FORM
+  const methods = useForm({
+    defaultValues: {
+      title: "",
+      note: "",
+      type: "",
+    },
+  });
+
   return (
     <>
       <Button onClick={handleOpen} color="primary" endIcon={<AddCircleOutlineIcon />} size="small" variant="text">
@@ -77,25 +87,41 @@ const CategoryModal = () => {
             <CardContent>
               <Grid container spacing={3}>
                 <Grid item md={6} xs={12}>
-                  <TextField
-                    fullWidth
-                    label="Title"
+                  <Controller
                     name="title"
-                    required
-                    sx={{ textTransform: "capitalize" }}
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    variant="outlined"
+                    control={methods.control}
+                    rules={{ required: true }}
+                    render={({ field, fieldState: { error, isTouched } }) => (
+                      <TextField
+                        {...field}
+                        fullWidth
+                        label="Title"
+                        name="title"
+                        required
+                        helperText={error?.message}
+                        error={error && isTouched}
+                        sx={{ textTransform: "capitalize" }}
+                        variant="outlined"
+                      />
+                    )}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  <TextField
-                    fullWidth
-                    label="Note"
-                    name="Note"
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
-                    variant="outlined"
+                  <Controller
+                    name="note"
+                    control={methods.control}
+                    rules={{ required: false }}
+                    render={({ field, fieldState: { error, isTouched } }) => (
+                      <TextField
+                        {...field}
+                        fullWidth
+                        label="Note"
+                        name="Note"
+                        helperText={error?.message}
+                        error={error && isTouched}
+                        variant="outlined"
+                      />
+                    )}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>

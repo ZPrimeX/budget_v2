@@ -1,14 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
@@ -18,27 +10,27 @@ const Graph = (props) => {
   const data = {
     datasets: [
       {
-        backgroundColor: "#3F51B5",
+        backgroundColor: "#14B8A6",
         barPercentage: 0.5,
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: [18, 5, 19, 27, 29, 19, 20],
-        label: "This year",
+        label: "Income",
         maxBarThickness: 10,
       },
       {
-        backgroundColor: "#EEEEEE",
+        backgroundColor: "#D14343",
         barPercentage: 0.5,
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: [11, 20, 12, 29, 30, 25, 13],
-        label: "Last year",
+        label: "Expense",
         maxBarThickness: 10,
       },
     ],
-    labels: ["1 Aug", "2 Aug", "3 Aug", "4 Aug", "5 Aug", "6 Aug", "7 aug"],
+    labels: ["1 Oct", "2 Oct", "3 Oct", "4 Oct", "5 Oct", "6 Oct", "7 Oct"],
   };
 
   const options = {
@@ -94,14 +86,11 @@ const Graph = (props) => {
       <Card {...props}>
         <CardHeader
           action={
-            <Button
-              endIcon={<ArrowDropDownIcon fontSize="small" />}
-              size="small"
-            >
+            <Button endIcon={<ArrowDropDownIcon fontSize="small" />} size="small">
               Last 7 days
             </Button>
           }
-          title="Latest Sales"
+          title="Latest Stats"
         />
         <Divider />
         <CardContent>
@@ -122,11 +111,7 @@ const Graph = (props) => {
             p: 2,
           }}
         >
-          <Button
-            color="primary"
-            endIcon={<ArrowRightIcon fontSize="small" />}
-            size="small"
-          >
+          <Button color="primary" endIcon={<ArrowRightIcon fontSize="small" />} size="small">
             Overview
           </Button>
         </Box>
