@@ -13,7 +13,7 @@ export const fetchCategories = createAsyncThunk("category/fetchCategories", asyn
 });
 
 export const editCategory = createAsyncThunk("category/editCategory", async (data) => {
-  const res = await req.patch("category/single", data);
+  const res = await req.patch("category/edit", data);
   return res.data;
 });
 

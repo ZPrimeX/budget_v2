@@ -16,7 +16,6 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { createCategory, fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
-import { toast } from "react-toastify";
 
 const style = {
   position: "absolute",

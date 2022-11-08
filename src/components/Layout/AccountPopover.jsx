@@ -73,7 +73,12 @@ export const AccountPopover = (props) => {
         }}
       >
         {other.google_id ? (
-          <GoogleLogout buttonText="Logout" clientId={GOOGLE_CLOUD_ID} onLogoutSuccess={() => dispatch(logout())} />
+          <GoogleLogout
+            buttonText="Logout"
+            clientId={GOOGLE_CLOUD_ID}
+            onLogoutSuccess={() => dispatch(logout())}
+            render={(renderProps) => <MenuItem onClick={renderProps.onClick}>Logout</MenuItem>}
+          />
         ) : (
           <MenuItem onClick={() => dispatch(logout())}>Logout</MenuItem>
         )}

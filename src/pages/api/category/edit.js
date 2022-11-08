@@ -9,8 +9,7 @@ async function handler(req, res) {
   allowedMethod(req, res, "PATCH");
   const { user } = await getUser(req);
 
-  //   const editCategory = await prisma.category.patch({
-  //   })
+  const editCategory = await prisma.category.update({});
 
   return Success(res);
 }
