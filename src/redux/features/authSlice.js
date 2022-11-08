@@ -36,6 +36,7 @@ const authSlice = createSlice({
     email: "",
     isAuth: false,
     avatar: "",
+    google_id: "",
   },
   reducers: {
     logout: () => {
@@ -54,6 +55,7 @@ const authSlice = createSlice({
         state.last_name = action.payload.body.last_name;
         state.email = action.payload.body.email;
         state.avatar = action.payload.body.avatar;
+        state.google_id = action.payload.body.google_id;
         state.isAuth = true;
       })
       .addCase(fetchUserData.rejected, (state) => {
@@ -94,6 +96,7 @@ const authSlice = createSlice({
         state.last_name = action.payload.body.last_name;
         state.email = action.payload.body.email;
         state.avatar = action.payload.body.avatar;
+        state.google_id = action.payload.body.google_id;
         state.isAuth = true;
         localStorage.setItem("token", action.payload.body.token);
       })
@@ -137,7 +140,7 @@ const authSlice = createSlice({
       })
       .addCase(updateProfile.rejected, (state) => {
         state.status = "rejected";
-        toast.error("Try again!");
+        toast.error("Something went wrong!");
       });
   },
 });

@@ -1,6 +1,4 @@
 import React from "react";
-import { format } from "date-fns";
-import { v4 as uuid } from "uuid";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
   Box,
@@ -16,71 +14,11 @@ import {
 } from "@mui/material";
 import { SeverityPill } from "../../severity-pill";
 import CreateTransaction from "../../Modals/Transaction/CreateTransaction";
-
-const orders = [
-  {
-    id: uuid(),
-    ref: "CDD1049",
-    amount: 230.5,
-    customer: {
-      name: "Salary",
-    },
-    createdAt: 1555016400000,
-    status: "Income",
-  },
-  {
-    id: uuid(),
-    ref: "CDD1048",
-    amount: 25.1,
-    customer: {
-      name: "Food",
-    },
-    createdAt: 1555016400000,
-    status: "Expense",
-  },
-  {
-    id: uuid(),
-    ref: "CDD1047",
-    amount: 10.99,
-    customer: {
-      name: "John",
-    },
-    createdAt: 1554930000000,
-    status: "Income",
-  },
-  {
-    id: uuid(),
-    ref: "CDD1046",
-    amount: 35.99,
-    customer: {
-      name: "Gas",
-    },
-    createdAt: 1554757200000,
-    status: "Expense",
-  },
-  {
-    id: uuid(),
-    ref: "CDD1045",
-    amount: 32.54,
-    customer: {
-      name: "Water bills",
-    },
-    createdAt: 1554670800000,
-    status: "Expense",
-  },
-  {
-    id: uuid(),
-    ref: "CDD1044",
-    amount: 16.76,
-    customer: {
-      name: "Adam",
-    },
-    createdAt: 1554670800000,
-    status: "Income",
-  },
-];
+import { useSelector } from "react-redux";
+import { selectCategory } from "../../../redux/features/categorySlice";
 
 const Transaction = (props) => {
+  const categories = useSelector(selectCategory);
   return (
     <>
       <Card {...props}>
@@ -109,19 +47,15 @@ const Transaction = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {orders.map((order) => (
-                  <TableRow hover key={order.id}>
-                    <TableCell>{order.ref}</TableCell>
-                    <TableCell>{order.customer.name}</TableCell>
-                    <TableCell>${order.amount}</TableCell>
-                    <TableCell>{format(order.createdAt, "dd/MM/yyyy")}</TableCell>
-                    <TableCell>
-                      <SeverityPill
-                        color={(order.status === "Income" && "success") || (order.status === "Expense" && "error")}
-                      >
-                        {order.status}
-                      </SeverityPill>
-                    </TableCell>
+                {categories.map((c) => (
+                  <TableRow hover key={c.id}>
+                    <TableCell>{c.id}</TableCell>
+                    <TableCell>{c.title}</TableCell>
+                    <TableCell>${c.note}0</TableCell>
+                    <TableCell>{c.createdAt}</TableCell>
+                    {/* <TableCell>
+                      <SeverityPill>{c.is_built_in}</SeverityPill>
+                    </TableCell> */}
                   </TableRow>
                 ))}
               </TableBody>

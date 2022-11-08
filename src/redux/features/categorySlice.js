@@ -12,6 +12,11 @@ export const fetchCategories = createAsyncThunk("category/fetchCategories", asyn
   return res.data;
 });
 
+export const editCategory = createAsyncThunk("category/editCategory", async (data) => {
+  const res = await req.patch("category/single", data);
+  return res.data;
+});
+
 const categorySlice = createSlice({
   name: "category",
   initialState: {
@@ -45,6 +50,21 @@ const categorySlice = createSlice({
       })
       .addCase(fetchCategories.rejected, (state) => {
         state.status = "rejected";
+      });
+
+    // --- Edit category ---
+    builder
+      .addCase(editCategory.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(editCategory.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.categories = [...state.categories, action.payload.body];
+        toast.success("Success!");
+      })
+      .addCase(editCategory.rejected, (state) => {
+        state.status = "rejected";
+        toast.error("Something went wrong!");
       });
   },
 });

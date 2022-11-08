@@ -10,6 +10,7 @@ const GoogleAuth = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [ready, setReady] = useState(false);
+
   const initGapi = async () => {
     const gapi = await import("gapi-script").then((pack) => pack.gapi);
 

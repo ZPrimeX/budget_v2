@@ -3,7 +3,6 @@ import { Box } from "@mui/material";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import { styled } from "@mui/material/styles";
-import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/features/authSlice";
 

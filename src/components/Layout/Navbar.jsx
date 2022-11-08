@@ -7,7 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Bell as BellIcon } from "../../icons/bell";
 import { UserCircle as UserCircleIcon } from "../../icons/user-circle";
 import { Users as UsersIcon } from "../../icons/users";
-import { AccountPopover } from "./account-popover";
+import { AccountPopover } from "./AccountPopover";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/features/authSlice";
 
@@ -86,8 +86,7 @@ const Navbar = () => {
         </Toolbar>
       </NavbarRoot>
       <AccountPopover
-        first_name={user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)}
-        last_name={user.last_name.charAt(0).toUpperCase()}
+        {...user}
         anchorEl={settingsRef.current}
         open={openAccountPopover}
         onClose={() => setOpenAccountPopover(false)}
