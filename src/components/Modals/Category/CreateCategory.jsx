@@ -49,7 +49,7 @@ const CategoryModal = () => {
 
   const handleCreate = (e) => {
     e.preventDefault();
-    dispatch(createCategory({ title, note, category_type: type }));
+    dispatch(createCategory({ title, category_type: type }));
     clear();
   };
 
@@ -64,7 +64,6 @@ const CategoryModal = () => {
   const methods = useForm({
     defaultValues: {
       title: "",
-      note: "",
       type: "",
     },
   });
@@ -101,24 +100,6 @@ const CategoryModal = () => {
                         helperText={error?.message}
                         error={error && isTouched}
                         sx={{ textTransform: "capitalize" }}
-                        variant="outlined"
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item md={6} xs={12}>
-                  <Controller
-                    name="note"
-                    control={methods.control}
-                    rules={{ required: false }}
-                    render={({ field, fieldState: { error, isTouched } }) => (
-                      <TextField
-                        {...field}
-                        fullWidth
-                        label="Note"
-                        name="Note"
-                        helperText={error?.message}
-                        error={error && isTouched}
                         variant="outlined"
                       />
                     )}

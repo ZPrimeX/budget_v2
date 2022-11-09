@@ -62,7 +62,6 @@ model Category {
   id            String        @id @default(auto()) @map("_id") @db.ObjectId
   owner         User          @relation(fields: [owner_id], references: [id])
   title         String
-  note          String?
   is_built_in   Boolean       @default(false)
   category_type CategoryType
   owner_id      String        @db.ObjectId

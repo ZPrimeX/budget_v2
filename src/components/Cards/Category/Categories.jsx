@@ -1,9 +1,10 @@
 import React from "react";
 import { Box, Card, CardHeader, Divider, IconButton, List, ListItem, ListItemText } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useSelector } from "react-redux";
 import { selectCategory } from "../../../redux/features/categorySlice";
 import CreateCategory from "../../Modals/Category/CreateCategory";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const Category = (props) => {
   const categories = useSelector(selectCategory);
@@ -25,13 +26,15 @@ const Category = (props) => {
         <List>
           {categories.map((category, i) => (
             <ListItem divider={i < categories.length - 1} key={category.id}>
-              <ListItemText
-                primary={category.title}
-                // secondary={`Payed ${formatDistanceToNow(product.updatedAt)} ago`}
-              />
-              <IconButton edge="end" size="small">
-                <MoreVertIcon />
-              </IconButton>
+              <ListItemText primary={category.title} />
+              <Box display={"flex"} width={"100px"} height={"100%"} justifyContent="space-around">
+                <IconButton edge="end" size="small">
+                  <EditOutlinedIcon color="primary" />
+                </IconButton>
+                <IconButton edge="end" size="small">
+                  <DeleteOutlineOutlinedIcon color="error" />
+                </IconButton>
+              </Box>
             </ListItem>
           ))}
         </List>
