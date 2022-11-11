@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const AccountProfile = (props) => {
   const user = useSelector(selectUser);
+
   return (
     <>
       <Card {...props}>
@@ -32,9 +33,9 @@ const AccountProfile = (props) => {
                 {user.last_name}
               </Typography>
             </Box>
-            {/*TODO: Change the type to date and add an account creation date <Typography color="textSecondary" variant="body2">
+            <Typography color="textSecondary" variant="body2">
               {`${user.createdAt}`}
-            </Typography> */}
+            </Typography>
           </Box>
         </CardContent>
         <Divider />
@@ -44,11 +45,6 @@ const AccountProfile = (props) => {
           </Button>
         </CardActions>
         <Divider />
-        {/* TODO: Fix the error with google image search
-        <Box>
-          <script async src="https://cse.google.com/cse.js?cx=d3eb9331f8d4b46d5"></script>
-          <div class="gcse-search"></div>
-        </Box> */}
       </Card>
     </>
   );
