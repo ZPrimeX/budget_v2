@@ -32,12 +32,9 @@ const AccountProfile = (props) => {
                 {user.last_name}
               </Typography>
             </Box>
-            <Typography color="textSecondary" variant="body2">
-              {`${user.country}`}
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              {user.createdAt}
-            </Typography>
+            {/*TODO: Change the type to date and add an account creation date <Typography color="textSecondary" variant="body2">
+              {`${user.createdAt}`}
+            </Typography> */}
           </Box>
         </CardContent>
         <Divider />
@@ -46,6 +43,12 @@ const AccountProfile = (props) => {
             Upload picture
           </Button>
         </CardActions>
+        <Divider />
+        {/* TODO: Fix the error with google image search
+        <Box>
+          <script async src="https://cse.google.com/cse.js?cx=d3eb9331f8d4b46d5"></script>
+          <div class="gcse-search"></div>
+        </Box> */}
       </Card>
     </>
   );

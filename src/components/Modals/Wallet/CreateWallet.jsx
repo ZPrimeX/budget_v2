@@ -1,21 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import {
-  Button,
-  Box,
-  Modal,
-  Card,
-  Divider,
-  CardHeader,
-  CardContent,
-  Grid,
-  TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-} from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { createCategory, fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
+import { Button, Box, Modal, Card, Divider, CardHeader, CardContent, Grid, TextField, InputLabel } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
 
 const style = {
@@ -30,12 +16,11 @@ const style = {
   p: 4,
 };
 
-const CategoryModal = () => {
+const WalletModal = () => {
   const dispatch = useDispatch();
-  const categories = useSelector(selectCategory);
+
   const [title, setTitle] = useState("");
-  const [note, setNote] = useState("");
-  const [type, setType] = useState("");
+  const [balance, setBalance] = useState(0);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -43,28 +28,20 @@ const CategoryModal = () => {
   const clear = () => {
     handleClose();
     setTitle("");
-    setType("");
-    setNote("");
+    setBalance("");
   };
 
   const handleCreate = (e) => {
     e.preventDefault();
-    dispatch(createCategory({ title, category_type: type }));
+    // dispatch(createWallet({ title, balance }));
     clear();
   };
-
-  useEffect(() => {
-    if (!categories.length) {
-      dispatch(fetchCategories());
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // * REACT HOOK FORM
   const methods = useForm({
     defaultValues: {
       title: "",
-      type: "",
+      balance: 0,
     },
   });
 
@@ -81,7 +58,7 @@ const CategoryModal = () => {
       >
         <Box sx={style} component="form" onSubmit={handleCreate}>
           <Card>
-            <CardHeader subheader="Add a new category" title="Category" />
+            <CardHeader subheader="Add a new wallet" title="Wallet" />
             <Divider />
             <CardContent>
               <Grid container spacing={3}>
@@ -107,18 +84,25 @@ const CategoryModal = () => {
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  <InputLabel id="select">Type</InputLabel>
-                  <Select
-                    fullWidth
-                    labelId="select"
-                    id="categoryType"
-                    value={type}
-                    required
-                    onChange={(e) => setType(e.target.value)}
-                  >
-                    <MenuItem value="expense">Expense</MenuItem>
-                    <MenuItem value="income">Income</MenuItem>
-                  </Select>
+                  <InputLabel id="balance">Balance</InputLabel>
+                  <Controller
+                    name="balance"
+                    control={methods.control}
+                    rules={{ required: true }}
+                    render={({ field, fieldState: { error, isTouched } }) => (
+                      <TextField
+                        {...field}
+                        labelId="balance"
+                        fullWidth
+                        name="balance"
+                        required
+                        helperText={error?.message}
+                        error={error && isTouched}
+                        sx={{ textTransform: "capitalize" }}
+                        variant="outlined"
+                      />
+                    )}
+                  />
                 </Grid>
               </Grid>
             </CardContent>
@@ -144,4 +128,4 @@ const CategoryModal = () => {
   );
 };
 
-export default CategoryModal;
+export default WalletModal;

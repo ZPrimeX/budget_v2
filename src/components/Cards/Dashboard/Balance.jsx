@@ -42,6 +42,7 @@ const TotalProfit = (props) => {
               sx={{
                 mr: 1,
               }}
+              color="#14B8A6"
             >
               24%
             </Typography>

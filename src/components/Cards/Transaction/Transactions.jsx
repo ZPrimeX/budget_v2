@@ -53,9 +53,15 @@ const Transaction = (props) => {
                     <TableCell>{c.title}</TableCell>
                     <TableCell>${c.note}0</TableCell>
                     <TableCell>{c.createdAt}</TableCell>
-                    {/* <TableCell>
-                      <SeverityPill>{c.is_built_in}</SeverityPill>
-                    </TableCell> */}
+                    <TableCell>
+                      <SeverityPill
+                        color={
+                          (c.category_type === "income" && "success") || (c.category_type === "expense" && "error")
+                        }
+                      >
+                        {c.category_type}
+                      </SeverityPill>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

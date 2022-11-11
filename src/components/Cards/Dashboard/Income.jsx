@@ -42,6 +42,7 @@ const Balance = (props) => {
               sx={{
                 mr: 1,
               }}
+              color="#14B8A6"
             >
               16%
             </Typography>

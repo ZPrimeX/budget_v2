@@ -3,6 +3,7 @@ import { Grid, Container, Box } from "@mui/material";
 import Head from "next/head";
 import Layout from "../components/Layout/Layout";
 import Wallet from "../components/Cards/Wallet/Wallet";
+import CreateWallet from "../components/Modals/Wallet/CreateWallet";
 
 const wallets = () => {
   return (
@@ -19,6 +20,15 @@ const wallets = () => {
           }}
         >
           <Container maxWidth={false}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-start",
+                p: 2,
+              }}
+            >
+              <CreateWallet />
+            </Box>
             <Grid container spacing={3}>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
                 <Wallet />

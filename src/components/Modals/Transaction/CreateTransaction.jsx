@@ -15,7 +15,6 @@ import {
   InputLabel,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -108,7 +107,7 @@ const CreateTransaction = () => {
                 <Grid item md={6} xs={12} marginTop={3}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
-                      label="Date&Time picker"
+                      label="Date and Time"
                       value={date}
                       onChange={handleChange}
                       renderInput={(params) => <TextField {...params} />}

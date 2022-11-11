@@ -32,7 +32,7 @@ const AccountDetails = () => {
       setIsTouched(false);
     }
   };
-    
+
   const handleChangeLastName = (e) => {
     setLastName(e.target.value);
     if (user.last_name !== e.target.value) {
