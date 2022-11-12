@@ -15,12 +15,14 @@ import {
   InputLabel,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { createTransaction } from "../../../redux/features/transactionSlice";
 import { fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
+import { useForm } from "react-hook-form";
+import RHFSelect from "../../Forms/RHFSelect";
+import FormProvider from "../../Forms/FormProvider";
+import RHFDate from "../../Forms/RHFDate";
+import RHFTextField from "../../Forms/RHFTextField";
 
 const style = {
   position: "absolute",
@@ -37,30 +39,11 @@ const style = {
 const CreateTransaction = () => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategory);
-  const [category, setCategory] = useState("");
-  const [amount, setAmount] = useState("");
-  const [note, setNote] = useState("");
-  const [date, setDate] = useState(dayjs(new Date()));
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const clear = () => {
-    handleClose();
-    setAmount("");
-    setCategory("");
-    setNote("");
-    setDate("");
-  };
-
-  const handleChange = (e) => {
-    setDate(e.target.value);
-  };
-
-  const handleCreate = (e) => {
-    e.preventDefault();
-    dispatch(createTransaction({ category, amount, note, date }));
-    clear();
+  const handleClose = () => {
+    setOpen(false);
+    methods.reset({ category: "", amount: "", note: "", date: dayjs(new Date()) });
   };
 
   useEffect(() => {
@@ -69,6 +52,22 @@ const CreateTransaction = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // * REACT HOOK FORM
+  const methods = useForm({
+    defaultValues: {
+      category: "",
+      amount: "",
+      note: "",
+      date: dayjs(new Date()),
+    },
+  });
+
+  const onSubmit = (data) => {
+    dispatch(createTransaction(data));
+    methods.reset({ category: "", amount: "", note: "", date: dayjs(new Date()) });
+    handleClose();
+  };
 
   return (
     <>
@@ -81,80 +80,56 @@ const CreateTransaction = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} component="form" onSubmit={handleCreate}>
-          <Card>
-            <CardHeader subheader="Add a new transaction" title="Transaction" />
-            <Divider />
-            <CardContent>
-              <Grid container spacing={3}>
-                <Grid item md={6} xs={12}>
-                  <InputLabel id="select">Category</InputLabel>
-                  <Select
-                    fullWidth
-                    labelId="select"
-                    id="category"
-                    value={category}
-                    required
-                    onChange={(e) => setCategory(e.target.value)}
-                  >
-                    {categories.map((c) => (
-                      <MenuItem value={c.id} key={c.id}>
-                        {c.title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Grid>
-                <Grid item md={6} xs={12} marginTop={3}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateTimePicker
+        <Box sx={style}>
+          <FormProvider onSubmit={methods.handleSubmit(onSubmit)} methods={methods}>
+            <Card>
+              <CardHeader subheader="Add a new transaction" title="Transaction" />
+              <Divider />
+              <CardContent>
+                <Grid container spacing={3}>
+                  <Grid item md={6} xs={12}>
+                    <RHFSelect name={"category"} label="Category" inputId={"category-input"}>
+                      <InputLabel id="select">Category</InputLabel>
+                      {categories.map((c) => (
+                        <MenuItem value={c.id} key={c.id}>
+                          {c.title}
+                        </MenuItem>
+                      ))}
+                    </RHFSelect>
+                  </Grid>
+                  <Grid item md={6} xs={12} marginTop={3}>
+                    <RHFDate
+                      name={"date"}
                       label="Date and Time"
-                      value={date}
-                      onChange={handleChange}
-                      renderInput={(params) => <TextField {...params} />}
+                      inputId={"date-input"}
+                      renderInput={(props) => <TextField {...props} size="small" helperText={null} />}
                     />
-                  </LocalizationProvider>
+                  </Grid>
+                  <Grid item md={6} xs={12}>
+                    <RHFTextField name={"amount"} label="Amount" inputId={"amount-input"} />
+                  </Grid>
+                  <Grid item md={6} xs={12}>
+                    <RHFTextField name={"note"} label="Note" inputId={"note-input"} />
+                  </Grid>
                 </Grid>
-                <Grid item md={6} xs={12}>
-                  <TextField
-                    fullWidth
-                    type={"number"}
-                    label="amount"
-                    name="amount"
-                    required
-                    sx={{ textTransform: "capitalize" }}
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item md={6} xs={12}>
-                  <TextField
-                    fullWidth
-                    label="Note"
-                    name="Note"
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
-                    variant="outlined"
-                  />
-                </Grid>
-              </Grid>
-            </CardContent>
-            <Divider />
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                p: 2,
-              }}
-            >
-              <Button onClick={handleClose} color="error" size="small" variant="text">
-                Cancel
-              </Button>
-              <Button type="submit" color="success" size="small" variant="text">
-                Add
-              </Button>
-            </Box>
-          </Card>
+              </CardContent>
+              <Divider />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  p: 2,
+                }}
+              >
+                <Button onClick={handleClose} color="error" size="small" variant="text">
+                  Cancel
+                </Button>
+                <Button type="submit" color="success" size="small" variant="text">
+                  Add
+                </Button>
+              </Box>
+            </Card>
+          </FormProvider>
         </Box>
       </Modal>
     </>

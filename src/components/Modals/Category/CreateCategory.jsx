@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import {
-  Button,
-  Box,
-  Modal,
-  Card,
-  Divider,
-  CardHeader,
-  CardContent,
-  Grid,
-  TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-} from "@mui/material";
+import { Button, Box, Modal, Card, Divider, CardHeader, CardContent, Grid, MenuItem } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { createCategory, fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import FormProvider from "../../Forms/FormProvider";
+import RHFTextField from "../../Forms/RHFTextField";
+import RHFSelect from "../../Forms/RHFSelect";
 
 const style = {
   position: "absolute",
@@ -33,24 +23,11 @@ const style = {
 const CategoryModal = () => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategory);
-  const [title, setTitle] = useState("");
-  const [note, setNote] = useState("");
-  const [type, setType] = useState("");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const clear = () => {
-    handleClose();
-    setTitle("");
-    setType("");
-    setNote("");
-  };
-
-  const handleCreate = (e) => {
-    e.preventDefault();
-    dispatch(createCategory({ title, category_type: type }));
-    clear();
+  const handleClose = () => {
+    setOpen(false);
+    methods.reset({ title: "", category_type: "" });
   };
 
   useEffect(() => {
@@ -64,9 +41,15 @@ const CategoryModal = () => {
   const methods = useForm({
     defaultValues: {
       title: "",
-      type: "",
+      category_type: "",
     },
   });
+
+  const onSubmit = (data) => {
+    dispatch(createCategory(data));
+    methods.reset({ title: "", category_type: "" });
+    handleClose();
+  };
 
   return (
     <>
@@ -79,65 +62,41 @@ const CategoryModal = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} component="form" onSubmit={handleCreate}>
-          <Card>
-            <CardHeader subheader="Add a new category" title="Category" />
-            <Divider />
-            <CardContent>
-              <Grid container spacing={3}>
-                <Grid item md={6} xs={12}>
-                  <InputLabel id="title">Title</InputLabel>
-                  <Controller
-                    name="title"
-                    control={methods.control}
-                    rules={{ required: true }}
-                    render={({ field, fieldState: { error, isTouched } }) => (
-                      <TextField
-                        {...field}
-                        labelId="title"
-                        fullWidth
-                        name="title"
-                        required
-                        helperText={error?.message}
-                        error={error && isTouched}
-                        sx={{ textTransform: "capitalize" }}
-                        variant="outlined"
-                      />
-                    )}
-                  />
+        <Box sx={style}>
+          <FormProvider onSubmit={methods.handleSubmit(onSubmit)} methods={methods}>
+            <Card>
+              <CardHeader subheader="Add a new category" title="Category" />
+              <Divider />
+              <CardContent>
+                <Grid container spacing={3}>
+                  <Grid item md={6} xs={12}>
+                    <RHFTextField name="title" label={"Title"} inputId="title-input" />
+                  </Grid>
+                  <Grid item md={6} xs={12}>
+                    <RHFSelect name="category_type" label={"Category Type"} inputId="category-input">
+                      <MenuItem value="expense">Expense</MenuItem>
+                      <MenuItem value="income">Income</MenuItem>
+                    </RHFSelect>
+                  </Grid>
                 </Grid>
-                <Grid item md={6} xs={12}>
-                  <InputLabel id="select">Type</InputLabel>
-                  <Select
-                    fullWidth
-                    labelId="select"
-                    id="categoryType"
-                    value={type}
-                    required
-                    onChange={(e) => setType(e.target.value)}
-                  >
-                    <MenuItem value="expense">Expense</MenuItem>
-                    <MenuItem value="income">Income</MenuItem>
-                  </Select>
-                </Grid>
-              </Grid>
-            </CardContent>
-            <Divider />
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                p: 2,
-              }}
-            >
-              <Button onClick={clear} color="error" size="small" variant="text">
-                Cancel
-              </Button>
-              <Button type="submit" color="success" size="small" variant="text">
-                Create
-              </Button>
-            </Box>
-          </Card>
+              </CardContent>
+              <Divider />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  p: 2,
+                }}
+              >
+                <Button onClick={handleClose} color="error" size="small" variant="text">
+                  Cancel
+                </Button>
+                <Button type="submit" color="success" size="small" variant="text">
+                  Create
+                </Button>
+              </Box>
+            </Card>
+          </FormProvider>
         </Box>
       </Modal>
     </>
