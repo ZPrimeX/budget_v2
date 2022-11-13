@@ -1,12 +1,13 @@
 import React from 'react'
-import { Button, Card, CardContent, CardHeader, Divider, Grid, MenuItem } from '@mui/material'
-import { Box } from '@mui/system'
+import { Button, Card, CardContent, CardHeader, Divider, Grid, MenuItem, Box } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import FormProvider from '../FormProvider'
 import RHFSelect from '../RHFSelect'
 import RHFTextField from '../RHFTextField'
 import { createCategory } from '../../../redux/features/categorySlice'
 import { useForm } from 'react-hook-form'
+import * as Yup from 'yup'
+import {yupResolver} from '@hookform/resolvers/yup'
 
 const CategoryForm = ({onClose}) => {
     const dispatch = useDispatch();
@@ -21,9 +22,15 @@ const CategoryForm = ({onClose}) => {
         handleClose()
       };
 
+    const CategorySchema = Yup.object().shape({
+      title: Yup.string().required("This field is required!"),
+      category_type: Yup.string().required("This field is required!").oneOf(['expense', 'income'], 'Invalid data!' )
+    })
+
     // * REACT HOOK FORM
     const methods = useForm({
-    defaultValues: {
+      resolver: yupResolver(CategorySchema),
+      defaultValues: {
       title: "",
       category_type: "",
     },
