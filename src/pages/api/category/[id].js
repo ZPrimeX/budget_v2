@@ -16,13 +16,13 @@ async function handler(req, res) {
 
     const { id } = req.query;
 
-    // const category = await prisma.category.findUnique({ where: { id: id } });
+    const category = await prisma.category.findUnique({ where: { id: id } });
 
-    // if (category.owner_id !== user.id) {
-    //   return res.status(401).json({ message: "error", description: "Forbidden" });
-    // }
+    if (category.owner_id !== user.id) {
+      return res.status(401).json({ message: "error", description: "Forbidden" });
+    }
 
-    const editedCategory = await prisma.category.update({ where: { id: id, owner_id: user.id } }, { data: req.body });
+    const editedCategory = await prisma.category.update({ where: { id: id }, data: req.body });
 
     return Success(res, editedCategory);
   } catch (error) {

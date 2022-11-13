@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-const CategoryModal = () => {
+const CategoryModal = ({buttonText, editMode=false, categoryProps}) => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategory);
   const [open, setOpen] = useState(false);
@@ -34,7 +34,7 @@ const CategoryModal = () => {
   return (
     <>
       <Button onClick={handleOpen} color="primary" endIcon={<AddCircleOutlineIcon />} size="small" variant="text">
-        Add new
+        {buttonText}
       </Button>
       <Modal
         open={open}
@@ -43,7 +43,7 @@ const CategoryModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CategoryForm onClose={handleClose}/>
+          <CategoryForm onClose={handleClose} editMode={editMode} category={categoryProps}/>
         </Box>
       </Modal>
     </>

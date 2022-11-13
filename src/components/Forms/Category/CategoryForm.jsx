@@ -4,12 +4,12 @@ import { useDispatch } from 'react-redux'
 import FormProvider from '../FormProvider'
 import RHFSelect from '../RHFSelect'
 import RHFTextField from '../RHFTextField'
-import { createCategory } from '../../../redux/features/categorySlice'
+import { createCategory, editCategory } from '../../../redux/features/categorySlice'
 import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 
-const CategoryForm = ({onClose}) => {
+const CategoryForm = ({onClose, category, editMode = false}) => {
     const dispatch = useDispatch();
 
     const handleClose = () => {
@@ -18,7 +18,11 @@ const CategoryForm = ({onClose}) => {
     };
     
     const onSubmit = (data) => {
+        if(editMode){
+          dispatch(editCategory({id: category.id, body: data}))
+        }else{
         dispatch(createCategory(data));
+        }
         handleClose()
       };
 
@@ -31,8 +35,8 @@ const CategoryForm = ({onClose}) => {
     const methods = useForm({
       resolver: yupResolver(CategorySchema),
       defaultValues: {
-      title: "",
-      category_type: "",
+      title: category?.title || "",
+      category_type: category.category_type || "",
     },
     });
 

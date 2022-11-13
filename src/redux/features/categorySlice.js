@@ -12,8 +12,8 @@ export const fetchCategories = createAsyncThunk("category/fetchCategories", asyn
   return res.data;
 });
 
-export const editCategory = createAsyncThunk("category/editCategory", async (data) => {
-  const res = await req.patch("category/edit", data);
+export const editCategory = createAsyncThunk("category/editCategory", async ({ id, body }) => {
+  const res = await req.patch(`category/${id}`, body);
   return res.data;
 });
 
@@ -59,7 +59,12 @@ const categorySlice = createSlice({
       })
       .addCase(editCategory.fulfilled, (state, action) => {
         state.status = "fulfilled";
-        state.categories = [...state.categories, action.payload.body];
+        state.categories = state.categories.map((category) => {
+          if (category.id === action.payload.body.id) {
+            return (category = action.payload.body);
+          }
+          return category;
+        });
         toast.success("Success!");
       })
       .addCase(editCategory.rejected, (state) => {
