@@ -47,8 +47,6 @@ const CategoryModal = () => {
 
   const onSubmit = (data) => {
     dispatch(createCategory(data));
-    methods.reset({ title: "", category_type: "" });
-    handleClose();
   };
 
   return (

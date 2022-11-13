@@ -25,6 +25,7 @@ export const create = async (data) => {
         ...data,
       },
     });
+    console.log(newTransaction);
     return newTransaction;
   } catch (error) {
     console.log(error);

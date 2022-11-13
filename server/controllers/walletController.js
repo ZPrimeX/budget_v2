@@ -23,8 +23,6 @@ export const create = async (data, user) => {
   const newWallet = await prisma.wallet.create({
     data: {
       ...data,
-      initial_balance: +data.initial_balance,
-      balance: +data.initial_balance,
       income: 0,
       expense: 0,
       owner_id: user.id,

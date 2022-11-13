@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Button, Box, Modal, Card, Divider, CardHeader, CardContent, Grid, TextField, InputLabel } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { Controller, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import FormProvider from "../../Forms/FormProvider";
+import { createWallet } from "../../../redux/features/walletSlice";
+import RHFTextField from "../../Forms/RHFTextField";
 
 const style = {
   position: "absolute",
@@ -19,22 +22,11 @@ const style = {
 const WalletModal = () => {
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
-  const [balance, setBalance] = useState(0);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const clear = () => {
-    handleClose();
-    setTitle("");
-    setBalance("");
-  };
-
-  const handleCreate = (e) => {
-    e.preventDefault();
-    // dispatch(createWallet({ title, balance }));
-    clear();
+  const handleClose = () => {
+    setOpen(false);
+    methods.reset({ title: "", balance: 0 });
   };
 
   // * REACT HOOK FORM
@@ -44,6 +36,10 @@ const WalletModal = () => {
       balance: 0,
     },
   });
+
+  const onSubmit = (data) => {
+    dispatch(createWallet(data));
+  };
 
   return (
     <>
@@ -56,72 +52,38 @@ const WalletModal = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} component="form" onSubmit={handleCreate}>
-          <Card>
-            <CardHeader subheader="Add a new wallet" title="Wallet" />
-            <Divider />
-            <CardContent>
-              <Grid container spacing={3}>
-                <Grid item md={6} xs={12}>
-                  <InputLabel id="title">Title</InputLabel>
-                  <Controller
-                    name="title"
-                    control={methods.control}
-                    rules={{ required: true }}
-                    render={({ field, fieldState: { error, isTouched } }) => (
-                      <TextField
-                        {...field}
-                        labelId="title"
-                        fullWidth
-                        name="title"
-                        required
-                        helperText={error?.message}
-                        error={error && isTouched}
-                        sx={{ textTransform: "capitalize" }}
-                        variant="outlined"
-                      />
-                    )}
-                  />
+        <Box sx={style}>
+          <FormProvider onSubmit={methods.handleSubmit(onSubmit)} methods={methods}>
+            <Card>
+              <CardHeader subheader="Add a new wallet" title="Wallet" />
+              <Divider />
+              <CardContent>
+                <Grid container spacing={3}>
+                  <Grid item md={6} xs={12}>
+                    <RHFTextField name={"title"} label="Title" inputId={"title-input"} />
+                  </Grid>
+                  <Grid item md={6} xs={12}>
+                    <RHFTextField name={"balance"} label="Balance" inputId={"balance-input"} type="number" />
+                  </Grid>
                 </Grid>
-                <Grid item md={6} xs={12}>
-                  <InputLabel id="balance">Balance</InputLabel>
-                  <Controller
-                    name="balance"
-                    control={methods.control}
-                    rules={{ required: true }}
-                    render={({ field, fieldState: { error, isTouched } }) => (
-                      <TextField
-                        {...field}
-                        labelId="balance"
-                        fullWidth
-                        name="balance"
-                        required
-                        helperText={error?.message}
-                        error={error && isTouched}
-                        sx={{ textTransform: "capitalize" }}
-                        variant="outlined"
-                      />
-                    )}
-                  />
-                </Grid>
-              </Grid>
-            </CardContent>
-            <Divider />
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                p: 2,
-              }}
-            >
-              <Button onClick={clear} color="error" size="small" variant="text">
-                Cancel
-              </Button>
-              <Button type="submit" color="success" size="small" variant="text">
-                Create
-              </Button>
-            </Box>
-          </Card>
+              </CardContent>
+              <Divider />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  p: 2,
+                }}
+              >
+                <Button onClick={handleClose} color="error" size="small" variant="text">
+                  Cancel
+                </Button>
+                <Button type="submit" color="success" size="small" variant="text">
+                  Create
+                </Button>
+              </Box>
+            </Card>
+          </FormProvider>
         </Box>
       </Modal>
     </>

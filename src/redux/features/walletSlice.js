@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { req } from "../../utils/Axios";
+import { toast } from "react-toastify";
 
 export const createWallet = createAsyncThunk("wallet/createWallet", async (data) => {
   const res = await req.post("/wallet/new", data);
@@ -27,9 +28,11 @@ const walletSlice = createSlice({
       .addCase(createWallet.fulfilled, (state, action) => {
         state.status = "fulfilled";
         state.wallets = [...state.wallets, action.payload.body];
+        toast.success("Success!");
       })
       .addCase(createWallet.rejected, (state) => {
         state.status = "rejected";
+        toast.error("Error!");
       });
 
     // --- Fetching Wallets ---

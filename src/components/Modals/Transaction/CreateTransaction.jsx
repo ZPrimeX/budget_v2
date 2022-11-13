@@ -56,7 +56,7 @@ const CreateTransaction = () => {
   // * REACT HOOK FORM
   const methods = useForm({
     defaultValues: {
-      category: "",
+      category_id: "",
       amount: "",
       note: "",
       date: dayjs(new Date()),
@@ -65,7 +65,7 @@ const CreateTransaction = () => {
 
   const onSubmit = (data) => {
     dispatch(createTransaction(data));
-    methods.reset({ category: "", amount: "", note: "", date: dayjs(new Date()) });
+    methods.reset({ category_id: "", amount: "", note: "", date: dayjs(new Date()) });
     handleClose();
   };
 
@@ -88,8 +88,7 @@ const CreateTransaction = () => {
               <CardContent>
                 <Grid container spacing={3}>
                   <Grid item md={6} xs={12}>
-                    <RHFSelect name={"category"} label="Category" inputId={"category-input"}>
-                      <InputLabel id="select">Category</InputLabel>
+                    <RHFSelect name={"category_id"} label="Category" inputId={"category-input"}>
                       {categories.map((c) => (
                         <MenuItem value={c.id} key={c.id}>
                           {c.title}
@@ -97,7 +96,7 @@ const CreateTransaction = () => {
                       ))}
                     </RHFSelect>
                   </Grid>
-                  <Grid item md={6} xs={12} marginTop={3}>
+                  <Grid item md={6} xs={12} marginTop={1}>
                     <RHFDate
                       name={"date"}
                       label="Date and Time"
@@ -106,7 +105,7 @@ const CreateTransaction = () => {
                     />
                   </Grid>
                   <Grid item md={6} xs={12}>
-                    <RHFTextField name={"amount"} label="Amount" inputId={"amount-input"} />
+                    <RHFTextField name={"amount"} label="Amount" inputId={"amount-input"} type="number" />
                   </Grid>
                   <Grid item md={6} xs={12}>
                     <RHFTextField name={"note"} label="Note" inputId={"note-input"} />

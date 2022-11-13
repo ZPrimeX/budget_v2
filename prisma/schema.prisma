@@ -27,22 +27,21 @@ model User {
 }
 
 model Wallet {
-  id              String        @id @default(auto()) @map("_id") @db.ObjectId
-  title           String
-  initial_balance Int
-  balance         Int?
-  income          Int?
-  expense         Int?
-  owner           User          @relation(fields: [owner_id], references: [id])
-  owner_id        String        @db.ObjectId
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  Transaction     Transaction[]
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  balance     Int
+  income      Int?
+  expense     Int?
+  owner       User          @relation(fields: [owner_id], references: [id])
+  owner_id    String        @db.ObjectId
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Transaction Transaction[]
 }
 
 model Transaction {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  amount      Float
+  amount      Int
   note        String?
   date        DateTime
   createdAt   DateTime @default(now())
