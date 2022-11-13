@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { Button, Box, Modal, Card, Divider, CardHeader, CardContent, Grid, MenuItem } from "@mui/material";
+import { Button, Box, Modal } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { createCategory, fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
-import { useForm } from "react-hook-form";
-import FormProvider from "../../Forms/FormProvider";
-import RHFTextField from "../../Forms/RHFTextField";
-import RHFSelect from "../../Forms/RHFSelect";
+import {  fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
+import CategoryForm from "../../Forms/Category/CategoryForm";
 
 const style = {
   position: "absolute",
@@ -25,10 +22,7 @@ const CategoryModal = () => {
   const categories = useSelector(selectCategory);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    methods.reset({ title: "", category_type: "" });
-  };
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     if (!categories.length) {
@@ -36,18 +30,6 @@ const CategoryModal = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // * REACT HOOK FORM
-  const methods = useForm({
-    defaultValues: {
-      title: "",
-      category_type: "",
-    },
-  });
-
-  const onSubmit = (data) => {
-    dispatch(createCategory(data));
-  };
 
   return (
     <>
@@ -61,40 +43,7 @@ const CategoryModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <FormProvider onSubmit={methods.handleSubmit(onSubmit)} methods={methods}>
-            <Card>
-              <CardHeader subheader="Add a new category" title="Category" />
-              <Divider />
-              <CardContent>
-                <Grid container spacing={3}>
-                  <Grid item md={6} xs={12}>
-                    <RHFTextField name="title" label={"Title"} inputId="title-input" />
-                  </Grid>
-                  <Grid item md={6} xs={12}>
-                    <RHFSelect name="category_type" label={"Category Type"} inputId="category-input">
-                      <MenuItem value="expense">Expense</MenuItem>
-                      <MenuItem value="income">Income</MenuItem>
-                    </RHFSelect>
-                  </Grid>
-                </Grid>
-              </CardContent>
-              <Divider />
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  p: 2,
-                }}
-              >
-                <Button onClick={handleClose} color="error" size="small" variant="text">
-                  Cancel
-                </Button>
-                <Button type="submit" color="success" size="small" variant="text">
-                  Create
-                </Button>
-              </Box>
-            </Card>
-          </FormProvider>
+          <CategoryForm onClose={handleClose}/>
         </Box>
       </Modal>
     </>
