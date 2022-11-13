@@ -29,17 +29,7 @@ const wallets = () => {
             >
               <CreateWallet />
             </Box>
-            <Grid container spacing={3}>
-              <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <Wallet />
-              </Grid>
-              <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <Wallet />
-              </Grid>
-              <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <Wallet />
-              </Grid>
-            </Grid>
+            <Wallet />
           </Container>
         </Box>
       </Layout>

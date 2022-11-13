@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Button, Box, Modal, Card, Divider, CardHeader, CardContent, Grid, TextField, InputLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import FormProvider from "../../Forms/FormProvider";
-import { createWallet } from "../../../redux/features/walletSlice";
+import { createWallet, fetchWallets, selectWallet } from "../../../redux/features/walletSlice";
 import RHFTextField from "../../Forms/RHFTextField";
 
 const style = {
@@ -21,6 +21,7 @@ const style = {
 
 const WalletModal = () => {
   const dispatch = useDispatch();
+  const wallets = useSelector(selectWallet);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -28,6 +29,13 @@ const WalletModal = () => {
     setOpen(false);
     methods.reset({ title: "", balance: 0 });
   };
+
+  useEffect(() => {
+    if (!wallets.length) {
+      dispatch(fetchWallets());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // * REACT HOOK FORM
   const methods = useForm({
@@ -39,6 +47,7 @@ const WalletModal = () => {
 
   const onSubmit = (data) => {
     dispatch(createWallet(data));
+    handleClose()
   };
 
   return (

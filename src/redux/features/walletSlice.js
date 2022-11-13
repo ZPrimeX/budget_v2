@@ -52,4 +52,4 @@ const walletSlice = createSlice({
 });
 
 export default walletSlice.reducer;
-export const selectWallet = (state) => state.wallet;
+export const selectWallet = (state) => state.wallet.wallets;

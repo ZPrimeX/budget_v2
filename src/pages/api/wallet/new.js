@@ -17,7 +17,6 @@ async function handler(req, res) {
     const result = await create(req.body, user);
     Success(res, result);
   } catch (error) {
-    console.log(error);
     return ServerError(res);
   }
 }
