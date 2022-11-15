@@ -17,6 +17,11 @@ export const editCategory = createAsyncThunk("category/editCategory", async ({ i
   return res.data;
 });
 
+export const deleteCategory = createAsyncThunk("category/deleteCategory", async ({ id, body }) => {
+  const res = await req.delete(`category/${id}`);
+  return res.data;
+});
+
 const categorySlice = createSlice({
   name: "category",
   initialState: {
@@ -25,7 +30,7 @@ const categorySlice = createSlice({
   },
   reducers: {},
   extraReducers(builder) {
-    // --- Create category ---
+    //* --- CREATE ---
     builder
       .addCase(createCategory.pending, (state) => {
         state.status = "pending";
@@ -33,13 +38,13 @@ const categorySlice = createSlice({
       .addCase(createCategory.fulfilled, (state, action) => {
         state.status = "fulfilled";
         state.categories = [...state.categories, action.payload.body];
-        toast.success("Success!");
+        toast.success("Created!");
       })
       .addCase(createCategory.rejected, (state) => {
         state.status = "rejected";
       });
 
-    // --- Fetch Categories
+    //* --- FETCH ---
     builder
       .addCase(fetchCategories.pending, (state) => {
         state.status = "pending";
@@ -52,7 +57,7 @@ const categorySlice = createSlice({
         state.status = "rejected";
       });
 
-    // --- Edit category ---
+    //? --- EDIT ---
     builder
       .addCase(editCategory.pending, (state) => {
         state.status = "pending";
@@ -65,12 +70,33 @@ const categorySlice = createSlice({
           }
           return category;
         });
-        toast.success("Success!");
+        toast.success("Saved!");
       })
       .addCase(editCategory.rejected, (state) => {
         state.status = "rejected";
         toast.error("Something went wrong!");
       });
+
+    //! --- DELETE  ---
+    // builder
+    //   .addCase(deleteCategory.pending, (state) => {
+    //     state.status = "pending";
+    //   })
+    //   .addCase(deleteCategory.fulfilled, (state, action) => {
+    //     state.status = "fulfilled";
+    //     TODO: change line 82 from map to delete */
+    //     state.categories = state.categories.map((category) => {
+    //       if (category.id === action.payload.body.id) {
+    //         return (category = action.payload.body);
+    //       }
+    //       return category;
+    //     });
+    //     toast.success("Success!");
+    //   })
+    //   .addCase(deleteCategory.rejected, (state) => {
+    //     state.status = "rejected";
+    //     toast.error("Something went wrong!");
+    //   });
   },
 });
 

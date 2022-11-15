@@ -136,7 +136,7 @@ const authSlice = createSlice({
         state.first_name = action.payload.body.first_name;
         state.last_name = action.payload.body.last_name;
         state.email = action.payload.body.email;
-        toast.success("Success!");
+        toast.success("Saved!");
       })
       .addCase(updateProfile.rejected, (state) => {
         state.status = "rejected";

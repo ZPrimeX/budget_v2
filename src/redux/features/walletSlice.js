@@ -28,7 +28,7 @@ const walletSlice = createSlice({
       .addCase(createWallet.fulfilled, (state, action) => {
         state.status = "fulfilled";
         state.wallets = [...state.wallets, action.payload.body];
-        toast.success("Success!");
+        toast.success("Created!");
       })
       .addCase(createWallet.rejected, (state) => {
         state.status = "rejected";

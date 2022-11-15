@@ -19,16 +19,11 @@ const style = {
   p: 4,
 };
 
-const WalletModal = () => {
-  const dispatch = useDispatch();
+const WalletModal = ({onClose, wallet, editMode = false}) => {
   const wallets = useSelector(selectWallet);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    methods.reset({ title: "", balance: 0 });
-  };
 
   useEffect(() => {
     if (!wallets.length) {
