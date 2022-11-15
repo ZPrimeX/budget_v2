@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { Button, Box, Modal, Card, Divider, CardHeader, CardContent, Grid, TextField, InputLabel } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
-import FormProvider from "../../Forms/FormProvider";
-import { createWallet, fetchWallets, selectWallet } from "../../../redux/features/walletSlice";
-import RHFTextField from "../../Forms/RHFTextField";
+import { Button, Box, Modal} from "@mui/material";
+import { fetchWallets, selectWallet } from "../../../redux/features/walletSlice";
+import { useDispatch } from "react-redux";
+import WalletForm from "../../Forms/Wallet/WalletForm";
 
 const style = {
   position: "absolute",
@@ -19,11 +17,13 @@ const style = {
   p: 4,
 };
 
-const WalletModal = ({onClose, wallet, editMode = false}) => {
+const WalletModal = ({buttonText, editMode = false, walletProps}) => {
+  const dispatch = useDispatch();
   const wallets = useSelector(selectWallet);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     if (!wallets.length) {
@@ -32,23 +32,10 @@ const WalletModal = ({onClose, wallet, editMode = false}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // * REACT HOOK FORM
-  const methods = useForm({
-    defaultValues: {
-      title: "",
-      balance: 0,
-    },
-  });
-
-  const onSubmit = (data) => {
-    dispatch(createWallet(data));
-    handleClose()
-  };
-
   return (
     <>
       <Button onClick={handleOpen} color="primary" endIcon={<AddCircleOutlineIcon />} size="small" variant="text">
-        Add new
+        {buttonText}
       </Button>
       <Modal
         open={open}
@@ -57,37 +44,7 @@ const WalletModal = ({onClose, wallet, editMode = false}) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <FormProvider onSubmit={methods.handleSubmit(onSubmit)} methods={methods}>
-            <Card>
-              <CardHeader subheader="Add a new wallet" title="Wallet" />
-              <Divider />
-              <CardContent>
-                <Grid container spacing={3}>
-                  <Grid item md={6} xs={12}>
-                    <RHFTextField name={"title"} label="Title" inputId={"title-input"} />
-                  </Grid>
-                  <Grid item md={6} xs={12}>
-                    <RHFTextField name={"balance"} label="Balance" inputId={"balance-input"} type="number" />
-                  </Grid>
-                </Grid>
-              </CardContent>
-              <Divider />
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  p: 2,
-                }}
-              >
-                <Button onClick={handleClose} color="error" size="small" variant="text">
-                  Cancel
-                </Button>
-                <Button type="submit" color="success" size="small" variant="text">
-                  Create
-                </Button>
-              </Box>
-            </Card>
-          </FormProvider>
+          <WalletForm onClose={handleClose} editMode={editMode} wallet={walletProps} />
         </Box>
       </Modal>
     </>
