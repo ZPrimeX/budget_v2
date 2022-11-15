@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { Button, Box, Modal} from "@mui/material";
+import { Button, Box, Modal } from "@mui/material";
 import { fetchWallets, selectWallet } from "../../../redux/features/walletSlice";
 import { useDispatch } from "react-redux";
 import WalletForm from "../../Forms/Wallet/WalletForm";
@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-const WalletModal = ({buttonText, editMode = false, walletProps}) => {
+const WalletModal = ({ buttonText, editMode = false, walletProps }) => {
   const dispatch = useDispatch();
   const wallets = useSelector(selectWallet);
 
