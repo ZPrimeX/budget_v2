@@ -12,6 +12,16 @@ export const fetchWallets = createAsyncThunk("wallet/fetchWallets", async () => 
   return res.data;
 });
 
+export const editWallet = createAsyncThunk("wallet/editWallet", async ({ id, body }) => {
+  const res = await req.patch(`category/${id}`, body);
+  return res.data;
+});
+
+export const deleteWallet = createAsyncThunk("wallet/deleteWallet", async ({ id }) => {
+  const res = await req.delete(`wallet/${id}`);
+  return res.data;
+});
+
 const walletSlice = createSlice({
   name: "wallet",
   initialState: {
@@ -20,7 +30,7 @@ const walletSlice = createSlice({
   },
   reducers: {},
   extraReducers(builder) {
-    // ---Create Wallet---
+    //* --- CREATE ---
     builder
       .addCase(createWallet.pending, (state) => {
         state.status = "pending";
@@ -35,7 +45,7 @@ const walletSlice = createSlice({
         toast.error("Error!");
       });
 
-    // --- Fetching Wallets ---
+    //* --- FETCH ---
 
     builder
       .addCase(fetchWallets.pending, (state) => {
@@ -47,6 +57,43 @@ const walletSlice = createSlice({
       })
       .addCase(fetchWallets.rejected, (state) => {
         state.status = "rejected";
+      });
+
+    //? --- EDIT ---
+    builder
+      .addCase(editWallet.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(editWallet.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.wallets = state.wallets.map((wallet) => {
+          if (wallet.id === action.payload.body.id) {
+            return (wallet.title = action.payload.body.title);
+          }
+          return wallet;
+        });
+        toast.success("Saved!");
+      })
+      .addCase(editWallet.rejected, (state) => {
+        state.status = "rejected";
+        toast.error("Something went wrong!");
+      });
+
+    //! --- DELETE ---
+    builder
+      .addCase(deleteWallet.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(deleteWallet.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.wallets = state.wallets.filter((wallet) => {
+          wallet.id !== action.payload.body;
+        });
+        toast.success("Success");
+      })
+      .addCase(deleteWallet.rejected, (state) => {
+        state.status = "rejected";
+        toast.error("Something went wrong!");
       });
   },
 });
