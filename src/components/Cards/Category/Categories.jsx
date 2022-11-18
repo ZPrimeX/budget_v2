@@ -18,14 +18,14 @@ const Category = (props) => {
             p: 2,
           }}
         >
-          <CreateCategory buttonText={'Create'}/>
+          <CreateCategory buttonText={"Create"} categoryProps={categories} editMode={false} />
         </Box>
         <Divider />
         <CardHeader subtitle={`${categories.length} in total`} title="Categories" />
         <Divider />
         <List>
           {categories.map((category, i) => (
-            <CategoryItem category={category} i={i} category_length={categories.length} key={category.id}/>
+            <CategoryItem category={category} i={i} category_length={categories.length} key={category.id} />
           ))}
         </List>
       </Card>
@@ -35,20 +35,19 @@ const Category = (props) => {
 
 export default Category;
 
-
-function CategoryItem({category, i, category_length}){
+function CategoryItem({ category, i, category_length }) {
   return (
     <ListItem divider={i < category_length.length - 1} key={category.id}>
-              <ListItemText primary={category.title} />
-              <Box display={"flex"} width={"100px"} height={"100%"} justifyContent="space-around">
-                {/* <IconButton edge="end" size="small">
+      <ListItemText primary={category.title} />
+      <Box display={"flex"} width={"100px"} height={"100%"} justifyContent="space-around">
+        {/* <IconButton edge="end" size="small">
                   <EditOutlinedIcon color="primary" />
                 </IconButton> */}
-                <CreateCategory buttonText={'Edit'} editMode={true} categoryProps={category}/>
-                <IconButton edge="end" size="small">
-                  <DeleteOutlineOutlinedIcon color="error" />
-                </IconButton>
-              </Box>
-            </ListItem>
-  )
+        <CreateCategory buttonText={"Edit"} editMode={true} categoryProps={category} />
+        <IconButton edge="end" size="small">
+          <DeleteOutlineOutlinedIcon color="error" />
+        </IconButton>
+      </Box>
+    </ListItem>
+  );
 }

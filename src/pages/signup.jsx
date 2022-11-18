@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
-import { Box, Button, Container, Link, TextField, Alert, Typography, Grid } from "@mui/material";
+import { Box, Button, Container, Link, TextField, Alert, Typography } from "@mui/material";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { signup } from "../redux/features/authSlice";

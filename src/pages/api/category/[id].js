@@ -13,6 +13,7 @@ async function handler(req, res) {
 
       return Success(res, editedCategory);
     } catch (error) {
+      console.log(error);
       return ServerError(res);
     }
   } else if (req.method === "DELETE") {

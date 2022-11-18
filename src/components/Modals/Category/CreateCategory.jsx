@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Button, Box, Modal } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import {  fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
+import { fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
 import CategoryForm from "../../Forms/Category/CategoryForm";
 
 const style = {
@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-const CategoryModal = ({buttonText, editMode=false, categoryProps}) => {
+const CategoryModal = ({ buttonText, editMode = false, categoryProps }) => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategory);
   const [open, setOpen] = useState(false);
@@ -43,7 +43,7 @@ const CategoryModal = ({buttonText, editMode=false, categoryProps}) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CategoryForm onClose={handleClose} editMode={editMode} category={categoryProps}/>
+          <CategoryForm onClose={handleClose} editMode={editMode} category={categoryProps} />
         </Box>
       </Modal>
     </>
