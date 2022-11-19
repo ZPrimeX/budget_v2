@@ -10,6 +10,7 @@ import RHFSelect from "../../Forms/RHFSelect";
 import FormProvider from "../../Forms/FormProvider";
 import RHFDate from "../../Forms/RHFDate";
 import RHFTextField from "../../Forms/RHFTextField";
+import { selectCurrentWallet } from "../../../redux/features/walletSlice";
 
 const style = {
   position: "absolute",
@@ -25,12 +26,15 @@ const style = {
 
 const CreateTransaction = () => {
   const dispatch = useDispatch();
+
   const categories = useSelector(selectCategory);
+  const currentWallet = useSelector(selectCurrentWallet);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    methods.reset({ category: "", amount: "", note: "", date: dayjs(new Date()) });
+    methods.reset({ category_id: "", amount: "", note: "", date: dayjs(new Date()) });
   };
 
   useEffect(() => {
@@ -51,7 +55,7 @@ const CreateTransaction = () => {
   });
 
   const onSubmit = (data) => {
-    dispatch(createTransaction(data));
+    dispatch(createTransaction({ ...data, amount: +data.amount, wallet_id: currentWallet?.id }));
     methods.reset({ category_id: "", amount: "", note: "", date: dayjs(new Date()) });
     handleClose();
   };

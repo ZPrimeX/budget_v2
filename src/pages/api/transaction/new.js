@@ -10,9 +10,10 @@ async function handler(req, res) {
   NoData(req, res);
 
   try {
-    const result = await create(req.body, wallet);
+    const result = await create(req.body);
     Success(res, result);
   } catch (error) {
+    // TODO: change ServerError(res) to ServerError(res, error)
     return ServerError(res);
   }
 }

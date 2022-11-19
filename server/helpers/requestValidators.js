@@ -9,6 +9,7 @@ export const Success = (res, data) => {
 };
 
 export const ServerError = (res) => {
+  //TODO: change "server error" to error you get from props
   res.status(500).json({ message: "server error" });
 };
 

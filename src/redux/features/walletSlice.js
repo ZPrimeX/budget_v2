@@ -26,6 +26,7 @@ const walletSlice = createSlice({
   name: "wallet",
   initialState: {
     wallets: [],
+    current: null,
     status: "idle",
   },
   reducers: {},
@@ -54,6 +55,7 @@ const walletSlice = createSlice({
       .addCase(fetchWallets.fulfilled, (state, action) => {
         state.status = "fulfilled";
         state.wallets = action.payload.body;
+        state.current = action.payload.body.at(0);
       })
       .addCase(fetchWallets.rejected, (state) => {
         state.status = "rejected";
@@ -100,3 +102,4 @@ const walletSlice = createSlice({
 
 export default walletSlice.reducer;
 export const selectWallet = (state) => state.wallet.wallets;
+export const selectCurrentWallet = (state) => state.wallet.current;
