@@ -36,7 +36,7 @@ const WalletForm = ({ onClose, wallet, editMode }) => {
     resolver: yupResolver(WalletSchema),
     defaultValues: {
       title: wallet?.title || "",
-      balance: wallet?.balance || 0,
+      balance: +wallet?.balance || 0,
     },
   });
 

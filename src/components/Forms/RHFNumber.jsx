@@ -1,7 +1,6 @@
 import React from "react";
 import { InputLabel, Stack, TextField } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
-import NumberFormat from "react-number-format";
 
 const RHFNumber = ({ name, inputId, label, ...others }) => {
   const { control } = useFormContext();

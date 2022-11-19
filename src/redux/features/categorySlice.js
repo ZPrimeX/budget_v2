@@ -17,7 +17,7 @@ export const editCategory = createAsyncThunk("category/editCategory", async ({ i
   return res.data;
 });
 
-export const deleteCategory = createAsyncThunk("category/deleteCategory", async ({ id }) => {
+export const deleteCategory = createAsyncThunk("category/deleteCategory", async (id) => {
   const res = await req.delete(`category/${id}`);
   return res.data;
 });
