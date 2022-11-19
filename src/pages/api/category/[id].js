@@ -9,7 +9,8 @@ async function handler(req, res) {
   if (req.method === "PATCH") {
     try {
       reqValidator(req, res);
-      const editedCategory = await prisma.category.update({ where: { id: id }, data: req.body });
+
+      const editedCategory = await prisma.category.update({ where: { id: req.query.id }, data: req.body });
 
       return Success(res, editedCategory);
     } catch (error) {
@@ -19,7 +20,7 @@ async function handler(req, res) {
   } else if (req.method === "DELETE") {
     try {
       reqValidator(req, res);
-      const deletedCategory = await prisma.category.delete({ where: { id: id } });
+      const deletedCategory = await prisma.category.delete({ where: { id: req.query.id } });
 
       return Success(res, deletedCategory.id);
     } catch (error) {

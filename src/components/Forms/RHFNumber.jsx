@@ -1,8 +1,9 @@
 import React from "react";
 import { InputLabel, Stack, TextField } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
+import NumberFormat from "react-number-format";
 
-const RHFTextField = ({ name, inputId, label, ...others }) => {
+const RHFNumber = ({ name, inputId, label, ...others }) => {
   const { control } = useFormContext();
 
   return (
@@ -13,14 +14,22 @@ const RHFTextField = ({ name, inputId, label, ...others }) => {
           name={name}
           control={control}
           render={({ field, fieldState: { error, isTouched } }) => (
+            // <NumberFormat
+            //   {...field}
+            //   id={inputId}
+            //   error={error && isTouched}
+            //   helperText={error?.message}
+            //   thousandSeparator
+            //   isNumericString
+            //   prefix="$"
+            //   {...others}
+            // />
             <TextField
               {...field}
-              fullWidth
               id={inputId}
               error={error && isTouched}
               helperText={error?.message}
-              sx={{ textTransform: "capitalize" }}
-              variant="outlined"
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*", prefix: "$" }}
               {...others}
             />
           )}
@@ -30,4 +39,4 @@ const RHFTextField = ({ name, inputId, label, ...others }) => {
   );
 };
 
-export default RHFTextField;
+export default RHFNumber;

@@ -1,18 +1,19 @@
 import React from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
-import { FormProvider } from "../FormProvider";
-import { Box, Button, Card, CardContent, CardHeader, Divider, Grid } from "@mui/material";
-import { RHFTextField } from "../RHFTextField";
 import { createWallet, editWallet } from "../../../redux/features/walletSlice";
+import * as Yup from "yup";
+import { useForm } from "react-hook-form";
+import FormProvider from "../FormProvider";
+import { Box, Button, Card, CardContent, CardHeader, Divider, Grid } from "@mui/material";
+import RHFTextField from "../RHFTextField";
+import { yupResolver } from "@hookform/resolvers/yup";
+import RHFNumber from "../RHFNumber";
 
-const WalletForm = () => {
+const WalletForm = ({ onClose, wallet, editMode }) => {
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    setOpen(false);
+    onClose();
     methods.reset({ title: "", balance: 0 });
   };
 
@@ -27,6 +28,7 @@ const WalletForm = () => {
 
   const WalletSchema = Yup.object().shape({
     title: Yup.string().required("This field is required!"),
+    balance: Yup.number().required("This field is required!"),
   });
 
   // * REACT HOOK FORM
@@ -34,7 +36,7 @@ const WalletForm = () => {
     resolver: yupResolver(WalletSchema),
     defaultValues: {
       title: wallet?.title || "",
-      balance: wallet.balance || 0,
+      balance: wallet?.balance || 0,
     },
   });
 
@@ -50,7 +52,8 @@ const WalletForm = () => {
                 <RHFTextField name={"title"} label="Title" inputId={"title-input"} />
               </Grid>
               <Grid item md={6} xs={12}>
-                <RHFTextField name={"balance"} label="Balance" inputId={"balance-input"} type="number" />
+                {/* <RHFTextField name={"balance"} label="Balance" inputId={"balance-input"} type="number" /> */}
+                <RHFNumber name={"balance"} label="Balance" inputId={"balance-input"} />
               </Grid>
             </Grid>
           </CardContent>

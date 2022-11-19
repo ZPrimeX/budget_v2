@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-const CategoryForm = ({ onClose, category, editMode = false }) => {
+const CategoryForm = ({ onClose, editMode = false, category }) => {
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -35,7 +35,7 @@ const CategoryForm = ({ onClose, category, editMode = false }) => {
   const methods = useForm({
     resolver: yupResolver(CategorySchema),
     defaultValues: {
-      title: category?.title || "",
+      title: category.title || "",
       category_type: category.category_type || "",
     },
   });

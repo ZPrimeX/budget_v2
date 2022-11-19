@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Container, Box } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import Head from "next/head";
 import Layout from "../components/Layout/Layout";
 import Wallet from "../components/Cards/Wallet/Wallet";
@@ -27,7 +27,7 @@ const wallets = () => {
                 p: 2,
               }}
             >
-              <CreateWallet />
+              <CreateWallet buttonText={"Create"} />
             </Box>
             <Wallet />
           </Container>
