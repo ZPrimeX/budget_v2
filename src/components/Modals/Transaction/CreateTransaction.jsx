@@ -10,7 +10,7 @@ import RHFSelect from "../../Forms/RHFSelect";
 import FormProvider from "../../Forms/FormProvider";
 import RHFDate from "../../Forms/RHFDate";
 import RHFTextField from "../../Forms/RHFTextField";
-import { selectCurrentWallet } from "../../../redux/features/walletSlice";
+import { findWallet, selectCurrentWallet } from "../../../redux/features/walletSlice";
 
 const style = {
   position: "absolute",
@@ -54,8 +54,15 @@ const CreateTransaction = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    dispatch(createTransaction({ ...data, amount: +data.amount, wallet_id: currentWallet?.id }));
+  const onSubmit = async (data) => {
+    await dispatch(
+      createTransaction({
+        ...data,
+        amount: +data.amount,
+        wallet_id: currentWallet?.id,
+      })
+    );
+    dispatch(findWallet(currentWallet?.id));
     methods.reset({ category_id: "", amount: "", note: "", date: dayjs(new Date()) });
     handleClose();
   };

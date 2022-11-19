@@ -1,20 +1,28 @@
+import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import { Button, Menu, MenuItem } from "@mui/material";
 import * as React from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentWallet, selectWallet } from "../../../redux/features/walletSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { changeWallet, selectCurrentWallet, selectWallet } from "../../../redux/features/walletSlice";
 
 const WalletMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
+  const dispatch = useDispatch();
   const wallets = useSelector(selectWallet);
   const currentWallet = useSelector(selectCurrentWallet);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleChangeWallet = (id) => {
+    dispatch(changeWallet(id));
+    handleClose();
   };
 
   return (
@@ -25,6 +33,8 @@ const WalletMenu = () => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        variant="outlined"
+        endIcon={open ? <ArrowUpward /> : <ArrowDownward />}
       >
         {currentWallet?.title}
       </Button>
@@ -38,7 +48,7 @@ const WalletMenu = () => {
         }}
       >
         {wallets.map((w) => (
-          <MenuItem key={w.id} onClick={handleClose}>
+          <MenuItem key={w.id} onClick={() => handleChangeWallet(w.id)}>
             {w.title}
           </MenuItem>
         ))}

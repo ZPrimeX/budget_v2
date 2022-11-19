@@ -22,6 +22,11 @@ export const deleteWallet = createAsyncThunk("wallet/deleteWallet", async ({ id 
   return res.data;
 });
 
+export const findWallet = createAsyncThunk("wallet/findWallet", async (id) => {
+  const res = await req.get(`wallet/${id}`);
+  return res.data;
+});
+
 const walletSlice = createSlice({
   name: "wallet",
   initialState: {
@@ -29,7 +34,11 @@ const walletSlice = createSlice({
     current: null,
     status: "idle",
   },
-  reducers: {},
+  reducers: {
+    changeWallet: (state, action) => {
+      state.current = state.wallets.find((w) => w.id === action.payload);
+    },
+  },
   extraReducers(builder) {
     //* --- CREATE ---
     builder
@@ -97,9 +106,32 @@ const walletSlice = createSlice({
         state.status = "rejected";
         toast.error("Something went wrong!");
       });
+
+    //* --- FIND ONE WALLET ---
+
+    builder
+      .addCase(findWallet.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(findWallet.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.current = action.payload.body;
+        state.wallets = state.wallets.map((w) => {
+          if (w.id === action.payload.body.id) {
+            return (w = action.payload.body);
+          }
+          return w;
+        });
+      })
+      .addCase(findWallet.rejected, (state) => {
+        state.status = "rejected";
+      });
   },
 });
 
 export default walletSlice.reducer;
+
+export const { changeWallet } = walletSlice.actions;
+
 export const selectWallet = (state) => state.wallet.wallets;
 export const selectCurrentWallet = (state) => state.wallet.current;

@@ -21,6 +21,9 @@ import WalletMenu from "../../Modals/Wallet/WalletMenu";
 
 const Transaction = (props) => {
   const categories = useSelector(selectCategory);
+
+  //TODO: useEffect => dependency array currentWallet.id
+
   return (
     <>
       <Card {...props}>
