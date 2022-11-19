@@ -10,7 +10,7 @@ async function handler(req, res) {
   NoData(req, res);
 
   try {
-    const result = await create(req.body);
+    const result = await create(req.body, wallet);
     Success(res, result);
   } catch (error) {
     return ServerError(res);

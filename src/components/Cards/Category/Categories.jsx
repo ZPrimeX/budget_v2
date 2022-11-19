@@ -1,10 +1,10 @@
 import React from "react";
-import { Box, Card, CardHeader, Divider, IconButton, List, ListItem, ListItemText } from "@mui/material";
+import { Box, Card, CardHeader, Divider, List, ListItem, ListItemText } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectCategory } from "../../../redux/features/categorySlice";
 import CreateCategory from "../../Modals/Category/CreateCategory";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import DeleteCategory from "../../Modals/Category/DeleteCategory";
 
 const Category = (props) => {
   const categories = useSelector(selectCategory);
@@ -40,14 +40,15 @@ function CategoryItem({ category, i, category_length }) {
     <ListItem divider={i < category_length.length - 1} key={category.id}>
       <ListItemText primary={category.title} />
       <Box display={"flex"} width={"100px"} height={"100%"} justifyContent="space-around">
-        {/* <IconButton edge="end" size="small">
-                  <EditOutlinedIcon color="primary" />
-                </IconButton> */}
         <CreateCategory buttonText={"Edit"} editMode={true} categoryProps={category} />
-        <IconButton edge="end" size="small">
-          <DeleteOutlineOutlinedIcon color="error" />
-        </IconButton>
+        <DeleteCategory category={category} />
       </Box>
     </ListItem>
   );
+}
+
+{
+  /* <IconButton edge="end" size="small">
+                  <EditOutlinedIcon color="primary" />
+                </IconButton> */
 }

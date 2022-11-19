@@ -18,14 +18,14 @@ export const findUnique = async (transaction) => {
   return transactions;
 };
 
-export const create = async (data) => {
+export const create = async (data, wallet) => {
   try {
     const newTransaction = await prisma.transaction.create({
       data: {
         ...data,
+        wallet_id: wallet.id,
       },
     });
-    console.log(newTransaction);
     return newTransaction;
   } catch (error) {
     console.log(error);
