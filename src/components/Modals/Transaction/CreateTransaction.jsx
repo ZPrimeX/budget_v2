@@ -83,7 +83,7 @@ const CreateTransaction = () => {
                       ))}
                     </RHFSelect>
                   </Grid>
-                  <Grid item md={6} xs={12} marginTop={1}>
+                  <Grid item md={6} xs={12}>
                     <RHFDate
                       name={"date"}
                       label="Date and Time"
