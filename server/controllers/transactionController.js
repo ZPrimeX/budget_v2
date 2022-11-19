@@ -40,7 +40,6 @@ export const create = async (data) => {
 
     return newTransaction;
   } catch (error) {
-    // TODO: Do the same for all controllers
     throw new Error(error);
   }
 };

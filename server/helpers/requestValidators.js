@@ -8,9 +8,8 @@ export const Success = (res, data) => {
   return res.status(200).json({ message: "success", body: data });
 };
 
-export const ServerError = (res) => {
-  //TODO: change "server error" to error you get from props
-  res.status(500).json({ message: "server error" });
+export const ServerError = (res, error) => {
+  res.status(500).json({ message: error });
 };
 
 export const NoTitle = (req, res) => {

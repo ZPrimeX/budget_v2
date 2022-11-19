@@ -13,7 +13,6 @@ async function handler(req, res) {
     const result = await create(req.body);
     Success(res, result);
   } catch (error) {
-    // TODO: change ServerError(res) to ServerError(res, error)
-    return ServerError(res);
+    return ServerError(res, error);
   }
 }

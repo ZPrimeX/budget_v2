@@ -38,6 +38,6 @@ async function handler(req, res) {
     Success(res, result);
   } catch (error) {
     console.log(error);
-    return ServerError(res);
+    return ServerError(res, error);
   }
 }

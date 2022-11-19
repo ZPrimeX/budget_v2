@@ -19,6 +19,6 @@ export const getUser = async (req) => {
     });
     return { user: foundUser, token: token };
   } catch (error) {
-    return { message: "error", description: error };
+    throw new Error(error);
   }
 };

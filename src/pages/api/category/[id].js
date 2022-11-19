@@ -15,7 +15,7 @@ async function handler(req, res) {
       return Success(res, editedCategory);
     } catch (error) {
       console.log(error);
-      return ServerError(res);
+      return ServerError(res, error);
     }
   } else if (req.method === "DELETE") {
     try {
@@ -24,7 +24,7 @@ async function handler(req, res) {
 
       return Success(res, deletedCategory.id);
     } catch (error) {
-      return ServerError(res);
+      return ServerError(res, error);
     }
   } else {
     return res.status(404).json({ message: "Not found" });
