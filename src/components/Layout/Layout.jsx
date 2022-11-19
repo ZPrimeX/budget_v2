@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import { styled } from "@mui/material/styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../redux/features/authSlice";
+import { fetchCategories, selectCategory } from "../../redux/features/categorySlice";
+import { fetchWallets, selectWallet } from "../../redux/features/walletSlice";
 
 const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
@@ -18,9 +20,24 @@ const DashboardLayoutRoot = styled("div")(({ theme }) => ({
 
 const Layout = ({ children }) => {
   const user = useSelector(selectUser);
+  const categories = useSelector(selectCategory);
+  const wallets = useSelector(selectWallet);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!categories.length) {
+      dispatch(fetchCategories());
+    }
+    if (!wallets.length) {
+      dispatch(fetchWallets());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
-      {user.status !== "fulfilled" ? (
+      {!user.isAuth ? (
         <Box width={"100%"} height="100vh"></Box>
       ) : (
         <>
