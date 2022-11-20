@@ -7,8 +7,8 @@ export const createTransaction = createAsyncThunk("transaction/createTransaction
   return res.data;
 });
 
-export const fetchTransactions = createAsyncThunk("transaction/fetchTransactions", async () => {
-  const res = await req.get("/transaction/all");
+export const fetchTransactions = createAsyncThunk("transaction/fetchTransactions", async (id) => {
+  const res = await req.get(`/transaction/${id}`);
   return res.data;
 });
 

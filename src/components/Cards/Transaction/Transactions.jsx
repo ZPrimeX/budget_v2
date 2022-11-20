@@ -18,13 +18,19 @@ import CreateTransaction from "../../Modals/Transaction/CreateTransaction";
 import { useSelector } from "react-redux";
 import { selectCategory } from "../../../redux/features/categorySlice";
 import WalletMenu from "../../Modals/Wallet/WalletMenu";
-import { selectTransaction } from "../../../redux/features/transactionSlice";
+import { fetchTransactions, selectTransaction } from "../../../redux/features/transactionSlice";
+import { useEffect } from "react";
+import { selectCurrentWallet } from "../../../redux/features/walletSlice";
 
 const Transaction = (props) => {
   const categories = useSelector(selectCategory);
   const transactions = useSelector(selectTransaction);
+  const currentWallet = useSelector(selectCurrentWallet);
 
-  //TODO: useEffect => dependency array currentWallet.id
+  useEffect(() => {
+    dispatch(fetchTransactions(currentWallet.id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentWallet.id]);
 
   return (
     <>

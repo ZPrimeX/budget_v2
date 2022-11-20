@@ -84,9 +84,7 @@ const categorySlice = createSlice({
       })
       .addCase(deleteCategory.fulfilled, (state, action) => {
         state.status = "fulfilled";
-        state.categories = state.categories.filter((category) => {
-          category.id !== action.payload.body;
-        });
+        state.categories = state.categories.filter((category) => category.id !== action.payload.body);
         toast.success("Success!");
       })
       .addCase(deleteCategory.rejected, (state) => {

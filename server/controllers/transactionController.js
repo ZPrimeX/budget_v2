@@ -5,6 +5,9 @@ export const findAll = async (wallet) => {
     where: {
       wallet_id: wallet.id,
     },
+    include: {
+      category: true,
+    },
   });
   return data;
 };
@@ -14,6 +17,9 @@ export const findUnique = async (transaction) => {
     where: {
       id: transaction.id,
     },
+    include: {
+      category: true,
+    },
   });
   return transactions;
 };
@@ -22,6 +28,9 @@ export const create = async (data) => {
   try {
     const newTransaction = await prisma.transaction.create({
       data: data,
+      include: {
+        category: true,
+      },
     });
 
     const category = await prisma.category.findUnique({ where: { id: data.category_id } });
@@ -36,6 +45,9 @@ export const create = async (data) => {
     await prisma.wallet.update({
       where: { id: data.wallet_id },
       data: payload,
+      include: {
+        category: true,
+      },
     });
 
     return newTransaction;
