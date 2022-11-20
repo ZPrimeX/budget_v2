@@ -52,4 +52,4 @@ const transactionSlice = createSlice({
 });
 
 export default transactionSlice.reducer;
-export const selectTransaction = (state) => state.transaction;
+export const selectTransaction = (state) => state.transaction.transactions;

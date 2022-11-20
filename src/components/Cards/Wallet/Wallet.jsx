@@ -21,7 +21,7 @@ const Wallet = () => {
                       {w.title}
                     </Typography>
                     <Typography color="textPrimary" variant="h4">
-                      ${w.balance}
+                      ${w.balance.toLocaleString()}
                     </Typography>
                   </Grid>
                   <Grid item>

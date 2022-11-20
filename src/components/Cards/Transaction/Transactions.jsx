@@ -18,9 +18,11 @@ import CreateTransaction from "../../Modals/Transaction/CreateTransaction";
 import { useSelector } from "react-redux";
 import { selectCategory } from "../../../redux/features/categorySlice";
 import WalletMenu from "../../Modals/Wallet/WalletMenu";
+import { selectTransaction } from "../../../redux/features/transactionSlice";
 
 const Transaction = (props) => {
   const categories = useSelector(selectCategory);
+  const transactions = useSelector(selectTransaction);
 
   //TODO: useEffect => dependency array currentWallet.id
 
@@ -55,19 +57,21 @@ const Transaction = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {categories.map((c) => (
+                {transactions.map((c) => (
                   <TableRow hover key={c.id}>
                     <TableCell>{c.id}</TableCell>
-                    <TableCell>{c.title}</TableCell>
-                    <TableCell>${c.note}0</TableCell>
+                    <TableCell>{c.id}</TableCell>
+                    <TableCell>${c.amount.toLocaleString()}</TableCell>
                     <TableCell>{c.createdAt}</TableCell>
                     <TableCell>
                       <SeverityPill
                         color={
-                          (c.category_type === "income" && "success") || (c.category_type === "expense" && "error")
+                          (c.category_type === "income" && "success") ||
+                          (c.category_type === "expense" && "error") ||
+                          "warning"
                         }
                       >
-                        {c.category_type}
+                        {c.note}
                       </SeverityPill>
                     </TableCell>
                   </TableRow>

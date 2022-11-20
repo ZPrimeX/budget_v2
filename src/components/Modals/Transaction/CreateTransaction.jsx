@@ -99,7 +99,7 @@ const CreateTransaction = () => {
                       name={"date"}
                       label="Date and Time"
                       inputId={"date-input"}
-                      renderInput={(props) => <TextField {...props} size="small" helperText={null} />}
+                      renderInput={(props) => <TextField {...props} helperText={null} />}
                     />
                   </Grid>
                   <Grid item md={6} xs={12}>

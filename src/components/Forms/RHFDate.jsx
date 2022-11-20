@@ -21,7 +21,6 @@ const RHFDate = ({ name, inputId, label, ...others }) => {
                 id={inputId}
                 error={error && isTouched}
                 helperText={error?.message}
-                renderInput={(params) => <TextField {...params} fullWidth />}
                 {...others}
               />
             </LocalizationProvider>
