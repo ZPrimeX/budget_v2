@@ -47,6 +47,9 @@ const walletSlice = createSlice({
       })
       .addCase(createWallet.fulfilled, (state, action) => {
         state.status = "fulfilled";
+        if (state.wallets.length === 0) {
+          state.current = action.payload.body;
+        }
         state.wallets = [...state.wallets, action.payload.body];
         toast.success("Created!");
       })

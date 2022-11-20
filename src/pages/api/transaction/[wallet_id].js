@@ -1,5 +1,5 @@
 import { apiHandler } from "../../../../server/helpers/api-handler";
-import { allowedMethod, Success } from "../../../../server/helpers/requestValidators";
+import { allowedMethod, ServerError, Success } from "../../../../server/helpers/requestValidators";
 import prisma from "../../../../server/lib/prisma";
 
 export default apiHandler(handler);
@@ -9,14 +9,18 @@ async function handler(req, res) {
 
   const { wallet_id } = req.query;
 
-  const transactions = await prisma.transaction.findMany({
-    where: {
-      wallet_id: wallet_id,
-    },
-    include: {
-      category: true,
-    },
-  });
-
-  return Success(res, transactions);
+  try {
+    const transactions = await prisma.transaction.findMany({
+      where: {
+        wallet_id: wallet_id,
+      },
+      include: {
+        category: true,
+      },
+    });
+    return Success(res, transactions);
+  } catch (error) {
+    console.log(error);
+    ServerError(res, error);
+  }
 }

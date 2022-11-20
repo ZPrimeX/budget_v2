@@ -103,7 +103,7 @@ const CreateTransaction = () => {
                     />
                   </Grid>
                   <Grid item md={6} xs={12}>
-                    <RHFTextField name={"amount"} label="Amount" inputId={"amount-input"} type="number" />
+                    <RHFTextField name={"amount"} label="Amount" inputId={"amount-input"} />
                   </Grid>
                   <Grid item md={6} xs={12}>
                     <RHFTextField name={"note"} label="Note" inputId={"note-input"} />

@@ -45,9 +45,6 @@ export const create = async (data) => {
     await prisma.wallet.update({
       where: { id: data.wallet_id },
       data: payload,
-      include: {
-        category: true,
-      },
     });
 
     return newTransaction;

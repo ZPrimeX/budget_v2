@@ -20,8 +20,14 @@ async function handler(req, res) {
   } else if (req.method === "DELETE") {
     try {
       reqValidator(req, res);
-      const deletedCategory = await prisma.category.delete({ where: { id: req.query.id } });
 
+      const hasTransaction = prisma.transaction.count({ where: { category_id: req.query.id } });
+
+      if (hasTransaction) {
+        return res.status(400).json({ message: "Category has transactions" });
+      }
+
+      const deletedCategory = await prisma.category.delete({ where: { id: req.query.id } });
       return Success(res, deletedCategory.id);
     } catch (error) {
       return ServerError(res, error);

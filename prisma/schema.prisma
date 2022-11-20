@@ -19,6 +19,9 @@ model User {
   password   String
   date_birth String?
   country    String?
+  balance    Int?
+  income     Int?
+  expense    Int?
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   avatar     String     @default("https://source.unsplash.com/random")

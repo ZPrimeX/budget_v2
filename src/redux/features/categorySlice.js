@@ -89,7 +89,7 @@ const categorySlice = createSlice({
       })
       .addCase(deleteCategory.rejected, (state) => {
         state.status = "rejected";
-        toast.error("Something went wrong!");
+        toast.error("Category is used in transactions!");
       });
   },
 });

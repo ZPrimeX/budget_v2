@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
   Box,
@@ -15,22 +15,23 @@ import {
 } from "@mui/material";
 import { SeverityPill } from "../../severity-pill";
 import CreateTransaction from "../../Modals/Transaction/CreateTransaction";
-import { useSelector } from "react-redux";
-import { selectCategory } from "../../../redux/features/categorySlice";
+import { useDispatch, useSelector } from "react-redux";
 import WalletMenu from "../../Modals/Wallet/WalletMenu";
 import { fetchTransactions, selectTransaction } from "../../../redux/features/transactionSlice";
-import { useEffect } from "react";
 import { selectCurrentWallet } from "../../../redux/features/walletSlice";
+import dayjs from "dayjs";
 
 const Transaction = (props) => {
-  const categories = useSelector(selectCategory);
+  const dispatch = useDispatch();
   const transactions = useSelector(selectTransaction);
   const currentWallet = useSelector(selectCurrentWallet);
 
   useEffect(() => {
-    dispatch(fetchTransactions(currentWallet.id));
+    if (currentWallet?.id) {
+      dispatch(fetchTransactions(currentWallet.id));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentWallet.id]);
+  }, [currentWallet?.id]);
 
   return (
     <>
@@ -66,18 +67,18 @@ const Transaction = (props) => {
                 {transactions.map((c) => (
                   <TableRow hover key={c.id}>
                     <TableCell>{c.id}</TableCell>
-                    <TableCell>{c.id}</TableCell>
+                    <TableCell>{c.category.title}</TableCell>
                     <TableCell>${c.amount.toLocaleString()}</TableCell>
-                    <TableCell>{c.createdAt}</TableCell>
+                    <TableCell>{dayjs(c.createdAt).format("HH:mm | DD/MM/YYYY")}</TableCell>
                     <TableCell>
                       <SeverityPill
                         color={
-                          (c.category_type === "income" && "success") ||
-                          (c.category_type === "expense" && "error") ||
+                          (c.category.category_type === "income" && "success") ||
+                          (c.category.category_type === "expense" && "error") ||
                           "warning"
                         }
                       >
-                        {c.note}
+                        {c.category.category_type}
                       </SeverityPill>
                     </TableCell>
                   </TableRow>
