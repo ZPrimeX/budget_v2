@@ -12,6 +12,16 @@ export const fetchTransactions = createAsyncThunk("transaction/fetchTransactions
   return res.data;
 });
 
+export const editTransaction = createAsyncThunk("transaction/editTransaction", async (id, data) => {
+  const res = await req.patch(`/transaction/${id}`, data);
+  return res.data;
+});
+
+export const deleteTransaction = createAsyncThunk("transaction/deleteTransaction", async (id) => {
+  const res = await req.delete(`/transaction/${id}`);
+  return res.data;
+});
+
 const transactionSlice = createSlice({
   name: "transaction",
   initialState: {
@@ -47,6 +57,41 @@ const transactionSlice = createSlice({
       })
       .addCase(fetchTransactions.rejected, (state) => {
         state.status = "rejected";
+      });
+
+    //? --- EDIT ---
+    builder
+      .addCase(editTransaction.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(editTransaction.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.transactions = state.transactions.map((transaction) => {
+          if (transaction.id === action.payload.body.id) {
+            return (transaction = action.payload.body);
+          }
+          return transaction;
+        });
+        toast.success("Saved!");
+      })
+      .addCase(editTransaction.rejected, (state) => {
+        state.status = "rejected";
+        toast.error("Something went wrong!");
+      });
+
+    //! --- DELETE  ---
+    builder
+      .addCase(deleteTransaction.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(deleteTransaction.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.transactions = state.transactions.filter((transaction) => transaction.id !== action.payload.body);
+        toast.success("Success!");
+      })
+      .addCase(deleteTransaction.rejected, (state) => {
+        state.status = "rejected";
+        toast.error("Category is used in transactions!");
       });
   },
 });

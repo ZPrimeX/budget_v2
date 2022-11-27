@@ -1,17 +1,39 @@
 import { apiHandler } from "../../../../server/helpers/api-handler";
-import { allowedMethod, Success } from "../../../../server/helpers/requestValidators";
+import { Success } from "../../../../server/helpers/requestValidators";
 import prisma from "../../../../server/lib/prisma";
 
 export default apiHandler(handler);
 
 async function handler(req, res) {
-  allowedMethod(req, res, "GET");
-
   const { id } = req.query;
+  switch (req.method) {
+    case "GET":
+      const foundWallet = await prisma.wallet.findUnique({
+        where: { id: id },
+      });
 
-  const wallet = await prisma.wallet.findUnique({
-    where: { id: id },
-  });
+      return Success(res, foundWallet);
+    case "DELETE":
+      try {
+        await prisma.transaction.deleteMany({
+          where: {
+            wallet_id: {
+              equals: id,
+            },
+          },
+        });
 
-  return Success(res, wallet);
+        await prisma.wallet.delete({
+          where: {
+            id: id,
+          },
+        });
+
+        return Success(res, id);
+      } catch (error) {
+        return res.status(400).json({ message: "Wallet Not Found" });
+      }
+    default:
+      res.status(404).json({ message: "Not Found!" });
+  }
 }

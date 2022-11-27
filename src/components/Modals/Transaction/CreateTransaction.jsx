@@ -63,7 +63,6 @@ const CreateTransaction = () => {
       })
     );
     dispatch(findWallet(currentWallet?.id));
-    methods.reset({ category_id: "", amount: "", note: "", date: dayjs(new Date()) });
     handleClose();
   };
 

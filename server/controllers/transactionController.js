@@ -53,17 +53,46 @@ export const create = async (data) => {
   }
 };
 
-//? You can use this for edit transaction as well :)
-// const category = await prisma.category.findUnique({ where: { id: data.category_id } });
+export const edit = async (data) => {
+  try {
+    const editTransaction = await prisma.transaction.update({ where: { id: data.id }, data: data.body });
 
-//     let payload;
-//     if (category.category_type === "expense") {
-//       payload = { balance: { decrement: data.amount }, expense: { increment: data.value } };
-//     } else {
-//       payload = { balance: { increment: data.amount }, income: { increment: data.value } };
-//     }
+    let payload;
+    if (category.category_type === "expense") {
+      payload = { balance: { decrement: data.amount }, expense: { increment: data.amount } };
+    } else {
+      payload = { balance: { increment: data.amount }, income: { increment: data.amount } };
+    }
 
-//     await prisma.wallet.update({
-//       where: { id: data.wallet_id },
-//       data: payload,
-//     });
+    await prisma.wallet.update({
+      where: { id: data.wallet_id },
+      data: payload,
+    });
+
+    return editTransaction;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteTransaction = async (data) => {
+  try {
+    const deletedTransaction = await prisma.transaction.delete({ where: { id: data.id } });
+
+    let payload;
+    if (category.category_type === "expense") {
+      payload = { balance: { decrement: data.amount }, expense: { increment: data.amount } };
+    } else {
+      payload = { balance: { increment: data.amount }, income: { increment: data.amount } };
+    }
+
+    await prisma.wallet.update({
+      where: { id: data.wallet_id },
+      data: payload,
+    });
+
+    return deletedTransaction.id;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
