@@ -53,7 +53,11 @@ model Transaction {
   wallet      Wallet   @relation(fields: [wallet_id], references: [id])
   wallet_id   String   @db.ObjectId
   category_id String   @db.ObjectId
-  raw_date    String?
+  day_of_week String?
+  day         Int?
+  month       Int?
+  year        Int?
+  raw_date    Int?
 }
 
 enum CategoryType {

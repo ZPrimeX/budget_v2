@@ -42,7 +42,7 @@ const Graph = (props) => {
         maxBarThickness: 10,
       },
     ],
-    labels: barchart.labels_income ? [...barchart.labels_income, ...barchart.labels_expense] : [],
+    labels: barchart.labels ? barchart.labels : [],
   };
 
   const options = {

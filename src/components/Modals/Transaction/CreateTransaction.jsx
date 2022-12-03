@@ -24,6 +24,8 @@ const style = {
   p: 4,
 };
 
+const months = {};
+
 const CreateTransaction = () => {
   const dispatch = useDispatch();
 
@@ -55,11 +57,20 @@ const CreateTransaction = () => {
   });
 
   const onSubmit = async (data) => {
+    const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+    const numeral_month = months.indexOf(String(data.date).slice(8, 11).toLowerCase()) + 1;
+    const day = String(data.date).slice(5, 7);
+    const year = String(data.date).slice(12, 16);
     await dispatch(
       createTransaction({
         ...data,
         amount: +data.amount,
-        raw_date: String(data.date).slice(0, 16),
+        //? "Thu, 01 Dec 2022"
+        day_of_week: String(data.date).slice(0, 3),
+        day: +day,
+        month: numeral_month,
+        year: +year,
+        raw_date: +`${day}${numeral_month}${year}`,
         wallet_id: currentWallet?.id,
       })
     );

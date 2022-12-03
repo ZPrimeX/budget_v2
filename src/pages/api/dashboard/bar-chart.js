@@ -20,7 +20,7 @@ async function handler(req, res) {
     });
 
     const incomes = await prisma.transaction.groupBy({
-      by: ["raw_date"],
+      by: ["day", "month", "year", "raw_date"],
       where: {
         OR: wallets.map((w) => {
           return { wallet_id: w.id };
@@ -32,10 +32,13 @@ async function handler(req, res) {
       _sum: {
         amount: true,
       },
+      orderBy: {
+        raw_date: "asc",
+      },
     });
 
     const expenses = await prisma.transaction.groupBy({
-      by: ["raw_date"],
+      by: ["day", "month", "year", "raw_date"],
       where: {
         OR: wallets.map((w) => {
           return { wallet_id: w.id };
@@ -47,10 +50,14 @@ async function handler(req, res) {
       _sum: {
         amount: true,
       },
+      orderBy: {
+        raw_date: "asc",
+      },
     });
 
     return Success(res, { expenses, incomes });
   } catch (error) {
+    console.log(error);
     return ServerError(res, error);
   }
 }

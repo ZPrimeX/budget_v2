@@ -33,12 +33,15 @@ const dashboardSlice = createSlice({
         state.barChart["expense"] = action.payload.body.expenses.map((i) => {
           return i._sum.amount;
         });
-        state.barChart["labels_expense"] = action.payload.body.expenses.map((i) => {
-          return i.raw_date;
+        const date_set = new Set();
+        action.payload.body.expenses.map((i) => {
+          date_set.add(`${i.day},${i.month}, ${i.year} `);
         });
-        state.barChart["labels_income"] = action.payload.body.incomes.map((i) => {
-          return i.raw_date;
+        action.payload.body.incomes.map((i) => {
+          date_set.add(`${i.day},${i.month}, ${i.year} `);
         });
+
+        state.barChart["labels"] = Array.from(date_set);
       })
       .addCase(fetchBarChart.rejected, (state) => {
         state.status = "rejected";

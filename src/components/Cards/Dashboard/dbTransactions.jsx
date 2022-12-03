@@ -65,7 +65,7 @@ const Transaction = (props) => {
                     <TableCell>{c.id}</TableCell>
                     <TableCell>{c.category.title}</TableCell>
                     <TableCell>${c.amount.toLocaleString()}</TableCell>
-                    <TableCell>{dayjs(c.createdAt).format("HH:mm | DD/MM/YYYY")}</TableCell>
+                    <TableCell>{dayjs(c.date).format("HH:mm | DD/MM/YYYY")}</TableCell>
                     <TableCell>
                       <SeverityPill
                         color={
