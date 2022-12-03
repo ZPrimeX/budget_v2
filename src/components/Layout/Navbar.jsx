@@ -52,13 +52,14 @@ const Navbar = () => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          <Tooltip title="Search">
+          {/* TODO: In case I need a search icon or any other icons*/}
+          {/* <Tooltip title="Search">
             <IconButton sx={{ ml: 1 }}>
               <SearchIcon fontSize="small" />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
           <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title="Contacts">
+          {/* <Tooltip title="Contacts">
             <IconButton sx={{ ml: 1 }}>
               <UsersIcon fontSize="small" />
             </IconButton>
@@ -69,7 +70,7 @@ const Navbar = () => {
                 <BellIcon fontSize="small" />
               </Badge>
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
           <Avatar
             onClick={() => setOpenAccountPopover(true)}
             ref={settingsRef}

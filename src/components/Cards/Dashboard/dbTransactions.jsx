@@ -1,12 +1,10 @@
-import React from "react";
-import { format } from "date-fns";
-import { v4 as uuid } from "uuid";
+import React, { useEffect } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
   Box,
-  Button,
   Card,
   CardHeader,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -15,78 +13,34 @@ import {
   TableSortLabel,
   Tooltip,
 } from "@mui/material";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { SeverityPill } from "../../severity-pill";
-import NextLink from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import WalletMenu from "../../Modals/Wallet/WalletMenu";
+import { fetchTransactions, selectTransaction } from "../../../redux/features/transactionSlice";
+import { selectCurrentWallet } from "../../../redux/features/walletSlice";
+import dayjs from "dayjs";
 
-const orders = [
-  {
-    id: uuid(),
-    ref: "CDD1049",
-    amount: 230.5,
-    customer: {
-      name: "Salary",
-    },
-    createdAt: 1555016400000,
-    status: "Income",
-  },
-  {
-    id: uuid(),
-    ref: "CDD1048",
-    amount: 25.1,
-    customer: {
-      name: "Food",
-    },
-    createdAt: 1555016400000,
-    status: "Expense",
-  },
-  {
-    id: uuid(),
-    ref: "CDD1047",
-    amount: 10.99,
-    customer: {
-      name: "John",
-    },
-    createdAt: 1554930000000,
-    status: "Income",
-  },
-  {
-    id: uuid(),
-    ref: "CDD1046",
-    amount: 35.99,
-    customer: {
-      name: "Gas",
-    },
-    createdAt: 1554757200000,
-    status: "Expense",
-  },
-  {
-    id: uuid(),
-    ref: "CDD1045",
-    amount: 32.54,
-    customer: {
-      name: "Water bills",
-    },
-    createdAt: 1554670800000,
-    status: "Expense",
-  },
-  {
-    id: uuid(),
-    ref: "CDD1044",
-    amount: 16.76,
-    customer: {
-      name: "Adam",
-    },
-    createdAt: 1554670800000,
-    status: "Income",
-  },
-];
+const Transaction = (props) => {
+  const dispatch = useDispatch();
+  const transactions = useSelector(selectTransaction);
+  const currentWallet = useSelector(selectCurrentWallet);
 
-const Transactions = (props) => {
+  useEffect(() => {
+    if (currentWallet?.id) {
+      dispatch(fetchTransactions(currentWallet.id));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentWallet?.id]);
+
   return (
     <>
       <Card {...props}>
-        <CardHeader title="Latest Transactions" />
+        <Box display={"flex"} justifyContent="space-between" width={"95%"} height={"75px"} alignItems={"center"}>
+          <Stack direction={"row"} width="350px" alignItems={"center"}>
+            <CardHeader title="Transactions" />
+            <WalletMenu />
+          </Stack>
+        </Box>
         <PerfectScrollbar>
           <Box sx={{ minWidth: 800 }}>
             <Table>
@@ -106,17 +60,21 @@ const Transactions = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {orders.map((order) => (
-                  <TableRow hover key={order.id}>
-                    <TableCell>{order.ref}</TableCell>
-                    <TableCell>{order.customer.name}</TableCell>
-                    <TableCell>${order.amount}</TableCell>
-                    <TableCell>{format(order.createdAt, "dd/MM/yyyy")}</TableCell>
+                {transactions.map((c) => (
+                  <TableRow hover key={c.id}>
+                    <TableCell>{c.id}</TableCell>
+                    <TableCell>{c.category.title}</TableCell>
+                    <TableCell>${c.amount.toLocaleString()}</TableCell>
+                    <TableCell>{dayjs(c.createdAt).format("HH:mm | DD/MM/YYYY")}</TableCell>
                     <TableCell>
                       <SeverityPill
-                        color={(order.status === "Income" && "success") || (order.status === "Expense" && "error")}
+                        color={
+                          (c.category.category_type === "income" && "success") ||
+                          (c.category.category_type === "expense" && "error") ||
+                          "warning"
+                        }
                       >
-                        {order.status}
+                        {c.category.category_type}
                       </SeverityPill>
                     </TableCell>
                   </TableRow>
@@ -125,22 +83,9 @@ const Transactions = (props) => {
             </Table>
           </Box>
         </PerfectScrollbar>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            p: 2,
-          }}
-        >
-          <NextLink href={"/transactions"}>
-            <Button color="primary" endIcon={<ArrowRightIcon fontSize="small" />} size="small" variant="text">
-              View all
-            </Button>
-          </NextLink>
-        </Box>
       </Card>
     </>
   );
 };
 
-export default Transactions;
+export default Transaction;

@@ -59,6 +59,7 @@ const CreateTransaction = () => {
       createTransaction({
         ...data,
         amount: +data.amount,
+        raw_date: String(data.date).slice(0, 16),
         wallet_id: currentWallet?.id,
       })
     );

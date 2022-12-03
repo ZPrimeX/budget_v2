@@ -9,7 +9,7 @@ export const Success = (res, data) => {
 };
 
 export const ServerError = (res, error) => {
-  res.status(500).json({ message: error });
+  res.status(500).json({ message: JSON.stringify(error) });
 };
 
 export const NoTitle = (req, res) => {

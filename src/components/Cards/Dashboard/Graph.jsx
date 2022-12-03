@@ -3,8 +3,20 @@ import { Bar } from "react-chartjs-2";
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchBarChart, selectBarChart } from "../../../redux/features/dashboardSlice";
 
 const Graph = (props) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchBarChart());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const barchart = useSelector(selectBarChart);
+
   const theme = useTheme();
 
   const data = {
@@ -15,7 +27,7 @@ const Graph = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [18, 5, 19, 27, 29, 19, 20],
+        data: barchart.income,
         label: "Income",
         maxBarThickness: 10,
       },
@@ -25,12 +37,12 @@ const Graph = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [11, 20, 12, 29, 30, 25, 13],
+        data: barchart.expense,
         label: "Expense",
         maxBarThickness: 10,
       },
     ],
-    labels: ["1 Oct", "2 Oct", "3 Oct", "4 Oct", "5 Oct", "6 Oct", "7 Oct"],
+    labels: barchart.labels_income ? [...barchart.labels_income, ...barchart.labels_expense] : [],
   };
 
   const options = {

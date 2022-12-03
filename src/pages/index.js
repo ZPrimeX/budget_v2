@@ -7,7 +7,7 @@ import Balance from "../components/Cards/Dashboard/Balance";
 import Graph from "../components/Cards/Dashboard/Graph";
 import Expenses from "../components/Cards/Dashboard/Expenses";
 import Transactions from "../components/Cards/Dashboard/dbTransactions";
-import { Progress } from "../components/Cards/Dashboard/Progress";
+import { Datetime } from "../components/Cards/Dashboard/Datetime";
 import Category from "../components/Cards/Dashboard/dbCategories";
 
 export default function Dashboard() {
@@ -36,7 +36,7 @@ export default function Dashboard() {
                 <Expense />
               </Grid>
               <Grid item xl={3} lg={3} sm={6} xs={12}>
-                <Progress />
+                <Datetime />
               </Grid>
               <Grid item lg={8} md={12} xl={9} xs={12}>
                 <Graph />
@@ -44,9 +44,9 @@ export default function Dashboard() {
               <Grid item lg={4} md={6} xl={3} xs={12}>
                 <Expenses sx={{ height: "100%" }} />
               </Grid>
-              <Grid item lg={4} md={6} xl={3} xs={12}>
+              {/* <Grid item lg={4} md={6} xl={3} xs={12}>
                 <Category sx={{ height: "100%" }} />
-              </Grid>
+              </Grid> */}
               <Grid item lg={8} md={12} xl={9} xs={12}>
                 <Transactions />
               </Grid>
