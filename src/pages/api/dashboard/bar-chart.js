@@ -19,14 +19,6 @@ async function handler(req, res) {
       },
     });
 
-    // const transactions = await prisma.transaction.findMany({
-    //   where: {
-    //     OR: wallets.map((w) => {
-    //       return { wallet_id: w.id };
-    //     }),
-    //   },
-    // });
-
     const incomes = await prisma.transaction.groupBy({
       by: ["raw_date"],
       where: {
@@ -59,7 +51,6 @@ async function handler(req, res) {
 
     return Success(res, { expenses, incomes });
   } catch (error) {
-    console.log(error);
     return ServerError(res, error);
   }
 }

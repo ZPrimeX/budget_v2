@@ -2,8 +2,11 @@ import React from "react";
 import { Avatar, Card, CardContent, Grid, Typography, Box } from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { selectSummary } from "../../../redux/features/dashboardSlice";
+import { useSelector } from "react-redux";
 
 const TotalProfit = (props) => {
+  const summary = useSelector(selectSummary);
   return (
     <>
       <Card {...props}>
@@ -14,7 +17,7 @@ const TotalProfit = (props) => {
                 BALANCE
               </Typography>
               <Typography color="textPrimary" variant="h4">
-                $110k
+                ${summary.balance}
               </Typography>
             </Grid>
             <Grid item>
@@ -29,7 +32,7 @@ const TotalProfit = (props) => {
               </Avatar>
             </Grid>
           </Grid>
-          <Box
+          {/* <Box
             sx={{
               alignItems: "center",
               display: "flex",
@@ -49,7 +52,7 @@ const TotalProfit = (props) => {
             <Typography color="textSecondary" variant="caption">
               Since last month
             </Typography>
-          </Box>
+          </Box> */}
         </CardContent>
       </Card>
     </>

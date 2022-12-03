@@ -43,6 +43,20 @@ const dashboardSlice = createSlice({
       .addCase(fetchBarChart.rejected, (state) => {
         state.status = "rejected";
       });
+    //? Fetch Summary
+    builder
+      .addCase(fetchSummary.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchSummary.fulfilled, (state, action) => {
+        state.status = "success";
+        state.summary.balance = action.payload.body._sum.balance;
+        state.summary.income = action.payload.body._sum.income;
+        state.summary.expense = action.payload.body._sum.expense;
+      })
+      .addCase(fetchSummary.rejected, (state) => {
+        state.status = "rejected";
+      });
   },
 });
 

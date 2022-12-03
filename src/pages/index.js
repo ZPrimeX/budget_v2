@@ -8,9 +8,17 @@ import Graph from "../components/Cards/Dashboard/Graph";
 import Expenses from "../components/Cards/Dashboard/Expenses";
 import Transactions from "../components/Cards/Dashboard/dbTransactions";
 import { Datetime } from "../components/Cards/Dashboard/Datetime";
-import Category from "../components/Cards/Dashboard/dbCategories";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchSummary } from "../redux/features/dashboardSlice";
 
 export default function Dashboard() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchSummary());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <Head>
