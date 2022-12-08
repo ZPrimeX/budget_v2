@@ -57,7 +57,6 @@ async function handler(req, res) {
 
     return Success(res, { expenses, incomes });
   } catch (error) {
-    console.log(error);
     return ServerError(res, error);
   }
 }

@@ -1,9 +1,10 @@
 import React from "react";
 import { Avatar, Card, CardContent, Grid, Typography, Box } from "@mui/material";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { useSelector } from "react-redux";
 import { selectWallet } from "../../../redux/features/walletSlice";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import WalletEditModal from "../../Modals/Wallet/WalletEditModal";
 
 const Wallet = () => {
   const wallets = useSelector(selectWallet);
@@ -21,7 +22,7 @@ const Wallet = () => {
                       {w.title}
                     </Typography>
                     <Typography color="textPrimary" variant="h4">
-                      ${w.balance.toLocaleString()}
+                      ${w.balance}
                     </Typography>
                   </Grid>
                   <Grid item>
@@ -36,7 +37,7 @@ const Wallet = () => {
                     </Avatar>
                   </Grid>
                 </Grid>
-                <Box
+                {/* <Box
                   sx={{
                     alignItems: "center",
                     display: "flex",
@@ -52,9 +53,13 @@ const Wallet = () => {
                   >
                     15%
                   </Typography>
-                  <Typography color="textSecondary" variant="caption">
+                  {/* <Typography color="textSecondary" variant="caption">
                     Since last month
-                  </Typography>
+                  </Typography> */}
+                {/* </Box> */}
+                <Box sx={{ alignItems: "center", display: "flex", pt: 2, justifyContent: "end" }}>
+                  <WalletEditModal title={w.title} id={w.id} />
+                  <DeleteOutlineIcon color="error" />
                 </Box>
               </CardContent>
             </Card>

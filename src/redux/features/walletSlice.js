@@ -13,7 +13,7 @@ export const fetchWallets = createAsyncThunk("wallet/fetchWallets", async () => 
 });
 
 export const editWallet = createAsyncThunk("wallet/editWallet", async ({ id, body }) => {
-  const res = await req.patch(`category/${id}`, body);
+  const res = await req.patch(`wallet/${id}`, body);
   return res.data;
 });
 

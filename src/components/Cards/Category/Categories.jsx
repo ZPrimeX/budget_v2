@@ -3,7 +3,6 @@ import { Box, Card, CardHeader, Divider, List, ListItem, ListItemText } from "@m
 import { useSelector } from "react-redux";
 import { selectCategory } from "../../../redux/features/categorySlice";
 import CreateCategory from "../../Modals/Category/CreateCategory";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteCategory from "../../Modals/Category/DeleteCategory";
 
 const Category = (props) => {

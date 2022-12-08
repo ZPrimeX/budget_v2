@@ -11,11 +11,17 @@ export const fetchBarChart = createAsyncThunk("dashboard/fetchBarChart", async (
   return res.data;
 });
 
+export const fetchExpenses = createAsyncThunk("dashboard/fetchExpenses", async (id) => {
+  const res = await req.get("dashboard/expenses");
+  return res.data;
+});
+
 const dashboardSlice = createSlice({
   name: "dashboard",
   initialState: {
     summary: {},
     barChart: {},
+    expenses: {},
     status: "idle",
   },
   reducers: {},
@@ -60,9 +66,22 @@ const dashboardSlice = createSlice({
       .addCase(fetchSummary.rejected, (state) => {
         state.status = "rejected";
       });
+    //? Fetch Expenses
+    builder
+      .addCase(fetchExpenses.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchExpenses.fulfilled, (state, action) => {
+        state.status = "success";
+        state.expenses = action.payload.body;
+      })
+      .addCase(fetchExpenses.rejected, (state) => {
+        state.status = "rejected";
+      });
   },
 });
 
 export default dashboardSlice.reducer;
 export const selectSummary = (state) => state.dashboard.summary;
 export const selectBarChart = (state) => state.dashboard.barChart;
+export const selectExpenses = (state) => state.dashboard.expenses;

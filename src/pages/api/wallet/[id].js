@@ -33,6 +33,13 @@ async function handler(req, res) {
       } catch (error) {
         return res.status(400).json({ message: "Wallet Not Found" });
       }
+    case "PATCH":
+      try {
+        const updatedWallet = await prisma.wallet.update({ where: { id: req.query.id }, data: req.body });
+        return Success(res, updatedWallet);
+      } catch (error) {
+        return res.status(400).json({ message: "Try again later!" });
+      }
     default:
       res.status(404).json({ message: "Not Found!" });
   }

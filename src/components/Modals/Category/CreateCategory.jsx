@@ -4,6 +4,7 @@ import { Button, Box, Modal } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories, selectCategory } from "../../../redux/features/categorySlice";
 import CategoryForm from "../../Forms/Category/CategoryForm";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 const style = {
   position: "absolute",
@@ -33,7 +34,13 @@ const CategoryModal = ({ buttonText, editMode = false, categoryProps }) => {
 
   return (
     <>
-      <Button onClick={handleOpen} color="primary" endIcon={<AddCircleOutlineIcon />} size="small" variant="text">
+      <Button
+        onClick={handleOpen}
+        color="primary"
+        endIcon={editMode ? <EditOutlinedIcon /> : <AddCircleOutlineIcon />}
+        size="small"
+        variant="text"
+      >
         {buttonText}
       </Button>
       <Modal

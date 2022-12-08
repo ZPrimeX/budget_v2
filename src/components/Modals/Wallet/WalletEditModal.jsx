@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { Button, Box, Modal } from "@mui/material";
+import { Box, Modal, IconButton } from "@mui/material";
 import { fetchWallets, selectWallet } from "../../../redux/features/walletSlice";
 import { useDispatch, useSelector } from "react-redux";
-import WalletForm from "../../Forms/Wallet/WalletForm";
+import EditWallet from "../../Forms/Wallet/EditWallet";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 const style = {
   position: "absolute",
@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-const WalletModal = ({ buttonText, walletProps }) => {
+const WalletEditModal = ({ title, id }) => {
   const dispatch = useDispatch();
   const wallets = useSelector(selectWallet);
 
@@ -34,9 +34,9 @@ const WalletModal = ({ buttonText, walletProps }) => {
 
   return (
     <>
-      <Button onClick={handleOpen} color="primary" endIcon={<AddCircleOutlineIcon />} size="small" variant="text">
-        {buttonText}
-      </Button>
+      <IconButton onClick={handleOpen}>
+        <EditOutlinedIcon color="success" />
+      </IconButton>
       <Modal
         open={open}
         onClose={handleClose}
@@ -44,11 +44,11 @@ const WalletModal = ({ buttonText, walletProps }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <WalletForm onClose={handleClose} wallet={walletProps} />
+          <EditWallet onClose={handleClose} title={title} id={id} />
         </Box>
       </Modal>
     </>
   );
 };
 
-export default WalletModal;
+export default WalletEditModal;
