@@ -1,6 +1,5 @@
 import React from "react";
-import { Avatar, Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { Avatar, Card, CardContent, Grid, Typography } from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useSelector } from "react-redux";
 import { selectSummary } from "../../../redux/features/dashboardSlice";
@@ -17,7 +16,7 @@ const Budget = (props) => {
                 EXPENSE
               </Typography>
               <Typography color="textPrimary" variant="h4">
-                ${summary.expense}
+                $ {!summary.expense ? 0 : summary.expense}
               </Typography>
             </Grid>
             <Grid item>

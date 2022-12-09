@@ -1,10 +1,10 @@
 import React from "react";
-import { Avatar, Card, CardContent, Grid, Typography, Box } from "@mui/material";
+import { Avatar, Card, CardContent, Grid, Typography, Box, IconButton } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { useSelector } from "react-redux";
 import { selectWallet } from "../../../redux/features/walletSlice";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import WalletEditModal from "../../Modals/Wallet/WalletEditModal";
+import DeleteWalletModal from "../../Modals/Wallet/DeleteWalletModal";
 
 const Wallet = () => {
   const wallets = useSelector(selectWallet);
@@ -59,7 +59,7 @@ const Wallet = () => {
                 {/* </Box> */}
                 <Box sx={{ alignItems: "center", display: "flex", pt: 2, justifyContent: "end" }}>
                   <WalletEditModal title={w.title} id={w.id} />
-                  <DeleteOutlineIcon color="error" />
+                  <DeleteWalletModal id={w.id} />
                 </Box>
               </CardContent>
             </Card>

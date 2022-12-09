@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { createWallet, editWallet } from "../../../redux/features/walletSlice";
+import { createWallet } from "../../../redux/features/walletSlice";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import FormProvider from "../FormProvider";
@@ -9,7 +9,7 @@ import RHFTextField from "../RHFTextField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import RHFNumber from "../RHFNumber";
 
-const WalletForm = ({ onClose, wallet }) => {
+const WalletForm = ({ onClose }) => {
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -18,7 +18,7 @@ const WalletForm = ({ onClose, wallet }) => {
   };
 
   const onSubmit = (data) => {
-    dispatch(editWallet({ id: wallet.id, body: data }));
+    dispatch(createWallet({ body: data }));
     handleClose();
   };
 
@@ -31,8 +31,8 @@ const WalletForm = ({ onClose, wallet }) => {
   const methods = useForm({
     resolver: yupResolver(WalletSchema),
     defaultValues: {
-      title: wallet?.title || "",
-      balance: +wallet?.balance || "",
+      title: "",
+      balance: "",
     },
   });
 
@@ -48,7 +48,6 @@ const WalletForm = ({ onClose, wallet }) => {
                 <RHFTextField name={"title"} label="Title" inputId={"title-input"} />
               </Grid>
               <Grid item md={6} xs={12}>
-                {/* <RHFTextField name={"balance"} label="Balance" inputId={"balance-input"} type="number" /> */}
                 <RHFNumber name={"balance"} label="Balance" inputId={"balance-input"} />
               </Grid>
             </Grid>
