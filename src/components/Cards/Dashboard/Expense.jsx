@@ -16,7 +16,7 @@ const Budget = (props) => {
                 EXPENSE
               </Typography>
               <Typography color="textPrimary" variant="h4">
-                $ {!summary.expense ? 0 : summary.expense}
+                ${summary.expense}
               </Typography>
             </Grid>
             <Grid item>

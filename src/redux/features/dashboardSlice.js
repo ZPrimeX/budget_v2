@@ -19,7 +19,11 @@ export const fetchExpenses = createAsyncThunk("dashboard/fetchExpenses", async (
 const dashboardSlice = createSlice({
   name: "dashboard",
   initialState: {
-    summary: {},
+    summary: {
+      balance: 0,
+      expense: 0,
+      income: 0,
+    },
     barChart: {},
     expenses: {},
     status: "idle",
@@ -59,9 +63,9 @@ const dashboardSlice = createSlice({
       })
       .addCase(fetchSummary.fulfilled, (state, action) => {
         state.status = "success";
-        state.summary.balance = action.payload.body._sum.balance;
-        state.summary.income = action.payload.body._sum.income;
-        state.summary.expense = action.payload.body._sum.expense;
+        state.summary.balance = action.payload.body._sum.balance || 0;
+        state.summary.income = action.payload.body._sum.income || 0;
+        state.summary.expense = action.payload.body._sum.expense || 0;
       })
       .addCase(fetchSummary.rejected, (state) => {
         state.status = "rejected";

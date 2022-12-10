@@ -82,7 +82,7 @@ const walletSlice = createSlice({
         state.status = "fulfilled";
         state.wallets = state.wallets.map((wallet) => {
           if (wallet.id === action.payload.body.id) {
-            return (wallet.title = action.payload.body.title);
+            return (wallet = action.payload.body);
           }
           return wallet;
         });

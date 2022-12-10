@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 const DeleteCategory = ({ category }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
     dispatch(deleteCategory(category.id));
   };
 

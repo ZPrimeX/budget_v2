@@ -6,7 +6,8 @@ import { Box, Button, Card, CardContent, CardHeader, Divider, Grid, Typography }
 const DeleteWallet = ({ onClose, id }) => {
   const dispatch = useDispatch();
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     dispatch(deleteWallet({ id: id }));
     onClose;
   };

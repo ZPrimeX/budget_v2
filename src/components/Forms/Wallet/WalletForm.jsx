@@ -18,7 +18,7 @@ const WalletForm = ({ onClose }) => {
   };
 
   const onSubmit = (data) => {
-    dispatch(createWallet({ body: data }));
+    dispatch(createWallet(data));
     handleClose();
   };
 

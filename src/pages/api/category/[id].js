@@ -20,7 +20,7 @@ async function handler(req, res) {
     try {
       reqValidator(req, res);
 
-      const hasTransaction = prisma.transaction.count({ where: { category_id: req.query.id } });
+      const hasTransaction = await prisma.transaction.count({ where: { category_id: req.query.id } });
 
       if (hasTransaction) {
         return res.status(400).json({ message: "Category has transactions" });
