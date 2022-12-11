@@ -1,6 +1,5 @@
 import React from "react";
-import { Avatar, Card, CardContent, Grid, Typography, Box } from "@mui/material";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import { Avatar, Card, CardContent, Grid, Typography } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { selectSummary } from "../../../redux/features/dashboardSlice";
 import { useSelector } from "react-redux";

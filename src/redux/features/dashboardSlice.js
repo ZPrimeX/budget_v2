@@ -1,17 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { el } from "date-fns/locale";
+import dayjs from "dayjs";
 import { req } from "../../utils/Axios";
 
-export const fetchSummary = createAsyncThunk("dashboard/fetchSummary", async (id) => {
+export const fetchSummary = createAsyncThunk("dashboard/fetchSummary", async () => {
   const res = await req.get("dashboard/summary");
   return res.data;
 });
 
-export const fetchBarChart = createAsyncThunk("dashboard/fetchBarChart", async (id) => {
+export const fetchBarChart = createAsyncThunk("dashboard/fetchBarChart", async () => {
   const res = await req.get("dashboard/bar-chart");
   return res.data;
 });
 
-export const fetchExpenses = createAsyncThunk("dashboard/fetchExpenses", async (id) => {
+export const fetchExpenses = createAsyncThunk("dashboard/fetchExpenses", async () => {
   const res = await req.get("dashboard/expenses");
   return res.data;
 });
@@ -37,21 +39,18 @@ const dashboardSlice = createSlice({
       })
       .addCase(fetchBarChart.fulfilled, (state, action) => {
         state.status = "success";
-        state.barChart["income"] = action.payload.body.incomes.map((i) => {
-          return i._sum.amount;
+        state.barChart["income"] = action.payload.body.data.map((i) => {
+          return i.income._sum.amount || 0;
         });
-        state.barChart["expense"] = action.payload.body.expenses.map((i) => {
-          return i._sum.amount;
+        state.barChart["expense"] = action.payload.body.data.map((e) => {
+          return e.expense._sum.amount || 0;
         });
-        const date_set = new Set();
-        action.payload.body.expenses.map((i) => {
-          date_set.add(`${i.day},${i.month}, ${i.year} `);
+        state.barChart["labels"] = action.payload.body.data.map((d) => {
+          // 11122022
+          // 5122022
+          // new Date(d.date).toDateString() => "Wed Dec 31 1969";
+          return d.date;
         });
-        action.payload.body.incomes.map((i) => {
-          date_set.add(`${i.day},${i.month}, ${i.year} `);
-        });
-
-        state.barChart["labels"] = Array.from(date_set);
       })
       .addCase(fetchBarChart.rejected, (state) => {
         state.status = "rejected";

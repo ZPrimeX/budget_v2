@@ -24,8 +24,6 @@ const style = {
   p: 4,
 };
 
-const months = {};
-
 const CreateTransaction = () => {
   const dispatch = useDispatch();
 

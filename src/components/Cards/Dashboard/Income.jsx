@@ -1,6 +1,5 @@
 import React from "react";
-import { Avatar, Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import { Avatar, Card, CardContent, Grid, Typography } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useSelector } from "react-redux";
 import { selectSummary } from "../../../redux/features/dashboardSlice";
