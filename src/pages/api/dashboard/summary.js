@@ -1,6 +1,7 @@
 import { apiHandler } from "../../../../server/helpers/api-handler";
 import { allowedMethod, ServerError, Success } from "../../../../server/helpers/requestValidators";
 import { getUser } from "../../../../server/helpers/get-user";
+import prisma from "../../../../server/lib/prisma";
 
 export default apiHandler(handler);
 

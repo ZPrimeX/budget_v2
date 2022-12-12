@@ -2,6 +2,7 @@ import { apiHandler } from "../../../../server/helpers/api-handler";
 import { allowedMethod, ServerError, Success } from "../../../../server/helpers/requestValidators";
 import { getUser } from "../../../../server/helpers/get-user";
 import dayjs from "dayjs";
+import prisma from "../../../../server/lib/prisma";
 
 function prepareRawDate(date) {
   const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
@@ -100,6 +101,7 @@ async function handler(req, res) {
     );
     return Success(res, { data });
   } catch (error) {
+    console.log("Barchart error: ", error);
     return ServerError(res, error);
   }
 }
