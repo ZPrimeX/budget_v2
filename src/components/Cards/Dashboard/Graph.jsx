@@ -12,6 +12,16 @@ const Graph = (props) => {
 
   const theme = useTheme();
 
+  const day1 = dayjs(new Date()).format("ddd DD/MM/YYYY");
+  const day2 = dayjs(new Date() - 24 * 60 * 60 * 1000).format("ddd DD/MM/YYYY"); // 1 day ago from now in milliseconds (24 hours) (60 minutes) (60 seconds) (1000 milliseconds) = 86400000 milliseconds = 1 day
+  const day3 = dayjs(new Date() - 2 * 24 * 60 * 60 * 1000).format("ddd DD/MM/YYYY");
+  const day4 = dayjs(new Date() - 3 * 24 * 60 * 60 * 1000).format("ddd DD/MM/YYYY");
+  const day5 = dayjs(new Date() - 4 * 24 * 60 * 60 * 1000).format("ddd DD/MM/YYYY");
+  const day6 = dayjs(new Date() - 5 * 24 * 60 * 60 * 1000).format("ddd DD/MM/YYYY");
+  const day7 = dayjs(new Date() - 6 * 24 * 60 * 60 * 1000).format("ddd DD/MM/YYYY");
+
+  const dates = [day7, day6, day5, day4, day3, day2, day1];
+
   const data = {
     datasets: [
       {
@@ -35,7 +45,7 @@ const Graph = (props) => {
         maxBarThickness: 10,
       },
     ],
-    labels: barChart.labels ? barChart.labels : [],
+    labels: dates,
   };
 
   const options = {
