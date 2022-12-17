@@ -3,21 +3,24 @@ import { Doughnut } from "react-chartjs-2";
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { useSelector } from "react-redux";
+import { selectExpenses } from "../../../redux/features/dashboardSlice";
 
 const CircularProgress = (props) => {
+  const expenses = useSelector(selectExpenses);
   const theme = useTheme();
 
   const data = {
     datasets: [
       {
-        data: [37, 43, 20],
-        backgroundColor: ["#3F51B5", "#e53935", "#FB8C00"],
+        data: expenses.amount || [],
+        backgroundColor: expenses.colors || [],
         borderWidth: 8,
         borderColor: "#FFFFFF",
         hoverBorderColor: "#FFFFFF",
       },
     ],
-    labels: ["Gas", "Electricity", "Water"],
+    labels: expenses.titles || [],
   };
 
   const options = {
@@ -42,23 +45,6 @@ const CircularProgress = (props) => {
     },
   };
 
-  const devices = [
-    {
-      title: "Gas",
-      value: 37,
-      color: "#3F51B5",
-    },
-    {
-      title: "Electricity",
-      value: 43,
-      color: "#E53935",
-    },
-    {
-      title: "Water",
-      value: 20,
-      color: "#FB8C00",
-    },
-  ];
   return (
     <>
       <Card {...props}>
@@ -76,11 +62,12 @@ const CircularProgress = (props) => {
           <Box
             sx={{
               display: "flex",
+              flexWrap: "wrap",
               justifyContent: "center",
               pt: 2,
             }}
           >
-            {devices.map(({ color, title, value }) => (
+            {expenses?.all?.map(({ amount, title, colors }) => (
               <Box
                 key={title}
                 sx={{
@@ -91,8 +78,8 @@ const CircularProgress = (props) => {
                 <Typography color="textPrimary" variant="body1">
                   {title}
                 </Typography>
-                <Typography style={{ color }} variant="h4">
-                  {value}%
+                <Typography style={{ color: colors }} variant="h4">
+                  {amount}%
                 </Typography>
               </Box>
             ))}

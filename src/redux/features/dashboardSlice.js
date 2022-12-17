@@ -78,7 +78,12 @@ const dashboardSlice = createSlice({
       })
       .addCase(fetchExpenses.fulfilled, (state, action) => {
         state.status = "success";
-        state.expenses = action.payload.body;
+        if (action.payload.body.calc_expenses) {
+          state.expenses["titles"] = action.payload.body.calc_expenses.map((t) => t.title);
+          state.expenses["amount"] = action.payload.body.calc_expenses.map((a) => a.amount);
+          state.expenses["colors"] = action.payload.body.calc_expenses.map((c) => c.colors);
+          state.expenses["all"] = action.payload.body.calc_expenses;
+        }
       })
       .addCase(fetchExpenses.rejected, (state) => {
         state.status = "rejected";

@@ -20,8 +20,6 @@ async function handler(req, res) {
 
   const { user } = await getUser(req);
 
-  console.log(user);
-
   try {
     const wallets = await prisma.wallet.findMany({
       where: {
@@ -31,7 +29,6 @@ async function handler(req, res) {
         id: true,
       },
     });
-    console.log(wallets);
 
     //? "Thu, 01 Dec 2022"
     const day1 = dayjs(new Date());

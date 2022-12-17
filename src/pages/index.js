@@ -10,7 +10,7 @@ import Transactions from "../components/Cards/Dashboard/dbTransactions";
 import { Datetime } from "../components/Cards/Dashboard/Datetime";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchBarChart, fetchSummary } from "../redux/features/dashboardSlice";
+import { fetchBarChart, fetchExpenses, fetchSummary } from "../redux/features/dashboardSlice";
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ export default function Dashboard() {
   useEffect(() => {
     dispatch(fetchSummary());
     dispatch(fetchBarChart());
+    dispatch(fetchExpenses());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
