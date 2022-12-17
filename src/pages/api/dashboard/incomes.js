@@ -15,7 +15,7 @@ async function handler(req, res) {
     const categories = await prisma.category.findMany({
       where: {
         owner_id: user.id,
-        category_type: "expense",
+        category_type: "income",
       },
       select: {
         id: true,
@@ -36,13 +36,13 @@ async function handler(req, res) {
           return { id: c.id, amount: transaction._sum.amount, title: c.title };
         })
       );
-      const total_expenses = data.reduce((a, b) => {
+      const total_incomes = data.reduce((a, b) => {
         return a + b.amount;
       }, 0);
-      const calc_expenses = data.map((i) => {
-        return { ...i, amount: Math.round((i.amount / total_expenses) * 100), colors: getRandomColors() };
+      const calc_incomes = data.map((i) => {
+        return { ...i, amount: Math.round((i.amount / total_incomes) * 100), colors: getRandomColors() };
       });
-      return Success(res, { calc_expenses });
+      return Success(res, { calc_incomes });
     } else {
       return Success(res, {});
     }

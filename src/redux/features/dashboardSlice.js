@@ -18,6 +18,11 @@ export const fetchExpenses = createAsyncThunk("dashboard/fetchExpenses", async (
   return res.data;
 });
 
+export const fetchIncomes = createAsyncThunk("dashboard/fetchIncomes", async () => {
+  const res = await req.get("dashboard/incomes");
+  return res.data;
+});
+
 const dashboardSlice = createSlice({
   name: "dashboard",
   initialState: {
@@ -28,6 +33,7 @@ const dashboardSlice = createSlice({
     },
     barChart: {},
     expenses: {},
+    incomes: {},
     status: "idle",
   },
   reducers: {},
@@ -88,6 +94,23 @@ const dashboardSlice = createSlice({
       .addCase(fetchExpenses.rejected, (state) => {
         state.status = "rejected";
       });
+    //? Fetch Incomes
+    builder
+      .addCase(fetchIncomes.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchIncomes.fulfilled, (state, action) => {
+        state.status = "success";
+        if (action.payload.body.calc_incomes) {
+          state.incomes["titles"] = action.payload.body.calc_incomes.map((t) => t.title);
+          state.incomes["amount"] = action.payload.body.calc_incomes.map((a) => a.amount);
+          state.incomes["colors"] = action.payload.body.calc_incomes.map((c) => c.colors);
+          state.incomes["all"] = action.payload.body.calc_incomes;
+        }
+      })
+      .addCase(fetchIncomes.rejected, (state) => {
+        state.status = "rejected";
+      });
   },
 });
 
@@ -95,3 +118,4 @@ export default dashboardSlice.reducer;
 export const selectSummary = (state) => state.dashboard.summary;
 export const selectBarChart = (state) => state.dashboard.barChart;
 export const selectExpenses = (state) => state.dashboard.expenses;
+export const selectIncomes = (state) => state.dashboard.incomes;

@@ -10,7 +10,8 @@ import Transactions from "../components/Cards/Dashboard/dbTransactions";
 import { Datetime } from "../components/Cards/Dashboard/Datetime";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchBarChart, fetchExpenses, fetchSummary } from "../redux/features/dashboardSlice";
+import { fetchBarChart, fetchExpenses, fetchIncomes, fetchSummary } from "../redux/features/dashboardSlice";
+import Incomes from "./api/dashboard/incomes";
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ export default function Dashboard() {
     dispatch(fetchSummary());
     dispatch(fetchBarChart());
     dispatch(fetchExpenses());
+    dispatch(fetchIncomes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -52,13 +54,16 @@ export default function Dashboard() {
                 <Graph />
               </Grid>
               <Grid item lg={4} md={6} xl={3} xs={12}>
-                <Expenses sx={{ height: "100%" }} />
+                <Incomes sx={{ height: "100%" }} />
               </Grid>
               {/* <Grid item lg={4} md={6} xl={3} xs={12}>
                 <Category sx={{ height: "100%" }} />
               </Grid> */}
               <Grid item lg={8} md={12} xl={9} xs={12}>
                 <Transactions />
+              </Grid>
+              <Grid item lg={4} md={6} xl={3} xs={12}>
+                <Expenses sx={{ height: "100%" }} />
               </Grid>
             </Grid>
           </Container>

@@ -2,23 +2,23 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectExpenses } from "../../../redux/features/dashboardSlice";
+import { selectIncomes } from "../../../redux/features/dashboardSlice";
 
-const ExpenseDoughnut = (props) => {
-  const expenses = useSelector(selectExpenses);
+const IncomeDoughnut = (props) => {
+  const incomes = useSelector(selectIncomes);
   const theme = useTheme();
 
   const data = {
     datasets: [
       {
-        data: expenses.amount || [],
-        backgroundColor: expenses.colors || [],
+        data: incomes.amount || [],
+        backgroundColor: incomes.colors || [],
         borderWidth: 8,
         borderColor: "#FFFFFF",
         hoverBorderColor: "#FFFFFF",
       },
     ],
-    labels: expenses.titles || [],
+    labels: incomes.titles || [],
   };
 
   const options = {
@@ -46,7 +46,7 @@ const ExpenseDoughnut = (props) => {
   return (
     <>
       <Card {...props}>
-        <CardHeader title="Expenses" />
+        <CardHeader title="Incomes" />
         <Divider />
         <CardContent>
           <Box
@@ -65,7 +65,7 @@ const ExpenseDoughnut = (props) => {
               pt: 2,
             }}
           >
-            {expenses?.all?.map(({ amount, title, colors }) => (
+            {incomes?.all?.map(({ amount, title, colors }) => (
               <Box
                 key={title}
                 sx={{
@@ -88,4 +88,4 @@ const ExpenseDoughnut = (props) => {
   );
 };
 
-export default ExpenseDoughnut;
+export default IncomeDoughnut;
