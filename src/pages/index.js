@@ -6,12 +6,12 @@ import Income from "../components/Cards/Dashboard/Income";
 import Balance from "../components/Cards/Dashboard/Balance";
 import Graph from "../components/Cards/Dashboard/Graph";
 import Expenses from "../components/Cards/Dashboard/Expenses";
+import Incomes from "../components/Cards/Dashboard/Incomes";
 import Transactions from "../components/Cards/Dashboard/dbTransactions";
 import { Datetime } from "../components/Cards/Dashboard/Datetime";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchBarChart, fetchExpenses, fetchIncomes, fetchSummary } from "../redux/features/dashboardSlice";
-import Incomes from "./api/dashboard/incomes";
 
 export default function Dashboard() {
   const dispatch = useDispatch();
