@@ -11,9 +11,6 @@ async function handler(req, res) {
 
   try {
     const aggregations = await prisma.transaction.aggregate({
-      _sum: {
-        amount: true,
-      },
       where: {
         owner_id: user.id,
       },

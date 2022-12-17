@@ -46,19 +46,16 @@ const CircularProgress = (props) => {
     {
       title: "Gas",
       value: 37,
-      icon: AddCircleOutlineIcon,
       color: "#3F51B5",
     },
     {
       title: "Electricity",
       value: 43,
-      icon: RemoveCircleOutlineIcon,
       color: "#E53935",
     },
     {
       title: "Water",
       value: 20,
-      icon: RemoveCircleOutlineIcon,
       color: "#FB8C00",
     },
   ];
@@ -83,7 +80,7 @@ const CircularProgress = (props) => {
               pt: 2,
             }}
           >
-            {devices.map(({ color, icon: Icon, title, value }) => (
+            {devices.map(({ color, title, value }) => (
               <Box
                 key={title}
                 sx={{
@@ -91,7 +88,6 @@ const CircularProgress = (props) => {
                   textAlign: "center",
                 }}
               >
-                <Icon color="action" />
                 <Typography color="textPrimary" variant="body1">
                   {title}
                 </Typography>
