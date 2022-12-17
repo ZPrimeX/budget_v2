@@ -20,6 +20,8 @@ async function handler(req, res) {
 
   const { user } = await getUser(req);
 
+  console.log(user);
+
   try {
     const wallets = await prisma.wallet.findMany({
       where: {
@@ -29,6 +31,7 @@ async function handler(req, res) {
         id: true,
       },
     });
+    console.log(wallets);
 
     //? "Thu, 01 Dec 2022"
     const day1 = dayjs(new Date());
@@ -48,58 +51,61 @@ async function handler(req, res) {
       prepareRawDate(day2),
       prepareRawDate(day1),
     ];
-
-    const data = await Promise.all(
-      dates.map(async (date) => {
-        const income = await prisma.transaction.aggregate({
-          where: {
-            AND: [
-              {
-                OR: wallets.map((w) => {
-                  return { wallet_id: w.id };
-                }),
-              },
-              {
-                category: {
-                  category_type: "income",
+    if (wallets.length) {
+      const data = await Promise.all(
+        dates.map(async (date) => {
+          const income = await prisma.transaction.aggregate({
+            where: {
+              AND: [
+                {
+                  OR: wallets.map((w) => {
+                    return { wallet_id: w.id };
+                  }),
                 },
-              },
-              {
-                raw_date: +date,
-              },
-            ],
-          },
-          _sum: {
-            amount: true,
-          },
-        });
-
-        const expense = await prisma.transaction.aggregate({
-          where: {
-            AND: [
-              {
-                OR: wallets.map((w) => {
-                  return { wallet_id: w.id };
-                }),
-              },
-              {
-                category: {
-                  category_type: "expense",
+                {
+                  category: {
+                    category_type: "income",
+                  },
                 },
-              },
-              {
-                raw_date: +date,
-              },
-            ],
-          },
-          _sum: {
-            amount: true,
-          },
-        });
-        return { income, expense, date: +date };
-      })
-    );
-    return Success(res, { data });
+                {
+                  raw_date: +date,
+                },
+              ],
+            },
+            _sum: {
+              amount: true,
+            },
+          });
+
+          const expense = await prisma.transaction.aggregate({
+            where: {
+              AND: [
+                {
+                  OR: wallets.map((w) => {
+                    return { wallet_id: w.id };
+                  }),
+                },
+                {
+                  category: {
+                    category_type: "expense",
+                  },
+                },
+                {
+                  raw_date: +date,
+                },
+              ],
+            },
+            _sum: {
+              amount: true,
+            },
+          });
+          return { income, expense, date: +date };
+        })
+      );
+      return Success(res, { data });
+    } else {
+      return Success(res, {});
+    }
   } catch (error) {
     console.log("Barchart error: ", error);
     return ServerError(res, error);

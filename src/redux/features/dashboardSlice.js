@@ -39,18 +39,20 @@ const dashboardSlice = createSlice({
       })
       .addCase(fetchBarChart.fulfilled, (state, action) => {
         state.status = "success";
-        state.barChart["income"] = action.payload.body.data.map((i) => {
-          return i.income._sum.amount || 0;
-        });
-        state.barChart["expense"] = action.payload.body.data.map((e) => {
-          return e.expense._sum.amount || 0;
-        });
-        state.barChart["labels"] = action.payload.body.data.map((d) => {
-          // 11122022
-          // 5122022
-          // new Date(d.date).toDateString() => "Wed Dec 31 1969";
-          return d.date;
-        });
+        if (action.payload.body.data) {
+          state.barChart["income"] = action.payload.body.data.map((i) => {
+            return i.income._sum.amount || 0;
+          });
+          state.barChart["expense"] = action.payload.body.data.map((e) => {
+            return e.expense._sum.amount || 0;
+          });
+          state.barChart["labels"] = action.payload.body.data.map((d) => {
+            // 11122022
+            // 5122022
+            // new Date(d.date).toDateString() => "Wed Dec 31 1969";
+            return d.date;
+          });
+        }
       })
       .addCase(fetchBarChart.rejected, (state) => {
         state.status = "rejected";
