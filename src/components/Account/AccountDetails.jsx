@@ -92,9 +92,6 @@ const AccountDetails = () => {
                   variant="outlined"
                 />
               </Grid>
-              <Grid item md={6} xs={12}>
-                <TextField fullWidth label="Country" name="country" value={user.country} variant="outlined" />
-              </Grid>
             </Grid>
           </CardContent>
           <Divider />

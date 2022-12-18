@@ -2,6 +2,7 @@ import React from "react";
 import { Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from "@mui/material";
 import { selectUser } from "../../redux/features/authSlice";
 import { useSelector } from "react-redux";
+import dayjs from "dayjs";
 
 const AccountProfile = (props) => {
   const user = useSelector(selectUser);
@@ -33,9 +34,14 @@ const AccountProfile = (props) => {
                 {user.last_name}
               </Typography>
             </Box>
-            <Typography color="textSecondary" variant="body2">
-              {`${user.createdAt}`}
-            </Typography>
+            <Box display={"flex"} gap={1}>
+              <Typography color="textPrimary" variant="body2">
+                Joined on:
+              </Typography>
+              <Typography color="primary" variant="body2">
+                {`${dayjs(user.createdAt)}`}
+              </Typography>
+            </Box>
           </Box>
         </CardContent>
         <Divider />

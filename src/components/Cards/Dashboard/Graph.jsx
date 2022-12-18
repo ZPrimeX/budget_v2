@@ -99,6 +99,7 @@ const Graph = (props) => {
   return (
     <>
       <Card {...props}>
+        {/*TODO: try adding that feature 
         <CardHeader
           action={
             <Button endIcon={<ArrowDropDownIcon fontSize="small" />} size="small">
@@ -106,7 +107,7 @@ const Graph = (props) => {
             </Button>
           }
           title="Latest Stats"
-        />
+        /> */}
         <Divider />
         <CardContent>
           <Box
