@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "next/head";
 import { CacheProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
@@ -6,16 +7,19 @@ import { createEmotionCache } from "../utils/create-emotion-cache";
 import { registerChartJs } from "../utils/register-chart-js";
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "../redux/store";
-import { theme } from "../theme";
 import { AuthProvider } from "../../server/providers/AuthProvider";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { createTheme } from "@mui/material";
+import { getDesignTokens } from "../theme";
 
 registerChartJs();
+
 const clientSideEmotionCache = createEmotionCache();
 
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
+  const theme = createTheme(getDesignTokens("dark"));
 
   return (
     <CacheProvider value={emotionCache}>

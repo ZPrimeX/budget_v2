@@ -36,18 +36,20 @@ async function handler(req, res) {
           return { id: c.id, amount: transaction._sum.amount, title: c.title };
         })
       );
-      const total_expenses = data.reduce((a, b) => {
+
+      const total_expenses = data?.reduce((a, b) => {
         return a + b.amount;
       }, 0);
-      const calc_expenses = data.map((i) => {
-        return { ...i, amount: Math.round((i.amount / total_expenses) * 100), colors: getRandomColors() };
-      });
+      const calc_expenses = data
+        ?.filter((d) => d.amount > 0)
+        ?.map((i) => {
+          return { ...i, amount: Math.round((i.amount / total_expenses) * 100), colors: getRandomColors() };
+        });
       return Success(res, { calc_expenses });
     } else {
       return Success(res, {});
     }
   } catch (error) {
-    console.log(error);
     return ServerError(res, error);
   }
 }

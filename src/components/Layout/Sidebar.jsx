@@ -1,5 +1,4 @@
 import React from "react";
-import NextLink from "next/link";
 import PropTypes from "prop-types";
 import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { ChartBar as ChartBarIcon } from "../../icons/chart-bar";
@@ -59,16 +58,14 @@ const Sidebar = () => {
       >
         <div>
           <Box sx={{ p: 3 }}>
-            <NextLink href="/" passHref>
-              <a>
-                {/* <Logo
+            <a>
+              {/* <Logo
                   sx={{
                     height: 42,
                     width: 42,
                   }}
                 /> */}
-              </a>
-            </NextLink>
+            </a>
           </Box>
         </div>
         <Divider

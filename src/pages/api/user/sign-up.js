@@ -32,4 +32,13 @@ async function handler(req, res) {
     res.status(401).json({ message: result });
   }
   res.status(201).json({ message: "success", body: result });
+  // const message = msg(req.body.email, req.body.username, result.token);
+  // sgMail
+  //   .send(message)
+  //   .then(() => {
+  //     console.log("Email sent");
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
 }

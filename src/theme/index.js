@@ -1,6 +1,4 @@
-import { createTheme } from "@mui/material";
-
-export const theme = createTheme({
+export const getDesignTokens = (mode) => ({
   breakpoints: {
     values: {
       xs: 0,
@@ -132,71 +130,144 @@ export const theme = createTheme({
     },
   },
   palette: {
-    neutral: {
-      100: "#F3F4F6",
-      200: "#E5E7EB",
-      300: "#D1D5DB",
-      400: "#9CA3AF",
-      500: "#6B7280",
-      600: "#4B5563",
-      700: "#374151",
-      800: "#1F2937",
-      900: "#111827",
-    },
-    action: {
-      active: "#6B7280",
-      focus: "rgba(55, 65, 81, 0.12)",
-      hover: "rgba(55, 65, 81, 0.04)",
-      selected: "rgba(55, 65, 81, 0.08)",
-      disabledBackground: "rgba(55, 65, 81, 0.12)",
-      disabled: "rgba(55, 65, 81, 0.26)",
-    },
-    background: {
-      default: "#F9FAFC",
-      paper: "#FFFFFF",
-    },
-    divider: "#E6E8F0",
-    primary: {
-      main: "#5048E5",
-      light: "#828DF8",
-      dark: "#3832A0",
-      contrastText: "#FFFFFF",
-    },
-    secondary: {
-      main: "#10B981",
-      light: "#3FC79A",
-      dark: "#0B815A",
-      contrastText: "#FFFFFF",
-    },
-    success: {
-      main: "#14B8A6",
-      light: "#43C6B7",
-      dark: "#0E8074",
-      contrastText: "#FFFFFF",
-    },
-    info: {
-      main: "#2196F3",
-      light: "#64B6F7",
-      dark: "#0B79D0",
-      contrastText: "#FFFFFF",
-    },
-    warning: {
-      main: "#FFB020",
-      light: "#FFBF4C",
-      dark: "#B27B16",
-      contrastText: "#FFFFFF",
-    },
-    error: {
-      main: "#D14343",
-      light: "#DA6868",
-      dark: "#922E2E",
-      contrastText: "#FFFFFF",
-    },
-    text: {
-      primary: "#121828",
-      secondary: "#65748B",
-      disabled: "rgba(55, 65, 81, 0.48)",
-    },
+    mode,
+    ...(mode === "light"
+      ? {
+          //? LIGHT MODE
+          neutral: {
+            100: "#F3F4F6",
+            200: "#E5E7EB",
+            300: "#D1D5DB",
+            400: "#9CA3AF",
+            500: "#6B7280",
+            600: "#4B5563",
+            700: "#374151",
+            800: "#1F2937",
+            900: "#111827",
+          },
+          action: {
+            active: "#6B7280",
+            focus: "rgba(55, 65, 81, 0.12)",
+            hover: "rgba(55, 65, 81, 0.04)",
+            selected: "rgba(55, 65, 81, 0.08)",
+            disabledBackground: "rgba(55, 65, 81, 0.12)",
+            disabled: "rgba(55, 65, 81, 0.26)",
+          },
+          background: {
+            default: "#F9FAFC",
+            paper: "#FFFFFF",
+          },
+          divider: "#E6E8F0",
+          primary: {
+            main: "#5048E5",
+            light: "#828DF8",
+            dark: "#3832A0",
+            contrastText: "#FFFFFF",
+          },
+          secondary: {
+            main: "#10B981",
+            light: "#3FC79A",
+            dark: "#0B815A",
+            contrastText: "#FFFFFF",
+          },
+          success: {
+            main: "#14B8A6",
+            light: "#43C6B7",
+            dark: "#0E8074",
+            contrastText: "#FFFFFF",
+          },
+          info: {
+            main: "#2196F3",
+            light: "#64B6F7",
+            dark: "#0B79D0",
+            contrastText: "#FFFFFF",
+          },
+          warning: {
+            main: "#FFB020",
+            light: "#FFBF4C",
+            dark: "#B27B16",
+            contrastText: "#FFFFFF",
+          },
+          error: {
+            main: "#D14343",
+            light: "#DA6868",
+            dark: "#922E2E",
+            contrastText: "#FFFFFF",
+          },
+          text: {
+            primary: "#121828",
+            secondary: "#65748B",
+            disabled: "rgba(55, 65, 81, 0.48)",
+          },
+        }
+      : {
+          //! DARK MODE
+          neutral: {
+            100: "#0c0b09",
+            200: "#1a1814",
+            300: "#2e2a24",
+            400: "#635c50",
+            500: "#948d7f",
+            600: "#b4aa9c",
+            700: "#c8beae",
+            800: "#e0d6c8",
+            900: "#eee7d8",
+          },
+          action: {
+            active: "#948d7f",
+            focus: "rgba(55, 65, 81, 0.12)",
+            hover: "rgba(55, 65, 81, 0.04)",
+            selected: "rgba(55, 65, 81, 0.08)",
+            disabledBackground: "rgba(55, 65, 81, 0.12)",
+            disabled: "rgba(55, 65, 81, 0.26)",
+          },
+          background: {
+            default: "#060503",
+            paper: "#000000",
+          },
+          divider: "#19170f",
+          primary: {
+            main: "#afb71a",
+            light: "#7d7207",
+            dark: "#c7cd5f",
+            contrastText: "#000000",
+          },
+          secondary: {
+            main: "#ef467e",
+            light: "#c03865",
+            dark: "#f47ea5",
+            contrastText: "#000000",
+          },
+          success: {
+            main: "#eb4759",
+            light: "#bc3948",
+            dark: "#f17f8b",
+            contrastText: "#000000",
+          },
+          info: {
+            main: "#de690c",
+            light: "#9b4908",
+            dark: "#f4862f",
+            contrastText: "#000000",
+          },
+          warning: {
+            main: "#004fdf",
+            light: "#0040b3",
+            dark: "#4d84e9",
+            contrastText: "#000000",
+          },
+          error: {
+            main: "#2ebcbc",
+            light: "#259797",
+            dark: "#6dd1d1",
+            contrastText: "#000000",
+          },
+          text: {
+            primary: "#ede7d7",
+            secondary: "#9a8b74",
+            disabled: "rgba(55, 65, 81, 0.48)",
+          },
+        }),
   },
   shape: {
     borderRadius: 8,
