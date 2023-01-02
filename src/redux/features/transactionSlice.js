@@ -8,11 +8,11 @@ export const createTransaction = createAsyncThunk("transaction/createTransaction
 });
 
 export const fetchTransactions = createAsyncThunk("transaction/fetchTransactions", async (id) => {
-  const res = await req.get(`/transaction/${id}`);
+  const res = await req.get(`/transaction/get/${id}`);
   return res.data;
 });
 
-export const editTransaction = createAsyncThunk("transaction/editTransaction", async (id, data) => {
+export const editTransaction = createAsyncThunk("transaction/editTransaction", async ({ id, data }) => {
   const res = await req.patch(`/transaction/${id}`, data);
   return res.data;
 });
@@ -28,7 +28,11 @@ const transactionSlice = createSlice({
     transactions: [],
     status: "idle",
   },
-  reducers: {},
+  reducers: {
+    clearTransactions: (state) => {
+      state.transactions = [];
+    },
+  },
   extraReducers(builder) {
     // ---Create Transaction---
     builder
@@ -98,3 +102,4 @@ const transactionSlice = createSlice({
 
 export default transactionSlice.reducer;
 export const selectTransaction = (state) => state.transaction.transactions;
+export const { clearTransactions } = transactionSlice.actions;

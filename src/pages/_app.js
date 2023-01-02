@@ -11,6 +11,7 @@ import { AuthProvider } from "../../server/providers/AuthProvider";
 import { ToastContainer } from "react-toastify";
 import { createTheme } from "@mui/material";
 import { getDesignTokens } from "../theme";
+import "react-toastify/dist/ReactToastify.css";
 
 registerChartJs();
 

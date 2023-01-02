@@ -1,8 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { Box, Card, CardContent, CardHeader, Divider, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectBarChart } from "../../../redux/features/dashboardSlice";
 import dayjs from "dayjs";
@@ -99,15 +97,8 @@ const Graph = (props) => {
   return (
     <>
       <Card {...props}>
-        {/*TODO: try adding that feature 
-        <CardHeader
-          action={
-            <Button endIcon={<ArrowDropDownIcon fontSize="small" />} size="small">
-              Last 7 days
-            </Button>
-          }
-          title="Latest Stats"
-        /> */}
+        {/* TODO: try adding that feature */}
+        <CardHeader title="Latest Stats" />
         <Divider />
         <CardContent>
           <Box
@@ -120,7 +111,7 @@ const Graph = (props) => {
           </Box>
         </CardContent>
         <Divider />
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "flex-end",
@@ -130,7 +121,7 @@ const Graph = (props) => {
           <Button color="primary" endIcon={<ArrowRightIcon fontSize="small" />} size="small">
             Overview
           </Button>
-        </Box>
+        </Box> */}
       </Card>
     </>
   );

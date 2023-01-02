@@ -13,7 +13,7 @@ const IncomeDoughnut = (props) => {
       {
         data: incomes.amount || [],
         backgroundColor: incomes.colors || [],
-        borderWidth: 8,
+        borderWidth: 1,
         borderColor: "#FFFFFF",
         hoverBorderColor: "#FFFFFF",
       },

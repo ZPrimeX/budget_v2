@@ -1,18 +1,6 @@
 import React, { useEffect } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import {
-  Box,
-  Card,
-  CardHeader,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Tooltip,
-} from "@mui/material";
+import { Box, Card, CardHeader, Stack, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { SeverityPill } from "../../severity-pill";
 import CreateTransaction from "../../Modals/Transaction/CreateTransaction";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +8,7 @@ import WalletMenu from "../../Modals/Wallet/WalletMenu";
 import { fetchTransactions, selectTransaction } from "../../../redux/features/transactionSlice";
 import { selectCurrentWallet } from "../../../redux/features/walletSlice";
 import dayjs from "dayjs";
+import DeleteTransaction from "../../Modals/Transaction/DeleteTransaction";
 
 const Transaction = (props) => {
   const dispatch = useDispatch();
@@ -53,14 +42,16 @@ const Transaction = (props) => {
                   <TableCell>Transaction ID</TableCell>
                   <TableCell>Category</TableCell>
                   <TableCell>Amount</TableCell>
-                  <TableCell sortDirection="desc">
+                  <TableCell>Date</TableCell>
+                  {/* <TableCell sortDirection="desc">
                     <Tooltip enterDelay={300} title="Sort">
                       <TableSortLabel active direction="desc">
                         Date
                       </TableSortLabel>
                     </Tooltip>
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>Type</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -80,6 +71,9 @@ const Transaction = (props) => {
                       >
                         {c.category.category_type}
                       </SeverityPill>
+                    </TableCell>
+                    <TableCell>
+                      <DeleteTransaction id={c.id} />
                     </TableCell>
                   </TableRow>
                 ))}

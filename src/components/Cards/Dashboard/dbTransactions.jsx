@@ -12,6 +12,7 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { SeverityPill } from "../../severity-pill";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,9 +37,12 @@ const Transaction = (props) => {
     <>
       <Card {...props}>
         <Box display={"flex"} justifyContent="space-between" width={"95%"} height={"75px"} alignItems={"center"}>
-          <Stack direction={"row"} width="350px" alignItems={"center"}>
+          <Stack direction={"row"} width="100%" alignItems={"center"} justifyContent="space-between">
             <CardHeader title="Transactions" />
-            <WalletMenu />
+            <Box display={"flex"} alignItems="center" gap={2}>
+              <Typography>Current Wallet: </Typography>
+              <WalletMenu />
+            </Box>
           </Stack>
         </Box>
         <PerfectScrollbar>
@@ -49,13 +53,14 @@ const Transaction = (props) => {
                   <TableCell>Transaction ID</TableCell>
                   <TableCell>Category</TableCell>
                   <TableCell>Amount</TableCell>
-                  <TableCell sortDirection="desc">
+                  <TableCell>Date</TableCell>
+                  {/* <TableCell sortDirection="desc">
                     <Tooltip enterDelay={300} title="Sort">
                       <TableSortLabel active direction="desc">
                         Date
                       </TableSortLabel>
                     </Tooltip>
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>Type</TableCell>
                 </TableRow>
               </TableHead>

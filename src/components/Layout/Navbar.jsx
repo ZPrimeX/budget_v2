@@ -9,7 +9,7 @@ import { selectUser } from "../../redux/features/authSlice";
 import PersonIcon from "@mui/icons-material/Person";
 
 const NavbarRoot = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: "#0D0D0D",
   boxShadow: theme.shadows[3],
 }));
 

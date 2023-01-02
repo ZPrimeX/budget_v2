@@ -1,15 +1,19 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteWallet } from "../../../redux/features/walletSlice";
-import { Box, Button, Card, CardContent, CardHeader, Divider, Grid, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, Divider, Typography } from "@mui/material";
+import { clearTransactions } from "../../../redux/features/transactionSlice";
 
 const DeleteWallet = ({ onClose, id }) => {
   const dispatch = useDispatch();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(deleteWallet({ id: id }));
-    onClose;
+    const res = await dispatch(deleteWallet({ id: id }));
+    if (res.meta.requestStatus === "fulfilled") {
+      dispatch(clearTransactions());
+    }
+    onClose();
   };
 
   return (

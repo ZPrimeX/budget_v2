@@ -71,7 +71,7 @@ const Sidebar = () => {
         <Divider
           sx={{
             borderColor: "#2D3748",
-            my: 3,
+            my: 2,
           }}
         />
         <Box sx={{ flexGrow: 1 }}>

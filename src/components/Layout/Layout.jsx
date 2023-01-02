@@ -21,7 +21,6 @@ const DashboardLayoutRoot = styled("div")(({ theme }) => ({
 const Layout = ({ children }) => {
   const user = useSelector(selectUser);
   const categories = useSelector(selectCategory);
-  const wallets = useSelector(selectWallet);
 
   const dispatch = useDispatch();
 
@@ -29,9 +28,7 @@ const Layout = ({ children }) => {
     if (!categories.length) {
       dispatch(fetchCategories());
     }
-    if (!wallets.length) {
-      dispatch(fetchWallets());
-    }
+    dispatch(fetchWallets());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
