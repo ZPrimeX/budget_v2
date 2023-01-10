@@ -57,3 +57,28 @@ export const validateSignUp = async (data) => {
   }
   return { message: "success", description: "" };
 };
+
+export const forgotPassword = async (email) => {
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+  if (!user) {
+    return { message: "not found" };
+  }
+  const token = jwt.sign({ id: user.id }, serverRuntimeConfig.secret);
+
+  return { message: "success", user, token };
+};
+
+export const resetPassword = async (password, email) => {
+  try {
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const user = await prisma.user.update({
+      where: { email: email },
+      data: { password: hashedPassword },
+    });
+    return { message: "success", user };
+  } catch (error) {
+    console.log(error);
+  }
+};

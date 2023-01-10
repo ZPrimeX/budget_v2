@@ -5,7 +5,7 @@ import { fetchUserData, selectUser } from "../../src/redux/features/authSlice";
 
 export const AuthContext = React.createContext({ auth: false });
 
-const public_routes = ["/login", "/signup"];
+const public_routes = ["/login", "/signup", "/forgot-password", "/reset-password"];
 
 export const AuthProvider = ({ children }) => {
   const router = useRouter();

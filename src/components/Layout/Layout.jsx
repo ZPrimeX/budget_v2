@@ -6,7 +6,7 @@ import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../redux/features/authSlice";
 import { fetchCategories, selectCategory } from "../../redux/features/categorySlice";
-import { fetchWallets, selectWallet } from "../../redux/features/walletSlice";
+import { fetchWallets } from "../../redux/features/walletSlice";
 
 const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
