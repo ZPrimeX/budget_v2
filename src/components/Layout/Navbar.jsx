@@ -1,20 +1,26 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { AppBar, Avatar, Badge, Box, IconButton, Toolbar } from "@mui/material";
+import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, useTheme } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AccountPopover } from "./AccountPopover";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/features/authSlice";
 import PersonIcon from "@mui/icons-material/Person";
+import Brightness3Icon from "@mui/icons-material/Brightness3";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import { ColorModeContext } from "../../pages/_app";
 
 const NavbarRoot = styled(AppBar)(({ theme }) => ({
-  backgroundColor: "#0D0D0D",
+  backgroundColor: theme.palette.mode === "dark" ? "#0D0D0D" : "#F3F4F6",
   boxShadow: theme.shadows[3],
 }));
 
 const Navbar = () => {
   const user = useSelector(selectUser);
+
+  const theme = useTheme();
+  const colorMode = React.useContext(ColorModeContext);
 
   const settingsRef = useRef(null);
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
@@ -68,6 +74,11 @@ const Navbar = () => {
               </Badge>
             </IconButton>
           </Tooltip> */}
+          <Box>
+            <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode}>
+              {theme.palette.mode === "dark" ? <LightModeIcon /> : <Brightness3Icon />}
+            </IconButton>
+          </Box>
           <Avatar
             onClick={() => setOpenAccountPopover(true)}
             ref={settingsRef}
