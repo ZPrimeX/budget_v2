@@ -30,7 +30,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "No file provided" });
     }
     try {
-      const name = `${files.file.originalFilename}-${Date.now()}`;
+      const name = `${files.file?.name || "image"}-${Date.now()}`;
       return s3Client.putObject(
         {
           Bucket: process.env.DO_SPACE_BUCKET,
@@ -43,6 +43,7 @@ export default async function handler(req, res) {
         }
       );
     } catch (error) {
+      console.log(error);
       return res.status(400).json({ error: "Something went wrong" });
     }
   });
