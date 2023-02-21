@@ -56,6 +56,7 @@ const authSlice = createSlice({
         state.email = action.payload.body.email;
         state.avatar = action.payload.body.avatar;
         state.google_id = action.payload.body.google_id;
+        state.createdAt = action.payload.body.createdAt;
         state.isAuth = true;
       })
       .addCase(fetchUserData.rejected, (state) => {
@@ -136,6 +137,7 @@ const authSlice = createSlice({
         state.first_name = action.payload.body.first_name;
         state.last_name = action.payload.body.last_name;
         state.email = action.payload.body.email;
+        state.avatar = action.payload.body.avatar;
         toast.success("Saved!");
       })
       .addCase(updateProfile.rejected, (state) => {

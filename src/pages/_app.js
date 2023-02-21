@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import { createTheme } from "@mui/material";
 import "react-toastify/dist/ReactToastify.css";
 import { getDesignTokens } from "../theme";
+import "../styles/global.css";
 
 registerChartJs();
 

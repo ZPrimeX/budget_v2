@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from "@mui/material";
-import { selectUser } from "../../redux/features/authSlice";
-import { useSelector } from "react-redux";
+import { selectUser, updateProfile } from "../../redux/features/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
+import UploadModal from "../Modals/Account/UploadModal";
 
 const AccountProfile = (props) => {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
+
+  const handleAvatarUpdate = (url) => {
+    dispatch(updateProfile({ avatar: url }));
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
 
   return (
     <>
@@ -39,17 +49,18 @@ const AccountProfile = (props) => {
                 Joined on:
               </Typography>
               <Typography color="primary" variant="body2">
-                {`${dayjs(user.createdAt)}`}
+                {`${dayjs(user.createdAt || 0)}`}
               </Typography>
             </Box>
           </Box>
         </CardContent>
         <Divider />
         <CardActions>
-          <Button color="primary" fullWidth variant="text">
+          <Button color="primary" fullWidth variant="text" onClick={handleOpen}>
             Upload picture
           </Button>
         </CardActions>
+        <UploadModal open={open} handleClose={handleClose} handleFileSubmit={handleAvatarUpdate} />
         <Divider />
       </Card>
     </>
